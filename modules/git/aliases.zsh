@@ -10,6 +10,7 @@
         local choice=0
         local git_user_name="$(git config --local user.name)"
         local git_user_mail="$(git config --local user.email)"
+        local git_user_skey="$(git config --local user.signingkey)"
 
         if [[ "${git_user_name}" != "" ]] || [[ "${git_user_mail}" != "" ]]; then
             echo "You already have set up your git identity (${git_user_name} <${git_user_mail}>). Continue anyway?"
@@ -64,6 +65,7 @@
 
                 git_user_name="$(echo "${GIT_IDENTITY_LIST[${choice}]}" | cut -d: -f1)"
                 git_user_mail="$(echo "${GIT_IDENTITY_LIST[${choice}]}" | cut -d: -f2)"
+                git_user_skey="$(echo "${GIT_IDENTITY_LIST[${choice}]}" | cut -d: -f3)"
             ;;
 
             2)
@@ -71,11 +73,24 @@
                 read -r git_user_name
                 echo -n "What is your author email? "
                 read -r git_user_mail
+                echo -n "What is your signing key? "
+                read -r git_user_skey
 
                 if [[ "${git_user_name}" == "" ]] || [[ "${git_user_mail}" == "" ]]; then
                     echo
                     echo "! Neither name nor email can be empty."
                     return 1
+                fi
+
+                if [[ "${git_user_skey}" != "" ]]; then
+                    gpg --list-key "${git_user_skey}" > /dev/null 2>&1
+                    rc=$?
+
+                    if [[ ${rc} -ne 0 ]]; then
+                        echo
+                        echo "! A key with ID ${git_user_skey} was not found."
+                        return 1
+                    fi
                 fi
             ;;
 
@@ -86,6 +101,12 @@
 
         git config user.name "${git_user_name}"
         git config user.email "${git_user_mail}"
+
+        if [[ "${git_user_skey}" != "" ]]; then
+            git config commit.gpgsign true # autosign all commits/merges
+            git config tag.forceSignAnnotated true # autosign all annotated tags
+            git config user.signingkey "${git_user_skey}"
+        fi
 
         echo
         echo "Git identity (${git_user_name} <${git_user_mail}>) successfully set up."
