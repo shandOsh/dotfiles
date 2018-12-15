@@ -1,5 +1,5 @@
-# user.name and user.email is not set on purpose
-# it's gonna be set per repository via set_git_identity function
+# user.name and user.email are not set on purpose
+# they're gonna be set per repository via set_git_identity function
 
 [alias]
     hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
