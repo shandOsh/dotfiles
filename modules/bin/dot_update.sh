@@ -8,6 +8,7 @@ echo "> setting up environmental variables"
 
 export DOTFILES_ROOT="${HOME}/.dotfiles"
 export DOTFILES_MODULES_ROOT="${DOTFILES_ROOT}/modules"
+export DOTFILES_INSTALLATION_ROOT="${DOTFILES_ROOT}/installation"
 
 cd "${DOTFILES_ROOT}" || ( >&2 echo "Cannot cd into ${DOTFILES_ROOT}."; exit 1 ) || exit 1
 
