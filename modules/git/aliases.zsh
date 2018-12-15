@@ -62,8 +62,8 @@
                     return 1
                 fi
 
-                git_user_name="$(echo "${GIT_IDENTITY_LIST[${choice}]}" | cut -d\< -f1 | rev | cut -c 2- | rev)"
-                git_user_mail="$(echo "${GIT_IDENTITY_LIST[${choice}]}" | cut -d\< -f2 | rev | cut -c 2- | rev)"
+                git_user_name="$(echo "${GIT_IDENTITY_LIST[${choice}]}" | cut -d: -f1)"
+                git_user_mail="$(echo "${GIT_IDENTITY_LIST[${choice}]}" | cut -d: -f2)"
             ;;
 
             2)
