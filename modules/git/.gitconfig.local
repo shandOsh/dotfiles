@@ -2,7 +2,7 @@
 # they're gonna be set per repository via set_git_identity function
 
 [alias]
-    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+    hist = log --pretty=format:'%h %ad | %s%d [%an (signed: %G?)]' --graph --date=short
     up = !git fetch --all --tags --prune && git merge --ff-only @{u}
 [core]
     excludesfile = ~/.gitignore.global
