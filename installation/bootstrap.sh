@@ -4,14 +4,14 @@ echo
 echo "Running bootstrap"
 
 # setup envvar
-echo "> setting up environmental variables"
+echo "› setting up environmental variables"
 
 export DOTFILES_ROOT="${HOME}/.dotfiles"
 export DOTFILES_MODULES_ROOT="${DOTFILES_ROOT}/modules"
 export DOTFILES_INSTALLATION_ROOT="${DOTFILES_ROOT}/installation"
 
 # load helpers
-echo "> loading helper functions"
+echo "› loading helper functions"
 
 . "${DOTFILES_INSTALLATION_ROOT}/helpers.sh"
 

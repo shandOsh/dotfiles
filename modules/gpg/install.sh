@@ -1,4 +1,4 @@
-echo "> installing gpg module"
+echo "› installing gpg module"
 
 if [[ -d ~/.gnupg ]]; then
     link_file "${DOTFILES_MODULES_ROOT}/gpg/gpg.conf" "${HOME}/.gnupg/gpg.conf"

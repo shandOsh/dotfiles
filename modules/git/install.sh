@@ -1,4 +1,4 @@
-echo "> installing git module"
+echo "› installing git module"
 
 # if config is not managed by dotfiles, install the files
 if [ "$(git config --global --get dotfiles.managed)" != "true" ]; then

@@ -1,4 +1,4 @@
-echo "> installing autoupdate module"
+echo "› installing autoupdate module"
 
 (
     crontab -l | grep -v "dot_update.sh"
