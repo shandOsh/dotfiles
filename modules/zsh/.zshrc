@@ -55,6 +55,9 @@
         source "${alias_file}"
     done
 
+#   ___ load prompt from prompt.zsh ___
+    source "${DOTFILES_MODULES_ROOT}/zsh/prompt.zsh"
+
 #   -----------------------------
 #   9.  LOAD LOCAL CONFIG
 #   -----------------------------

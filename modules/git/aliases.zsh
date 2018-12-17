@@ -10,9 +10,16 @@
         local choice=0
         local git_user_name="$(git config --local user.name)"
         local git_user_mail="$(git config --local user.email)"
+        local git_user_skey="$(git config --local user.signingkey)"
 
         if [[ "${git_user_name}" != "" ]] || [[ "${git_user_mail}" != "" ]]; then
-            echo "You already have set up your git identity (${git_user_name} <${git_user_mail}>). Continue anyway?"
+            local identity_string="${git_user_name} <${git_user_mail}>"
+
+            if [[ "${git_user_skey}" != "" ]]; then
+                identity_string+=" - sign key ID: ${git_user_skey}"
+            fi
+
+            echo "You already have set up your git identity (${identity_string}). Continue anyway?"
             echo
             echo -n "Your choice (y/n): "
             read -r choice
@@ -62,8 +69,9 @@
                     return 1
                 fi
 
-                git_user_name="$(echo "${GIT_IDENTITY_LIST[${choice}]}" | cut -d\< -f1 | rev | cut -c 2- | rev)"
-                git_user_mail="$(echo "${GIT_IDENTITY_LIST[${choice}]}" | cut -d\< -f2 | rev | cut -c 2- | rev)"
+                git_user_name="$(echo "${GIT_IDENTITY_LIST[${choice}]}" | cut -d: -f1)"
+                git_user_mail="$(echo "${GIT_IDENTITY_LIST[${choice}]}" | cut -d: -f2)"
+                git_user_skey="$(echo "${GIT_IDENTITY_LIST[${choice}]}" | cut -d: -f3)"
             ;;
 
             2)
@@ -71,6 +79,13 @@
                 read -r git_user_name
                 echo -n "What is your author email? "
                 read -r git_user_mail
+
+                if is_installed "gpg"; then
+                    echo -n "What is your signing key ID (leave empty if don't want to set any)? "
+                    read -r git_user_skey
+                else
+                    echo "GPG is not installed, not requesting signing key ID."
+                fi
 
                 if [[ "${git_user_name}" == "" ]] || [[ "${git_user_mail}" == "" ]]; then
                     echo
@@ -84,11 +99,36 @@
                 return 1
         esac
 
+        if is_installed "gpg" && [[ "${git_user_skey}" != "" ]]; then
+            gpg --list-key "${git_user_skey}" > /dev/null 2>&1
+            rc=$?
+
+            if [[ ${rc} -ne 0 ]]; then
+                echo
+                echo "! A key with ID ${git_user_skey} was not found."
+                return 1
+            fi
+
+            git config commit.gpgsign true # autosign all commits/merges
+            git config tag.forceSignAnnotated true # autosign all annotated tags
+            git config user.signingkey "${git_user_skey}"
+        else
+            git config --unset commit.gpgsign
+            git config --unset tag.forceSignAnnotated
+            git config --unset user.signingkey
+        fi
+
         git config user.name "${git_user_name}"
         git config user.email "${git_user_mail}"
 
+        local identity_string="${git_user_name} <${git_user_mail}>"
+
+        if [[ "${git_user_skey}" != "" ]]; then
+            identity_string+=" - sign key ID: ${git_user_skey}"
+        fi
+
         echo
-        echo "Git identity (${git_user_name} <${git_user_mail}>) successfully set up."
+        echo "Git identity (${identity_string}) successfully set up."
     }
 
     # download gitignore for given os/ide/programming language
