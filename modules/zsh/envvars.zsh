@@ -2,10 +2,6 @@
 #   2.  ENVIRONMENT CONFIGURATION
 #   -------------------------------
 
-#   ___ prompt ___
-    export PS1="________________________________________________________________________________"$'\n'"| %n@%M [%d] "$'\n'"| => "
-    export PS2="| => "
-
 #   ___ default editor ___
     export EDITOR=vim
 
