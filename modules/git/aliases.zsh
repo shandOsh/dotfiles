@@ -13,7 +13,13 @@
         local git_user_skey="$(git config --local user.signingkey)"
 
         if [[ "${git_user_name}" != "" ]] || [[ "${git_user_mail}" != "" ]]; then
-            echo "You already have set up your git identity (${git_user_name} <${git_user_mail}>). Continue anyway?"
+            local identity_string="${git_user_name} <${git_user_mail}>"
+
+            if [[ "${git_user_skey}" != "" ]]; then
+                identity_string+=" - sign key ID: ${git_user_skey}"
+            fi
+
+            echo "You already have set up your git identity (${identity_string}). Continue anyway?"
             echo
             echo -n "Your choice (y/n): "
             read -r choice
@@ -115,8 +121,14 @@
         git config user.name "${git_user_name}"
         git config user.email "${git_user_mail}"
 
+        local identity_string="${git_user_name} <${git_user_mail}>"
+
+        if [[ "${git_user_skey}" != "" ]]; then
+            identity_string+=" - sign key ID: ${git_user_skey}"
+        fi
+
         echo
-        echo "Git identity (${git_user_name} <${git_user_mail}>) successfully set up."
+        echo "Git identity (${identity_string}) successfully set up."
     }
 
     # download gitignore for given os/ide/programming language
