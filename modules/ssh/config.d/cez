@@ -1,0 +1,11 @@
+CanonicalizeHostname yes
+CanonicalDomains cezdata.corp
+CanonicalizeMaxDots 0
+CanonicalizeFallbackLocal yes
+
+Host *.cezdata.corp
+    User qsmalekjir
+    ForwardAgent yes
+    ForwardX11Trusted yes
+    ForwardX11 yes
+    ForwardX11Timeout 4800

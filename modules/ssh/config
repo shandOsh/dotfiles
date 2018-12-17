@@ -1,0 +1,8 @@
+# Turned off due to CVE-2016–0777 and CVE-2016–0778
+# https://www.root.cz/clanky/openssh-obsahuje-chybu-umoznujici-ukrast-klientske-klice/
+UseRoaming no
+
+Include ~/.ssh/config.d/*
+
+# load local configuration
+Include ~/.ssh/config.local
