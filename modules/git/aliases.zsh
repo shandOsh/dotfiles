@@ -73,24 +73,18 @@
                 read -r git_user_name
                 echo -n "What is your author email? "
                 read -r git_user_mail
-                echo -n "What is your signing key? "
-                read -r git_user_skey
+
+                if is_installed "gpg"; then
+                    echo -n "What is your signing key ID (leave empty if don't want to set any)? "
+                    read -r git_user_skey
+                else
+                    echo "GPG is not installed, not requesting signing key ID."
+                fi
 
                 if [[ "${git_user_name}" == "" ]] || [[ "${git_user_mail}" == "" ]]; then
                     echo
                     echo "! Neither name nor email can be empty."
                     return 1
-                fi
-
-                if [[ "${git_user_skey}" != "" ]]; then
-                    gpg --list-key "${git_user_skey}" > /dev/null 2>&1
-                    rc=$?
-
-                    if [[ ${rc} -ne 0 ]]; then
-                        echo
-                        echo "! A key with ID ${git_user_skey} was not found."
-                        return 1
-                    fi
                 fi
             ;;
 
@@ -99,14 +93,23 @@
                 return 1
         esac
 
-        git config user.name "${git_user_name}"
-        git config user.email "${git_user_mail}"
+        if is_installed "gpg" && [[ "${git_user_skey}" != "" ]]; then
+            gpg --list-key "${git_user_skey}" > /dev/null 2>&1
+            rc=$?
 
-        if [[ "${git_user_skey}" != "" ]]; then
+            if [[ ${rc} -ne 0 ]]; then
+                echo
+                echo "! A key with ID ${git_user_skey} was not found."
+                return 1
+            fi
+
             git config commit.gpgsign true # autosign all commits/merges
             git config tag.forceSignAnnotated true # autosign all annotated tags
             git config user.signingkey "${git_user_skey}"
         fi
+
+        git config user.name "${git_user_name}"
+        git config user.email "${git_user_mail}"
 
         echo
         echo "Git identity (${git_user_name} <${git_user_mail}>) successfully set up."
