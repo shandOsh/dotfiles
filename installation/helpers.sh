@@ -63,3 +63,9 @@ function os_detection() {
            AIX) DOTFILES_OS="aix" ;;
     esac
 }
+
+function is_installed() {
+    which "$1" > /dev/null 2>&1 && return 0
+
+    return 1
+}
