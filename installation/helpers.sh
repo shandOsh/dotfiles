@@ -3,9 +3,20 @@ function success() {
 }
 
 function fail() {
-    printf "\r\033[2K  [ \033[0;31mFAIL\033[0m ] $1\n"
+    local action
+    local message
 
-    exit 1
+    if [[ $# -eq 2 ]]; then
+        message="$2"
+    else
+        message="$1"
+    fi
+
+    printf "\r\033[2K  [ \033[0;31mFAIL\033[0m ] ${message}\n"
+
+    if [[ "${action}" == "--exit" ]]; then
+        exit 1
+    fi
 }
 
 function info() {
