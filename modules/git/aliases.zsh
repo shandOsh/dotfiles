@@ -106,6 +106,10 @@
             git config commit.gpgsign true # autosign all commits/merges
             git config tag.forceSignAnnotated true # autosign all annotated tags
             git config user.signingkey "${git_user_skey}"
+        else
+            git config --unset commit.gpgsign
+            git config --unset tag.forceSignAnnotated
+            git config --unset user.signingkey
         fi
 
         git config user.name "${git_user_name}"
