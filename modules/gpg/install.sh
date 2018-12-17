@@ -28,7 +28,7 @@ if is_installed "gpg"; then
         esac
     fi
 else
-    info "no action required"
+    skipped "gpg is not installed"
     return
 fi
 
