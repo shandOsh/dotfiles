@@ -1,0 +1,9 @@
+// Place your key bindings in this file to overwrite the defaults
+[
+    { "key": "shift+cmd+d",        "command": "editor.action.copyLinesDownAction",
+                                     "when": "editorTextFocus && !editorReadonly" },
+    { "key": "cmd+[BracketRight]",        "command": "editor.action.indentLines",
+                                     "when": "editorTextFocus && !editorReadonly" },
+    { "key": "cmd+[BracketLeft]",        "command": "editor.action.outdentLines",
+                                     "when": "editorTextFocus && !editorReadonly" },
+]
