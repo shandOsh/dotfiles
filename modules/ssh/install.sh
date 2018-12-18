@@ -1,8 +1,7 @@
 echo "› installing ssh module"
 
-# if our version is > 7.3, abort the installation,
-# because at least openssl 7.3 is required for Include directive to work
-
+# if our version of openSSH is lower than 7.3, abort the installation,
+# because the directive Include is not implemented
 ssh_version="$(ssh -V 2>&1 | egrep --only-matching '^OpenSSH_\d+\.\d+' | egrep --only-matching '\d+\.\d+')"
 ssh_version_major="$(echo "${ssh_version}" | cut -d. -f 1)"
 ssh_version_minor="$(echo "${ssh_version}" | cut -d. -f 2)"
