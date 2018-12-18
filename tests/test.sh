@@ -25,4 +25,4 @@ cp -r * "${DOTFILES_ROOT}/"
 
 echo "All is set, running bootstrap script"
 
-"${DOTFILES_ROOT}/installation/bootstrap.sh"
+"${DOTFILES_ROOT}/installation/bootstrap"
