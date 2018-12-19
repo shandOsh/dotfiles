@@ -7,8 +7,10 @@ function fail() {
     local message
 
     if [[ $# -eq 2 ]]; then
+        action="$1"
         message="$2"
     else
+        action=""
         message="$1"
     fi
 
