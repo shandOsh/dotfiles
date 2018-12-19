@@ -19,10 +19,10 @@ elif [[ "${ssh_version_major}" -eq 7 ]] && [[ "${ssh_version_minor}" -lt 3 ]]; t
 fi
 
 if [[ "${ssh_version_is_valid}" -eq 0 ]]; then
-    fail "Your openSSH version (${ssh_version}) is not supported. Version 7.3 and newer is required."
+    fail "Your openSSH version ${ssh_version} is not supported. Version 7.3 and newer is required."
     return 1
 else
-    info "Your openSSH version (${ssh_version}) is supported."
+    info "Your openSSH version ${ssh_version} is supported."
 fi
 
 if [[ ! -e "${HOME}/.ssh/config.local" ]]; then
