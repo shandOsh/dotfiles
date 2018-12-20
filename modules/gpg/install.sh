@@ -1,6 +1,10 @@
 echo "› installing gpg module"
 
 if is_installed "gpg"; then
+    if [[ ! -d "${HOME}/.gnupg" ]]; then
+        mkdir "${HOME}/.gnupg"
+    fi
+
     link_file "${DOTFILES_MODULES_ROOT}/gpg/gpg.conf" "${HOME}/.gnupg/gpg.conf"
 
     gpgagent_restart_needed=0
