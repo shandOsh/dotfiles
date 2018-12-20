@@ -8,6 +8,17 @@ else
     info "git is managed"
 fi
 
+# save current commit-id and also save last commit-id
+current_commit_id="$(git rev-parse --short HEAD)"
+old_commit_id="$(git config --global --get dotfiles.newhead)"
+
+if [[ "${old_commit_id}" != "${current_commit_id}" ]]; then
+    info "recoring old HEAD and new HEAD"
+
+    git config --global dotfiles.oldhead "${old_commit_id}"
+    git config --global dotfiles.newhead "${current_commit_id}"
+fi
+
 # link files
 link_file "${DOTFILES_MODULES_ROOT}/git/.gitconfig.local" "${HOME}/.gitconfig.local"
 link_file "${DOTFILES_MODULES_ROOT}/git/.gitignore.global" "${HOME}/.gitignore.global"
