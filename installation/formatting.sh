@@ -209,14 +209,12 @@ function format_message() {
         format_applied=1
     fi
 
-    if [[ ${DOTFILES_FORMATTING_TPUT} -eq 0 ]] && [[ ${format_applied} -eq 1 ]]; then
-        output+=";"
-    fi
-
     if [[ "${color}" != "" ]]; then
+        if [[ ${DOTFILES_FORMATTING_TPUT} -eq 0 ]] && [[ ${format_applied} -eq 1 ]]; then
+            output+=";"
+        fi
+
         output+="${color}"
-    elif [[ "${color}" == "" ]] && [[ ${DOTFILES_FORMATTING_TPUT} -eq 0 ]]; then
-        output+="0"
     fi
 
     if [[ ${DOTFILES_FORMATTING_TPUT} -eq 0 ]]; then
