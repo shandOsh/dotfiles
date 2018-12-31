@@ -3,54 +3,6 @@
 
 export DOTFILES_FORMATTING_NEW=0
 
-if tput setaf 1 &> /dev/null; then
-    DOTFILES_FORMATTING_NEW=1
-
-    FORMAT_RESET="$(tput sgr0)"
-
-    # general formating
-    FORMAT_NORMAL="$(tput sgr0)"
-    FORMAT_BOLD="$(tput bold)"
-    FORMAT_ITALIC="$(tput sitm)"
-    FORMAT_UNDERLINE="$(tput smul)"
-    FORMAT_STRIKETHROUGH=""
-
-    # foreground formatting
-    # Solarized colors, taken from http://git.io/solarized-colors.
-    FORMAT_FOREGROUND_BLACK="$(tput setaf 0)"
-    FORMAT_FOREGROUND_RED="$(tput setaf 124)"
-    FORMAT_FOREGROUND_GREEN="$(tput setaf 64)"
-    FORMAT_FOREGROUND_YELLOW="$(tput setaf 136)"
-    FORMAT_FOREGROUND_ORANGE="$(tput setaf 166)"
-    FORMAT_FOREGROUND_BLUE="$(tput setaf 33)"
-    FORMAT_FOREGROUND_PURPLE="$(tput setaf 125)"
-    FORMAT_FOREGROUND_VIOLET="$(tput setaf 61)"
-    FORMAT_FOREGROUND_CYAN="$(tput setaf 37)"
-    FORMAT_FOREGROUND_WHITE="$(tput setaf 15)"
-else
-    # reset formatting
-    FORMAT_RESET="\e[0m"
-
-    # general formatting
-    FORMAT_NORMAL="0"
-    FORMAT_BOLD="1"
-    FORMAT_ITALIC="3"
-    FORMAT_UNDERLINE="4"
-    FORMAT_STRIKETHROUGH="9"
-
-    # foreground formatting
-    FORMAT_FOREGROUND_BLACK="30"
-    FORMAT_FOREGROUND_RED="31"
-    FORMAT_FOREGROUND_GREEN="32"
-    FORMAT_FOREGROUND_YELLOW="33"
-    FORMAT_FOREGROUND_ORANGE="33"
-    FORMAT_FOREGROUND_BLUE="34"
-    FORMAT_FOREGROUND_PURPLE="35"
-    FORMAT_FOREGROUND_VIOLET="35"
-    FORMAT_FOREGROUND_CYAN="36"
-    FORMAT_FOREGROUND_WHITE="37"
-fi
-
 # format_message [-b|--bold] [-u|--underline] [-i|--italic] [-s|--strikethrough] [-c|--color=<color-name>] message
 function format_message() {
     local bold=0
@@ -60,6 +12,54 @@ function format_message() {
     local color=""
     local message=""
     local output=""
+
+    if tput setaf 1 &> /dev/null; then
+        DOTFILES_FORMATTING_NEW=1
+
+        FORMAT_RESET="$(tput sgr0)"
+
+        # general formating
+        FORMAT_NORMAL="$(tput sgr0)"
+        FORMAT_BOLD="$(tput bold)"
+        FORMAT_ITALIC="$(tput sitm)"
+        FORMAT_UNDERLINE="$(tput smul)"
+        FORMAT_STRIKETHROUGH=""
+
+        # foreground formatting
+        # Solarized colors, taken from http://git.io/solarized-colors.
+        FORMAT_FOREGROUND_BLACK="$(tput setaf 0)"
+        FORMAT_FOREGROUND_RED="$(tput setaf 124)"
+        FORMAT_FOREGROUND_GREEN="$(tput setaf 64)"
+        FORMAT_FOREGROUND_YELLOW="$(tput setaf 136)"
+        FORMAT_FOREGROUND_ORANGE="$(tput setaf 166)"
+        FORMAT_FOREGROUND_BLUE="$(tput setaf 33)"
+        FORMAT_FOREGROUND_PURPLE="$(tput setaf 125)"
+        FORMAT_FOREGROUND_VIOLET="$(tput setaf 61)"
+        FORMAT_FOREGROUND_CYAN="$(tput setaf 37)"
+        FORMAT_FOREGROUND_WHITE="$(tput setaf 15)"
+    else
+        # reset formatting
+        FORMAT_RESET="\e[0m"
+
+        # general formatting
+        FORMAT_NORMAL="0"
+        FORMAT_BOLD="1"
+        FORMAT_ITALIC="3"
+        FORMAT_UNDERLINE="4"
+        FORMAT_STRIKETHROUGH="9"
+
+        # foreground formatting
+        FORMAT_FOREGROUND_BLACK="30"
+        FORMAT_FOREGROUND_RED="31"
+        FORMAT_FOREGROUND_GREEN="32"
+        FORMAT_FOREGROUND_YELLOW="33"
+        FORMAT_FOREGROUND_ORANGE="33"
+        FORMAT_FOREGROUND_BLUE="34"
+        FORMAT_FOREGROUND_PURPLE="35"
+        FORMAT_FOREGROUND_VIOLET="35"
+        FORMAT_FOREGROUND_CYAN="36"
+        FORMAT_FOREGROUND_WHITE="37"
+    fi
 
     while [[ ${#} -ne 0 ]] && [[ "${1}" != "" ]]; do
         case ${1} in
