@@ -1,8 +1,6 @@
 # inspired by mathiasbynens
 # https://github.com/mathiasbynens/dotfiles/blob/master/.bash_prompt
 
-export DOTFILES_FORMATTING_TPUT=0
-
 # format_message [-b|--bold] [-u|--underline] [-i|--italic] [-s|--strikethrough] [-c|--color=<color-name>] message
 function format_message() {
     local bold=0
@@ -13,10 +11,23 @@ function format_message() {
     local message=""
     local output=""
 
-    if tput setaf 1 &> /dev/null; then
+    # for debug purposes
+    if [[ ${DOTFILES_FORMATTING_TPUT} -eq 3 ]]; then
+        >&2 echo "> [DEBUG] mode: TPUT"
         DOTFILES_FORMATTING_TPUT=1
-    else
+        DOTFILES_FORMATTING_DEBUG=1
+    elif [[ ${DOTFILES_FORMATTING_TPUT} -eq 2 ]]; then
+        >&2 echo "> [DEBUG] mode: non-TPUT"
         DOTFILES_FORMATTING_TPUT=0
+        DOTFILES_FORMATTING_DEBUG=1
+    else
+        DOTFILES_FORMATTING_DEBUG=0
+
+        if tput setaf 1 &> /dev/null; then
+            DOTFILES_FORMATTING_TPUT=1
+        else
+            DOTFILES_FORMATTING_TPUT=0
+        fi
     fi
 
     if [[ ${DOTFILES_FORMATTING_TPUT} -eq 1 ]]; then
@@ -68,23 +79,43 @@ function format_message() {
     while [[ ${#} -ne 0 ]] && [[ "${1}" != "" ]]; do
         case ${1} in
             -b|--bold)
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+                    >&2 gecho -E "> [DEBUG] bold: on"
+                fi
+
                 bold=1
             ;;
 
             -u|--underline)
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+                    >&2 gecho -E "> [DEBUG] underline: on"
+                fi
+
                 underline=1
             ;;
 
             -i|--italic)
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+                    >&2 gecho -E "> [DEBUG] italic: on"
+                fi
+
                 italic=1
             ;;
 
             -s|--strikethrough)
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+                    >&2 gecho -E "> [DEBUG] strikethrough: on"
+                fi
+
                 strikethrough=1
             ;;
 
             -c|--color)
                 shift
+
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+                    >&2 gecho -E "> [DEBUG] color: ${1}"
+                fi
 
                 case ${1} in
                     black)
@@ -194,6 +225,10 @@ function format_message() {
 
     output+="${message}"
     output+="${FORMAT_RESET}"
+
+    if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+        >&2 gecho -E "> [DEBUG] output: ${output}"
+    fi
 
     printf "${output}"
 }
