@@ -161,7 +161,7 @@ function format_message() {
             ;;
 
             *)
-                message="${1}"
+                message="${1//\%/%%}" # fixes printing % in printf
         esac
 
         shift
