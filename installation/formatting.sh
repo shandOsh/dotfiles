@@ -1,7 +1,7 @@
 # inspired by mathiasbynens
 # https://github.com/mathiasbynens/dotfiles/blob/master/.bash_prompt
 
-export DOTFILES_FORMATTING_NEW=0
+export DOTFILES_FORMATTING_TPUT=0
 
 # format_message [-b|--bold] [-u|--underline] [-i|--italic] [-s|--strikethrough] [-c|--color=<color-name>] message
 function format_message() {
@@ -14,8 +14,12 @@ function format_message() {
     local output=""
 
     if tput setaf 1 &> /dev/null; then
-        DOTFILES_FORMATTING_NEW=1
+        DOTFILES_FORMATTING_TPUT=1
+    else
+        DOTFILES_FORMATTING_TPUT=0
+    fi
 
+    if [[ ${DOTFILES_FORMATTING_TPUT} -eq 1 ]]; then
         FORMAT_RESET="$(tput sgr0)"
 
         # general formating
@@ -134,12 +138,12 @@ function format_message() {
 
     local format_applied=0
 
-    if [[ ${DOTFILES_FORMATTING_NEW} -eq 0 ]]; then
+    if [[ ${DOTFILES_FORMATTING_TPUT} -eq 0 ]]; then
         output+="\e["
     fi
 
     if [[ ${bold} -eq 1 ]]; then
-        if [[ ${DOTFILES_FORMATTING_NEW} -eq 0 ]] && [[ ${format_applied} -eq 1 ]]; then
+        if [[ ${DOTFILES_FORMATTING_TPUT} -eq 0 ]] && [[ ${format_applied} -eq 1 ]]; then
             output+=";"
         fi
 
@@ -148,7 +152,7 @@ function format_message() {
     fi
 
     if [[ ${underline} -eq 1 ]]; then
-        if [[ ${DOTFILES_FORMATTING_NEW} -eq 0 ]] && [[ ${format_applied} -eq 1 ]]; then
+        if [[ ${DOTFILES_FORMATTING_TPUT} -eq 0 ]] && [[ ${format_applied} -eq 1 ]]; then
             output+=";"
         fi
 
@@ -157,7 +161,7 @@ function format_message() {
     fi
 
     if [[ ${italic} -eq 1 ]]; then
-        if [[ ${DOTFILES_FORMATTING_NEW} -eq 0 ]] && [[ ${format_applied} -eq 1 ]]; then
+        if [[ ${DOTFILES_FORMATTING_TPUT} -eq 0 ]] && [[ ${format_applied} -eq 1 ]]; then
             output+=";"
         fi
 
@@ -166,7 +170,7 @@ function format_message() {
     fi
 
     if [[ ${strikethrough} -eq 1 ]]; then
-        if [[ ${DOTFILES_FORMATTING_NEW} -eq 0 ]] && [[ ${format_applied} -eq 1 ]]; then
+        if [[ ${DOTFILES_FORMATTING_TPUT} -eq 0 ]] && [[ ${format_applied} -eq 1 ]]; then
             output+=";"
         fi
 
@@ -174,17 +178,17 @@ function format_message() {
         format_applied=1
     fi
 
-    if [[ ${DOTFILES_FORMATTING_NEW} -eq 0 ]] && [[ ${format_applied} -eq 1 ]]; then
+    if [[ ${DOTFILES_FORMATTING_TPUT} -eq 0 ]] && [[ ${format_applied} -eq 1 ]]; then
         output+=";"
     fi
 
     if [[ "${color}" != "" ]]; then
         output+="${color}"
-    elif [[ "${color}" == "" ]] && [[ ${DOTFILES_FORMATTING_NEW} -eq 0 ]]; then
+    elif [[ "${color}" == "" ]] && [[ ${DOTFILES_FORMATTING_TPUT} -eq 0 ]]; then
         output+="0"
     fi
 
-    if [[ ${DOTFILES_FORMATTING_NEW} -eq 0 ]]; then
+    if [[ ${DOTFILES_FORMATTING_TPUT} -eq 0 ]]; then
         output+="m"
     fi
 
