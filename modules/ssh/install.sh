@@ -8,7 +8,7 @@ ssh_version_minor="$(echo "${ssh_version}" | cut -d. -f 2)"
 ssh_version_is_valid=1
 
 if [[ "${ssh_version}" == "" ]]; then
-    fail "Cannot parse openSSH version."
+    fail "cannot parse openSSH version"
     return 1
 fi
 
@@ -19,10 +19,10 @@ elif [[ "${ssh_version_major}" -eq 7 ]] && [[ "${ssh_version_minor}" -lt 3 ]]; t
 fi
 
 if [[ "${ssh_version_is_valid}" -eq 0 ]]; then
-    fail "Your openSSH version ${ssh_version} is not supported. Version 7.3 and newer is required."
+    fail "your openSSH version ${ssh_version} is not supported, version 7.3 and newer is required"
     return 1
 else
-    info "Your openSSH version ${ssh_version} is supported."
+    info "your openSSH version ${ssh_version} is supported"
 fi
 
 if [[ ! -e "${HOME}/.ssh/config.local" ]]; then
