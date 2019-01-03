@@ -53,6 +53,7 @@ function format_message() {
         FORMAT_FOREGROUND_CYAN="$(tput setaf 37)"
         FORMAT_FOREGROUND_WHITE="$(tput setaf 15)"
         FORMAT_FOREGROUND_LIGHT_GRAY="$(tput setaf 7)"
+        FORMAT_FOREGROUND_DARK_GRAY="$(tput setaf 245)"
     else
         # reset formatting
         FORMAT_RESET="\e[0m"
@@ -76,6 +77,7 @@ function format_message() {
         FORMAT_FOREGROUND_CYAN="36"
         FORMAT_FOREGROUND_WHITE="37"
         FORMAT_FOREGROUND_LIGHT_GRAY="37"
+        FORMAT_FOREGROUND_DARK_GRAY="90"
     fi
 
     while [[ ${#} -ne 0 ]] && [[ "${1}" != "" ]]; do
@@ -162,6 +164,10 @@ function format_message() {
 
                     lightgray)
                         color="${FORMAT_FOREGROUND_LIGHT_GRAY}"
+                    ;;
+
+                    darkgray)
+                        color="${FORMAT_FOREGROUND_DARK_GRAY}"
                     ;;
                 esac
             ;;
