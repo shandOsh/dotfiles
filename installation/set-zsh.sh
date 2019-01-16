@@ -28,7 +28,7 @@ case "${DOTFILES_OS}" in
         return 1
 esac
 
-rc=$?
+rc=${?}
 
 if [[ ${rc} -eq 0 ]]; then
     success "default shell set to ${DOTFILES_SHELL}"

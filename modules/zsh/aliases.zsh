@@ -23,7 +23,7 @@
 #   5.  FUNCTIONS
 #   -----------------------------
 
-    cd () { builtin cd "$@" && ll; }            # always list directory contents upon 'cd'
-    ccd () { builtin cd "$@" }                  # cdd: buildin cd command (used for directories with huge number of files inside)
-    mcd () { mkdir -p "$1" && cd "$1"; }        # mcd: makes new dir and jumps inside
-    mvcd () { mv "$1" "$2" && cd "$2" }         # mvcd moves directory to target and cd into it
+    cd () { builtin cd "${@}" && ll; }            # always list directory contents upon 'cd'
+    ccd () { builtin cd "${@}" }                  # cdd: buildin cd command (used for directories with huge number of files inside)
+    mcd () { mkdir -p "${1}" && cd "${1}"; }        # mcd: makes new dir and jumps inside
+    mvcd () { mv "${1}" "${2}" && cd "${2}" }         # mvcd moves directory to target and cd into it
