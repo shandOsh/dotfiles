@@ -120,6 +120,7 @@
 
         git config user.name "${git_user_name}"
         git config user.email "${git_user_mail}"
+        git config dotfiles.identity true
 
         local identity_string="${git_user_name} <${git_user_mail}>"
 
