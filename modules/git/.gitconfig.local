@@ -4,6 +4,7 @@
     useConfigOnly = true
 [alias]
     hist = log --pretty=format:'%h %ad | %s%d [%an (signed: %G?)]' --graph --date=short
+    remind = log --reverse -p
     up = !git fetch --all --tags --prune && git merge --ff-only @{u}
 [core]
     excludesfile = ~/.gitignore.global
