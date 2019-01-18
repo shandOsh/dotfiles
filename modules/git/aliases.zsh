@@ -81,6 +81,8 @@
                 read -r git_user_mail
 
                 if is_installed "gpg"; then
+                    echo
+                    gpg --list-secret-keys --keyid-format LONG
                     echo -n "What is your signing key ID (leave empty if don't want to set any)? "
                     read -r git_user_skey
                 else
