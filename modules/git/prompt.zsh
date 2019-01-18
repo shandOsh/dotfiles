@@ -12,11 +12,16 @@
         # ___ git identity ___
         local identity_set_with_dotfiles="$(git config --local dotfiles.identity)"
         local git_user_name="$(git config --local user.name)"
+        local git_user_skey="$(git config --local user.signingkey)"
 
         if [[ "${identity_set_with_dotfiles}" != "true" ]] || [[ "${git_user_name}" == "" ]]; then
             format_message --prompt --bold --color red "!!! identity not set !!!"
         else
             format_message --prompt --bold --color blue "${git_user_name}"
+
+            if [[ "${git_user_skey}" != "" ]]; then
+                format_message --prompt --bold --color green "\xE2\x9C\x94"
+            fi
         fi
 
         echo -n " on "
