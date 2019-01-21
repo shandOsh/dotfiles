@@ -272,6 +272,7 @@ function format_message() {
 
     if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
         >&2 gecho -E "> [DEBUG] output: ${output}"
+        >&2 gecho ""
     fi
 
     printf "${output}"
