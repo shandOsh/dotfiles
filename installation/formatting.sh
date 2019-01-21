@@ -1,8 +1,9 @@
 # inspired by mathiasbynens
 # https://github.com/mathiasbynens/dotfiles/blob/master/.bash_prompt
 
-# format_message [-b|--bold] [-u|--underline] [-i|--italic] [-s|--strikethrough] [-c|--color=<color-name>] message
+# format_message [-p|--prompt] [-b|--bold] [-u|--underline] [-i|--italic] [-s|--strikethrough] [-c|--color=<color-name>] message
 function format_message() {
+    local prompt_formatting=0
     local bold=0
     local underline=0
     local italic=0
@@ -82,6 +83,14 @@ function format_message() {
 
     while [[ ${#} -ne 0 ]] && [[ "${1}" != "" ]]; do
         case ${1} in
+            -p|--prompt)
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+                    >&2 gecho -E "> [DEBUG] prompt: on"
+                fi
+
+                prompt_formatting=1
+            ;;
+
             -b|--bold)
                 if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
                     >&2 gecho -E "> [DEBUG] bold: on"
@@ -181,6 +190,11 @@ function format_message() {
 
     local format_applied=0
 
+    # fix for cursor misalignment in prompt
+    if [[ ${prompt_formatting} -eq 1 ]]; then
+        output+="%%{"
+    fi
+
     if [[ ${DOTFILES_FORMATTING_TPUT} -eq 0 ]]; then
         output+="\e["
     fi
@@ -233,8 +247,24 @@ function format_message() {
         output+="m"
     fi
 
+    # fix for cursor misalignment in prompt
+    if [[ ${prompt_formatting} -eq 1 ]]; then
+        output+="%%}"
+    fi
+
     output+="${message}"
+
+    # fix for cursor misalignment in prompt
+    if [[ ${prompt_formatting} -eq 1 ]]; then
+        output+="%%{"
+    fi
+
     output+="${FORMAT_RESET}"
+
+    # fix for cursor misalignment in prompt
+    if [[ ${prompt_formatting} -eq 1 ]]; then
+        output+="%%}"
+    fi
 
     if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
         >&2 gecho -E "> [DEBUG] output: ${output}"
