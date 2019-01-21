@@ -55,8 +55,12 @@
         source "${alias_file}"
     done
 
-#   ___ load prompt from prompt.zsh ___
+#   ___ load prompts from all prompt.zsh files ___
     source "${DOTFILES_MODULES_ROOT}/zsh/prompt.zsh"
+
+    for prompt_file in $(find "${DOTFILES_MODULES_ROOT}" -name "prompt.zsh" | egrep -v 'zsh\/prompt\.zsh$'); do
+        source "${prompt_file}"
+    done
 
 #   -----------------------------
 #   9.  LOAD LOCAL CONFIG
