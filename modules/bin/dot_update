@@ -28,6 +28,13 @@ git remote add updates "https://github.com/Hologos/dotfiles.git" 2>/dev/null
 # Update repo
 echo "› git update"
 git pull --rebase --stat updates "$(git rev-parse --abbrev-ref HEAD)"
+rc=${?}
+
+if [[ ${rc} -ne 0 ]]; then
+    echo
+    echo "There was an error merge remote changes."
+    exit 1
+fi
 
 # load helpers
 echo "› loading helper functions"
