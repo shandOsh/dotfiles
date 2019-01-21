@@ -13,17 +13,13 @@ function format_message() {
     local output=""
 
     # for debug purposes
-    if [[ ${DOTFILES_FORMATTING_TPUT} -eq 3 ]]; then
+    if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 2 ]]; then
         >&2 echo "> [DEBUG] mode: TPUT"
         DOTFILES_FORMATTING_TPUT=1
-        DOTFILES_FORMATTING_DEBUG=1
-    elif [[ ${DOTFILES_FORMATTING_TPUT} -eq 2 ]]; then
+    elif [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
         >&2 echo "> [DEBUG] mode: non-TPUT"
         DOTFILES_FORMATTING_TPUT=0
-        DOTFILES_FORMATTING_DEBUG=1
     else
-        DOTFILES_FORMATTING_DEBUG=0
-
         if tput setaf 1 &> /dev/null; then
             DOTFILES_FORMATTING_TPUT=1
         else
@@ -84,7 +80,7 @@ function format_message() {
     while [[ ${#} -ne 0 ]] && [[ "${1}" != "" ]]; do
         case ${1} in
             -p|--prompt)
-                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
                     >&2 gecho -E "> [DEBUG] prompt: on"
                 fi
 
@@ -92,7 +88,7 @@ function format_message() {
             ;;
 
             -b|--bold)
-                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
                     >&2 gecho -E "> [DEBUG] bold: on"
                 fi
 
@@ -100,7 +96,7 @@ function format_message() {
             ;;
 
             -u|--underline)
-                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
                     >&2 gecho -E "> [DEBUG] underline: on"
                 fi
 
@@ -108,7 +104,7 @@ function format_message() {
             ;;
 
             -i|--italic)
-                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
                     >&2 gecho -E "> [DEBUG] italic: on"
                 fi
 
@@ -116,7 +112,7 @@ function format_message() {
             ;;
 
             -s|--strikethrough)
-                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
                     >&2 gecho -E "> [DEBUG] strikethrough: on"
                 fi
 
@@ -126,7 +122,7 @@ function format_message() {
             -c|--color)
                 shift
 
-                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
                     >&2 gecho -E "> [DEBUG] color: ${1}"
                 fi
 
@@ -184,7 +180,7 @@ function format_message() {
             *)
                 message="${1//\%/%%}" # fixes printing % in printf
 
-                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
                     >&2 gecho -E "> [DEBUG] input: ${message}"
                 fi
         esac
@@ -270,7 +266,7 @@ function format_message() {
         output+="%%}"
     fi
 
-    if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+    if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
         >&2 gecho -E "> [DEBUG] output: ${output}"
         >&2 gecho ""
     fi
