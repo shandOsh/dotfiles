@@ -7,6 +7,7 @@
     setopt notify                               # report the status of background jobs immediately, rather than waiting until just before printing a prompt
     setopt extendedglob                         # treat the '#', '~' and '^' characters as part of patterns for filename generation, etc (an initial unquoted '~' always produces named directory expansion)
     setopt correct                              # try to correct the spelling of commands
+    setopt PROMPT_SUBST                         # do expansion on prompt
 
     bindkey -v                                  # vi mode
 
