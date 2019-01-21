@@ -52,3 +52,4 @@ These helper functions are available to you by default:
 - link_file()
 - os_detection()
 - is_installed()
+- prompt_component_append()

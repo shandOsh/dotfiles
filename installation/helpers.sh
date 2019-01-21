@@ -74,3 +74,9 @@ function is_installed() {
 
     return 1
 }
+
+function prompt_component_append() {
+    local component="${1}"
+
+    DOTFILES_PROMPT_COMPONENTS+=("${component}")
+}
