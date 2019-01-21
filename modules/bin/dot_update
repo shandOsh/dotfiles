@@ -21,6 +21,10 @@ if [[ -r ~/.localrc ]]; then
     . ~/.localrc
 fi
 
+# create update progress file
+echo "› creating the update progress file"
+touch "${DOTFILES_ROOT}/.dot_update"
+
 # ssh would not work under cron, add a https one
 echo "› setting up update channel"
 git remote add updates "https://github.com/Hologos/dotfiles.git" 2>/dev/null
@@ -48,3 +52,7 @@ os_detection
 
 echo "› registering last update"
 git config --global dotfiles.lastupdate "$(date +'%d.%m.%Y %H:%M')"
+
+# create update progress file
+echo "› deleting the update progress file"
+rm -f "${DOTFILES_ROOT}/.dot_update"
