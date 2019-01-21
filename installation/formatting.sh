@@ -13,17 +13,15 @@ function format_message() {
     local output=""
 
     # for debug purposes
-    if [[ ${DOTFILES_FORMATTING_TPUT} -eq 3 ]]; then
+    if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 2 ]]; then
+        >&2 echo
         >&2 echo "> [DEBUG] mode: TPUT"
         DOTFILES_FORMATTING_TPUT=1
-        DOTFILES_FORMATTING_DEBUG=1
-    elif [[ ${DOTFILES_FORMATTING_TPUT} -eq 2 ]]; then
+    elif [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+        >&2 echo
         >&2 echo "> [DEBUG] mode: non-TPUT"
         DOTFILES_FORMATTING_TPUT=0
-        DOTFILES_FORMATTING_DEBUG=1
     else
-        DOTFILES_FORMATTING_DEBUG=0
-
         if tput setaf 1 &> /dev/null; then
             DOTFILES_FORMATTING_TPUT=1
         else
@@ -84,40 +82,40 @@ function format_message() {
     while [[ ${#} -ne 0 ]] && [[ "${1}" != "" ]]; do
         case ${1} in
             -p|--prompt)
-                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
-                    >&2 gecho -E "> [DEBUG] prompt: on"
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
+                    >&2 printf "%s\n" "> [DEBUG] prompt: on"
                 fi
 
                 prompt_formatting=1
             ;;
 
             -b|--bold)
-                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
-                    >&2 gecho -E "> [DEBUG] bold: on"
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
+                    >&2 printf "%s\n" "> [DEBUG] bold: on"
                 fi
 
                 bold=1
             ;;
 
             -u|--underline)
-                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
-                    >&2 gecho -E "> [DEBUG] underline: on"
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
+                    >&2 printf "%s\n" "> [DEBUG] underline: on"
                 fi
 
                 underline=1
             ;;
 
             -i|--italic)
-                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
-                    >&2 gecho -E "> [DEBUG] italic: on"
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
+                    >&2 printf "%s\n" "> [DEBUG] italic: on"
                 fi
 
                 italic=1
             ;;
 
             -s|--strikethrough)
-                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
-                    >&2 gecho -E "> [DEBUG] strikethrough: on"
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
+                    >&2 printf "%s\n" "> [DEBUG] strikethrough: on"
                 fi
 
                 strikethrough=1
@@ -126,8 +124,8 @@ function format_message() {
             -c|--color)
                 shift
 
-                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
-                    >&2 gecho -E "> [DEBUG] color: ${1}"
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
+                    >&2 printf "%s\n" "> [DEBUG] color: ${1}"
                 fi
 
                 case ${1} in
@@ -182,10 +180,10 @@ function format_message() {
             ;;
 
             *)
-                message="${1//\%/%%}" # fixes printing % in printf
+                message="${1}"
 
-                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
-                    >&2 gecho -E "> [DEBUG] input: ${message}"
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
+                    >&2 printf "%s\n" "> [DEBUG] input: ${message}"
                 fi
         esac
 
@@ -196,7 +194,7 @@ function format_message() {
 
     # fix for cursor misalignment in prompt
     if [[ ${prompt_formatting} -eq 1 ]]; then
-        output+="%%{"
+        output+="%{"
     fi
 
     if [[ ${DOTFILES_FORMATTING_TPUT} -eq 0 ]]; then
@@ -253,27 +251,26 @@ function format_message() {
 
     # fix for cursor misalignment in prompt
     if [[ ${prompt_formatting} -eq 1 ]]; then
-        output+="%%}"
+        output+="%}"
     fi
 
     output+="${message}"
 
     # fix for cursor misalignment in prompt
     if [[ ${prompt_formatting} -eq 1 ]]; then
-        output+="%%{"
+        output+="%{"
     fi
 
     output+="${FORMAT_RESET}"
 
     # fix for cursor misalignment in prompt
     if [[ ${prompt_formatting} -eq 1 ]]; then
-        output+="%%}"
+        output+="%}"
     fi
 
-    if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
-        >&2 gecho -E "> [DEBUG] output: ${output}"
-        >&2 gecho ""
+    if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
+        >&2 printf "%s\n" "> [DEBUG] output: ${output}"
     fi
 
-    printf "${output}"
+    printf "%b" "${output}"
 }
