@@ -1,9 +1,10 @@
 # inspired by mathiasbynens
 # https://github.com/mathiasbynens/dotfiles/blob/master/.bash_prompt
 
-# format_message [-p|--prompt] [-b|--bold] [-u|--underline] [-i|--italic] [-s|--strikethrough] [-c|--color=<color-name>] message
+# format_message [-p|--prompt] [-n|--newline] [-b|--bold] [-u|--underline] [-i|--italic] [-s|--strikethrough] [-c|--color=<color-name>] message
 function format_message() {
     local prompt_formatting=0
+    local newline=0
     local bold=0
     local underline=0
     local italic=0
@@ -87,6 +88,14 @@ function format_message() {
                 fi
 
                 prompt_formatting=1
+            ;;
+
+            -n|--newline)
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
+                    >&2 printf "%s\n" "> [DEBUG] newline: on"
+                fi
+
+                newline=1
             ;;
 
             -b|--bold)
@@ -266,6 +275,10 @@ function format_message() {
     # fix for cursor misalignment in prompt
     if [[ ${prompt_formatting} -eq 1 ]]; then
         output+="%}"
+    fi
+
+    if [[ ${newline} -eq 1 ]]; then
+        output+="\n"
     fi
 
     if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then

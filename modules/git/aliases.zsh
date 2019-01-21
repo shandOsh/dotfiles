@@ -19,9 +19,10 @@
                 identity_string+=" - sign key ID: ${git_user_skey}"
             fi
 
-            echo "You already have set up your git identity (${identity_string}). Continue anyway?"
             echo
-            echo -n "Your choice (y/n): "
+            format_message --newline --bold --color orange "You already have set up your git identity (${identity_string}). Continue anyway?"
+            echo
+            format_message --bold "Your choice (y/n): "
             read -r choice
             echo
 
@@ -34,24 +35,24 @@
                 ;;
 
                 *)
-                    echo "! Invalid choice."
+                    format_message --newline --bold --color red "! Invalid choice."
                     return 1
             esac
         fi
 
-        echo "How would you like to set your git identity?"
+        format_message --newline --bold "How would you like to set your git identity?"
         echo
         echo "1. from the list"
         echo "2. manually"
         echo
-        echo -n "Your choice: "
+        format_message --bold "Your choice: "
         read -r choice
         echo
 
         case "${choice}" in
             1)
                 if [[ ${#GIT_IDENTITY_LIST[*]} -eq 0 ]]; then
-                    echo "! No identity defined."
+                    format_message --newline --bold --color red "! No identity defined."
                     return 1
                 fi
 
@@ -60,12 +61,12 @@
                 done
 
                 echo
-                echo -n "Your choice: "
+                format_message --bold "Your choice: "
                 read -r choice
 
                 if [[ ${GIT_IDENTITY_LIST[${choice}]} == "" ]]; then
                     echo
-                    echo "! Invalid choice."
+                    format_message --newline --bold --color red "! Invalid choice."
                     return 1
                 fi
 
@@ -75,13 +76,15 @@
             ;;
 
             2)
-                echo -n "What is your author name? "
+                format_message --bold "What is your author name? "
                 read -r git_user_name
-                echo -n "What is your author email? "
+                format_message --bold "What is your author email? "
                 read -r git_user_mail
 
                 if is_installed "gpg"; then
-                    echo -n "What is your signing key ID (leave empty if don't want to set any)? "
+                    echo
+                    gpg --list-secret-keys --keyid-format LONG
+                    format_message --bold "What is your signing key ID (leave empty if don't want to set any)? "
                     read -r git_user_skey
                 else
                     echo "GPG is not installed, not requesting signing key ID."
@@ -89,13 +92,13 @@
 
                 if [[ "${git_user_name}" == "" ]] || [[ "${git_user_mail}" == "" ]]; then
                     echo
-                    echo "! Neither name nor email can be empty."
+                    format_message --newline --bold --color red "! Neither name nor email can be empty."
                     return 1
                 fi
             ;;
 
             *)
-                echo "! Invalid choice."
+                format_message --newline --bold --color red "! Invalid choice."
                 return 1
         esac
 
@@ -105,7 +108,7 @@
 
             if [[ ${rc} -ne 0 ]]; then
                 echo
-                echo "! A key with ID ${git_user_skey} was not found."
+                format_message --newline --bold --color red "! A key with ID ${git_user_skey} was not found."
                 return 1
             fi
 
@@ -129,7 +132,7 @@
         fi
 
         echo
-        echo "Git identity (${identity_string}) successfully set up."
+        format_message --newline --color green "Git identity (${identity_string}) successfully set up."
     }
 
     # download gitignore for given os/ide/programming language
