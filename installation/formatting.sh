@@ -183,6 +183,10 @@ function format_message() {
 
             *)
                 message="${1//\%/%%}" # fixes printing % in printf
+
+                if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+                    >&2 gecho -E "> [DEBUG] input: ${message}"
+                fi
         esac
 
         shift
