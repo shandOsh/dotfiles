@@ -7,6 +7,7 @@
     setopt notify                               # report the status of background jobs immediately, rather than waiting until just before printing a prompt
     setopt extendedglob                         # treat the '#', '~' and '^' characters as part of patterns for filename generation, etc (an initial unquoted '~' always produces named directory expansion)
     setopt correct                              # try to correct the spelling of commands
+    setopt PROMPT_SUBST                         # do expansion on prompt
 
     bindkey -v                                  # vi mode
 
@@ -54,8 +55,12 @@
         source "${alias_file}"
     done
 
-#   ___ load prompt from prompt.zsh ___
+#   ___ load prompts from all prompt.zsh files ___
     source "${DOTFILES_MODULES_ROOT}/zsh/prompt.zsh"
+
+    for prompt_file in $(find "${DOTFILES_MODULES_ROOT}" -name "prompt.zsh" | egrep -v 'zsh\/prompt\.zsh$'); do
+        source "${prompt_file}"
+    done
 
 #   -----------------------------
 #   9.  LOAD LOCAL CONFIG
