@@ -2,25 +2,58 @@
 #   2.  PROMPT
 #   -------------------------------
 
-    # inspired by mathiasbynens (https://github.com/mathiasbynens/dotfiles/blob/master/.bash_prompt)
-    PS1=""
-    PS1+="________________________________________________________________________________" # first line
-    PS1+=$'\n'
-    PS1+="| "
+    DOTFILES_PROMPT_COMPONENTS=()
+    DOTFILES_PROMPT_COMPONENT_LEFT="─["
+    DOTFILES_PROMPT_COMPONENT_RIGHT="]"
 
-    # highlight the user name when logged in as root
+#   ___ time ___
+    dotfiles_prompt_time=""
+    dotfiles_prompt_time+="${DOTFILES_PROMPT_COMPONENT_LEFT}"
+    dotfiles_prompt_time+="$(format_message --prompt --bold "%*")"
+    dotfiles_prompt_time+="${DOTFILES_PROMPT_COMPONENT_RIGHT}"
+
+    prompt_component_append "${dotfiles_prompt_time}"
+
+#   ___ username + hostname ___
+    dotfiles_prompt_username_hostname=""
+    dotfiles_prompt_username_hostname+="${DOTFILES_PROMPT_COMPONENT_LEFT}"
+
+    # highlight the username when logged in as root
     if [[ "${UID}" -eq 0 ]]; then
-        PS1+="$(format_message --bold --color red "%n")" # username
+        dotfiles_prompt_username_hostname+="$(format_message --prompt --bold --color red "%n")"
     else
-        PS1+="%n" # username
+        dotfiles_prompt_username_hostname+="$(format_message --prompt --bold "%n")"
     fi
 
-    PS1+="@"
-    PS1+="%M" # hostname
-    PS1+=" "
-    PS1+="[%d]" # working directory full path
-    PS1+=$'\n'
-    PS1+="| => "
+    dotfiles_prompt_username_hostname+="$(format_message --prompt --bold "@")"
+    dotfiles_prompt_username_hostname+="$(format_message --prompt --bold "%M")"
+    dotfiles_prompt_username_hostname+="${DOTFILES_PROMPT_COMPONENT_RIGHT}"
 
-    export PS1
-    export PS2="| => "
+    prompt_component_append "${dotfiles_prompt_username_hostname}"
+
+#   ___ working directory full path ___
+    dotfiles_prompt_pwd=""
+    dotfiles_prompt_pwd+="${DOTFILES_PROMPT_COMPONENT_LEFT}"
+    dotfiles_prompt_pwd+="$(format_message --prompt --bold "%d")"
+    dotfiles_prompt_pwd+="${DOTFILES_PROMPT_COMPONENT_RIGHT}"
+
+    prompt_component_append "${dotfiles_prompt_pwd}"
+
+#   ___ prompt generation ___
+    function prompt_generate() {
+        PS1=""
+        PS1+=$'\n' # first line
+        PS1+="┌──"
+
+        for component in ${DOTFILES_PROMPT_COMPONENTS[@]}; do
+            PS1+="${component}"
+        done
+
+        PS1+=$'\n'
+        PS1+="└─> "
+
+        PS2="└─> "
+    }
+
+#   ___ generate the prompt ___
+    prompt_generate

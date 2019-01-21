@@ -4,12 +4,12 @@
 #
 # Nukes a branch or tag locally and on the origin remote.
 #
-# $1 - Branch/tag name.
+# ${1} - Branch/tag name.
 #
 # Examples
 #
 #   git nuke add-git-nuke
 
-git show-ref --verify refs/tags/"$1" && git tag -d "$1"
-git show-ref --verify refs/heads/"$1" && git branch -D "$1"
-git push --delete origin "$1"
+git show-ref --verify refs/tags/"${1}" && git tag -d "${1}"
+git show-ref --verify refs/heads/"${1}" && git branch -D "${1}"
+git push --delete origin "${1}"

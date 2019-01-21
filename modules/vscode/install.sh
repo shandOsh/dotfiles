@@ -7,12 +7,12 @@ fi
 
 case "${DOTFILES_OS}" in
     macos)
-        VSCODE_HOME="$HOME/Library/Application Support/Code"
+        VSCODE_HOME="${HOME}/Library/Application Support/Code"
         info "setting home of VS Code for macOS"
     ;;
 
     linux)
-        VSCODE_HOME="$HOME/.config/Code"
+        VSCODE_HOME="${HOME}/.config/Code"
         info "setting home of VS Code for linux"
     ;;
 

@@ -101,7 +101,7 @@
 
         if is_installed "gpg" && [[ "${git_user_skey}" != "" ]]; then
             gpg --list-key "${git_user_skey}" > /dev/null 2>&1
-            rc=$?
+            rc=${?}
 
             if [[ ${rc} -ne 0 ]]; then
                 echo
@@ -120,6 +120,7 @@
 
         git config user.name "${git_user_name}"
         git config user.email "${git_user_mail}"
+        git config dotfiles.identity true
 
         local identity_string="${git_user_name} <${git_user_mail}>"
 
@@ -133,12 +134,12 @@
 
     # download gitignore for given os/ide/programming language
     function download_gitignore() {
-        if [[ $# -eq 0 ]]; then
+        if [[ ${#} -eq 0 ]]; then
             >&2 echo "No os/ide/programming language given."
             return 1
         fi
 
-        local content="$(curl -s "https://www.gitignore.io/api/$1")"
+        local content="$(curl -s "https://www.gitignore.io/api/${1}")"
 
         if [[ "${content}" =~ \#\!\!\ ERROR ]]; then
             >&2 echo "Unsupported os/ide/programming language."

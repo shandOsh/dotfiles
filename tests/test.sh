@@ -15,7 +15,7 @@ export HOME="/tmp/dotfiles.test"
 export DOTFILES_ROOT="${HOME}/.dotfiles"
 
 # if [[ -d "${HOME}" ]]; then
-#     echo "You have to manually remove fake \$HOME directory (pointing to ${HOME})."
+#     echo "You have to manually remove fake \${HOME} directory (pointing to ${HOME})."
 #     exit 1
 # fi
 
