@@ -180,7 +180,7 @@ function format_message() {
             ;;
 
             *)
-                message="${1//\%/%%}" # fixes printing % in printf
+                message="${1}"
 
                 if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
                     >&2 printf "%s\n" "> [DEBUG] input: ${message}"
@@ -194,7 +194,7 @@ function format_message() {
 
     # fix for cursor misalignment in prompt
     if [[ ${prompt_formatting} -eq 1 ]]; then
-        output+="%%{"
+        output+="%{"
     fi
 
     if [[ ${DOTFILES_FORMATTING_TPUT} -eq 0 ]]; then
@@ -251,26 +251,26 @@ function format_message() {
 
     # fix for cursor misalignment in prompt
     if [[ ${prompt_formatting} -eq 1 ]]; then
-        output+="%%}"
+        output+="%}"
     fi
 
     output+="${message}"
 
     # fix for cursor misalignment in prompt
     if [[ ${prompt_formatting} -eq 1 ]]; then
-        output+="%%{"
+        output+="%{"
     fi
 
     output+="${FORMAT_RESET}"
 
     # fix for cursor misalignment in prompt
     if [[ ${prompt_formatting} -eq 1 ]]; then
-        output+="%%}"
+        output+="%}"
     fi
 
     if [[ ${DOTFILES_FORMATTING_DEBUG} -gt 0 ]]; then
         >&2 printf "%s\n" "> [DEBUG] output: ${output}"
     fi
 
-    printf "${output}"
+    printf "%b" "${output}"
 }
