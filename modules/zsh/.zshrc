@@ -13,7 +13,6 @@
     zstyle :compinstall filename "${HOME}/.zshrc"
 
     autoload -Uz compinit
-    autoload -Uz colors && colors
     compinit
 
 #   ___ history configuration ___
