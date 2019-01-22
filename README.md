@@ -37,6 +37,7 @@ These files will be loaded automatically by ZSH itself:
 - `aliases.zsh` (set aliases here)
 - `envvars.zsh` (set environmental variables here)
 - `paths.zsh` (set PATH variable here)
+- `prompt.zsh` (set prompt components here)
 
 Other files have to be managed by the installation script.
 
