@@ -1,6 +1,3 @@
-# load modules
-. "${DOTFILES_LIBS_ROOT}/formatting.sh"
-
 function success() {
     printf "\r\033[2K  [  \033[00;32mOK\033[0m  ] ${1}\n"
 }

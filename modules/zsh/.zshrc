@@ -34,6 +34,7 @@
     export DOTFILES_INSTALLATION_ROOT="${DOTFILES_ROOT}/installation"
 
     . "${DOTFILES_LIBS_ROOT}/helpers.sh"
+    . "${DOTFILES_LIBS_ROOT}/formatting.sh"
 
     os_detection
 
