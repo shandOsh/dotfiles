@@ -11,6 +11,7 @@ export DOTFILES_LIBS_ROOT="${DOTFILES_ROOT}/libs"
 export DOTFILES_MODULES_ROOT="${DOTFILES_ROOT}/modules"
 export DOTFILES_INSTALLATION_ROOT="${DOTFILES_ROOT}/installation"
 
+echo "› cding inside dotfiles directory"
 cd "${DOTFILES_ROOT}" || ( >&2 echo "Cannot cd into ${DOTFILES_ROOT}."; exit 1 ) || exit 1
 
 # fixes PATH (we could be running from the crontab)
