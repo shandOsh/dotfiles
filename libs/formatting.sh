@@ -1,6 +1,13 @@
 # inspired by mathiasbynens
 # https://github.com/mathiasbynens/dotfiles/blob/master/.bash_prompt
 
+# determine the formatting mode
+if tput setaf 1 &> /dev/null; then
+    DOTFILES_FORMATTING_TPUT=1
+else
+    DOTFILES_FORMATTING_TPUT=0
+fi
+
 # format_message [-p|--prompt] [-n|--newline] [-b|--bold] [-u|--underline] [-i|--italic] [-s|--strikethrough] [-c|--color=<color-name>] message
 function format_message() {
     local prompt_formatting=0
@@ -22,12 +29,6 @@ function format_message() {
         >&2 echo
         >&2 echo "> [DEBUG] mode: non-TPUT"
         DOTFILES_FORMATTING_TPUT=0
-    else
-        if tput setaf 1 &> /dev/null; then
-            DOTFILES_FORMATTING_TPUT=1
-        else
-            DOTFILES_FORMATTING_TPUT=0
-        fi
     fi
 
     if [[ ${DOTFILES_FORMATTING_TPUT} -eq 1 ]]; then
