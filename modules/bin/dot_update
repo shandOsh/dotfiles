@@ -41,9 +41,8 @@ if [[ ${rc} -ne 0 ]]; then
     exit 1
 fi
 
-# load helpers
-echo "› loading helper functions"
-
+# load libraries
+echo "› loading libraries"
 . "${DOTFILES_LIBS_ROOT}/helpers.sh"
 . "${DOTFILES_LIBS_ROOT}/formatting.sh"
 
