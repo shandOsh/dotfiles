@@ -19,6 +19,8 @@
         ;;
     esac
 
+    alias tree="tree -a"                        # preferred 'tree' implementation
+
 #   -----------------------------
 #   5.  FUNCTIONS
 #   -----------------------------
