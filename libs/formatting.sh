@@ -1,12 +1,24 @@
 # inspired by mathiasbynens
 # https://github.com/mathiasbynens/dotfiles/blob/master/.bash_prompt
 
-# determine the formatting mode
-if tput setaf 1 &> /dev/null; then
+function detect_formatting_mode() {
+    if tput setaf 1 &> /dev/null; then
+        enable_tput_mode
+    else
+        disable_tput_mode
+    fi
+}
+
+function enable_tput_mode() {
     DOTFILES_FORMATTING_TPUT=1
-else
+}
+
+function disable_tput_mode() {
     DOTFILES_FORMATTING_TPUT=0
-fi
+}
+
+# run the detection
+detect_formatting_mode
 
 # format_message [-p|--prompt] [-n|--newline] [-b|--bold] [-u|--underline] [-i|--italic] [-s|--strikethrough] [-c|--color=<color-name>] message
 function format_message() {
