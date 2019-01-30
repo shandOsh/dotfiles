@@ -11,38 +11,15 @@ function detect_formatting_mode() {
 
 function enable_tput_mode() {
     DOTFILES_FORMATTING_TPUT=1
+    set_formatting_constants
 }
 
 function disable_tput_mode() {
     DOTFILES_FORMATTING_TPUT=0
+    set_formatting_constants
 }
 
-# run the detection
-detect_formatting_mode
-
-# format_message [-p|--prompt] [-n|--newline] [-b|--bold] [-u|--underline] [-i|--italic] [-s|--strikethrough] [-c|--color=<color-name>] message
-function format_message() {
-    local prompt_formatting=0
-    local newline=0
-    local bold=0
-    local underline=0
-    local italic=0
-    local strikethrough=0
-    local color=""
-    local message=""
-    local output=""
-
-    # for debug purposes
-    if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 2 ]]; then
-        >&2 echo
-        >&2 echo "> [DEBUG] mode: TPUT"
-        DOTFILES_FORMATTING_TPUT=1
-    elif [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
-        >&2 echo
-        >&2 echo "> [DEBUG] mode: non-TPUT"
-        DOTFILES_FORMATTING_TPUT=0
-    fi
-
+function set_formatting_constants() {
     if [[ ${DOTFILES_FORMATTING_TPUT} -eq 1 ]]; then
         FORMAT_RESET="$(tput sgr0)"
 
@@ -91,6 +68,33 @@ function format_message() {
         FORMAT_FOREGROUND_WHITE="37"
         FORMAT_FOREGROUND_LIGHT_GRAY="37"
         FORMAT_FOREGROUND_DARK_GRAY="90"
+    fi
+}
+
+# run the detection
+detect_formatting_mode
+
+# format_message [-p|--prompt] [-n|--newline] [-b|--bold] [-u|--underline] [-i|--italic] [-s|--strikethrough] [-c|--color=<color-name>] message
+function format_message() {
+    local prompt_formatting=0
+    local newline=0
+    local bold=0
+    local underline=0
+    local italic=0
+    local strikethrough=0
+    local color=""
+    local message=""
+    local output=""
+
+    # for debug purposes
+    if [[ ${DOTFILES_FORMATTING_DEBUG} -eq 2 ]]; then
+        >&2 echo
+        >&2 echo "> [DEBUG] mode: TPUT"
+        enable_tput_mode
+    elif [[ ${DOTFILES_FORMATTING_DEBUG} -eq 1 ]]; then
+        >&2 echo
+        >&2 echo "> [DEBUG] mode: non-TPUT"
+        disable_tput_mode
     fi
 
     while [[ ${#} -ne 0 ]] && [[ "${1}" != "" ]]; do
