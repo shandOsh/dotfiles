@@ -15,7 +15,7 @@ export DOTFILES_MODULES_ROOT="${DOTFILES_ROOT}/modules"
 export DOTFILES_INSTALLATION_ROOT="${DOTFILES_ROOT}/installation"
 
 echo "› cding inside dotfiles directory"
-cd "${DOTFILES_ROOT}" || ( >&2 echo "Cannot cd into ${DOTFILES_ROOT}."; exit 1 ) || exit 1
+cd "${DOTFILES_ROOT}" || { >&2 echo "Cannot cd into ${DOTFILES_ROOT}."; exit 1 }
 
 # fixes PATH (we could be running from the crontab)
 PATH="/usr/local/bin:$(command -p getconf PATH)"
