@@ -3,6 +3,10 @@ echo "› installing git module"
 # if config is not managed by dotfiles, install the files
 if [ "$(git config --global --get dotfiles.managed)" != "true" ]; then
     info "git is not managed, running managing sequence"
+
+    # unlike in ssh module, where config is renamed to config.local,
+    # here we just back it up, we don't want to load a config with
+    # global user.name and user.email.
     backup_file "${HOME}/.gitconfig"
 else
     info "git is managed"
@@ -19,7 +23,6 @@ if [[ "${old_commit_id}" != "${current_commit_id}" ]]; then
     git config --global dotfiles.newhead "${current_commit_id}"
 fi
 
-# link files
 link_file "${DOTFILES_MODULES_ROOT}/git/.gitconfig.local" "${HOME}/.gitconfig.local"
 link_file "${DOTFILES_MODULES_ROOT}/git/.gitignore.global" "${HOME}/.gitignore.global"
 

@@ -1,10 +1,5 @@
 echo "› installing vscode module"
 
-if ! is_installed "code"; then
-    skipped "vscode is not installed"
-    return
-fi
-
 case "${DOTFILES_OS}" in
     macos)
         VSCODE_HOME="${HOME}/Library/Application Support/Code"
@@ -28,6 +23,13 @@ fi
 
 link_file "${DOTFILES_MODULES_ROOT}/vscode/settings.json" "${VSCODE_HOME}/User/settings.json"
 link_file "${DOTFILES_MODULES_ROOT}/vscode/keybindings.json" "${VSCODE_HOME}/User/keybindings.json"
+
+success "installation complete"
+
+if ! is_installed "code"; then
+    skipped "code is not installed, post-installation steps won't be run"
+    return
+fi
 
 # from `code --list-extensions`
 extensions="
@@ -55,4 +57,4 @@ for extension in ${extensions}; do
     fi
 done
 
-success "installation complete"
+success "post-installation steps completed"
