@@ -129,7 +129,7 @@ function os_detection() {
 }
 
 function is_installed() {
-    which "${1}" > /dev/null 2>&1 && return 0
+    which "${1}" &> /dev/null && return 0
 
     return 1
 }
