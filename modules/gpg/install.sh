@@ -24,7 +24,7 @@ if is_installed "gpg"; then
         case "${DOTFILES_OS}" in
             macos|linux)
                 killall gpg-agent
-                report_status "gpg-agent restarted"
+                report_status "restarting gpg-agent"
             ;;
 
             *)
