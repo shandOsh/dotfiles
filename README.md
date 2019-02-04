@@ -19,40 +19,12 @@ Then, run these steps:
 
 ```bash
 git clone https://github.com/Hologos/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
-./installation/bootstrap
+~/.dotfiles/installation/bootstrap
 zsh # or just close and open your terminal again.
 ```
 
 > All changed files will be backed up with a `.backup` suffix.
 
-## Creating new module
+## Docs
 
-To create new module, you have to create new directory in modules directory. Every module should contain an installation script called `install.sh`. All installation logic should be here. If nothing has to be done, it's good practice to at least inform the user about the module.
-
-The installation script will be called automatically from the `installation/bootstrap` and every time `bin/dot_update` is called.
-
-These files will be loaded automatically by ZSH itself:
-
-- `aliases.zsh` (set aliases here)
-- `envvars.zsh` (set environmental variables here)
-- `paths.zsh` (set PATH variable here)
-- `prompt.zsh` (set prompt components here)
-
-Other files have to be managed by the installation script.
-
-### Helper functions
-
-These helper functions are available to you by default:
-
-- success()
-- fail()
-- info()
-- skipped()
-- report_status()
-- string_replace()
-- backup_file()
-- link_file()
-- os_detection()
-- is_installed()
-- prompt_component_append()
+If you are interested why I made some decisions or if you want to create your own module, you should read [PHILOSOPHY.md](PHILOSOPHY.md) document.
