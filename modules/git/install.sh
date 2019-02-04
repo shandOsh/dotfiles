@@ -19,7 +19,6 @@ if [[ "${old_commit_id}" != "${current_commit_id}" ]]; then
     git config --global dotfiles.newhead "${current_commit_id}"
 fi
 
-# link files
 link_file "${DOTFILES_MODULES_ROOT}/git/.gitconfig.local" "${HOME}/.gitconfig.local"
 link_file "${DOTFILES_MODULES_ROOT}/git/.gitignore.global" "${HOME}/.gitignore.global"
 
