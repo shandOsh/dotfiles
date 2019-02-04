@@ -14,6 +14,58 @@ function skipped() {
     printf "\r  [ \033[00;34mSKIP\033[0m ] %s\n" "${1}"
 }
 
+function string_replace() {
+    local search=""
+    local replace=""
+    local subject=""
+    local global=""
+
+    local search_found=0
+    local replace_found=0
+
+    while [[ ${#} -ne 0 ]] && [[ "${1}" != "" ]]; do
+        case ${1} in
+            --global)
+                global="g"
+            ;;
+
+            *)
+                if [[ ${search_found} -eq 0 ]]; then
+                    search="${1}"
+                    search_found=1
+                elif [[ ${replace_found} -eq 0 ]]; then
+                    replace="${1}"
+                    replace_found=1
+                else
+                    >&2 echo "Unknown input argument."
+                    return 1
+                fi
+            ;;
+        esac
+
+        shift
+    done
+
+    read subject < /dev/stdin
+
+    local search_quoted="$(printf '%s' "${search}" | sed 's/[#\]/\\\0/g')"
+    local replace_quoted="$(printf '%s' "${replace}" | sed 's/[#\]/\\\0/g')"
+    local subject_quoted="$(printf '%s' "${subject}" | sed 's/[#\]/\\\0/g')"
+
+    if [[ "${search_quoted}" == "" ]]; then
+        >&2 echo "Search cannot be empty."
+        return 1
+    elif [[ "${replace_quoted}" == "" ]]; then
+        >&2 echo "Replace cannot be empty."
+        return 1
+    elif [[ "${subject_quoted}" == "" ]]; then
+        >&2 echo "Subject cannot be empty."
+        return 1
+    fi
+
+    echo "${subject_quoted}" | sed "s#${search_quoted}#${replace_quoted}#${global}"
+}
+
 function backup_file() {
     local backup_file="${1}"
 
