@@ -17,13 +17,13 @@ case "${DOTFILES_OS}" in
     ;;
 
     *)
-        fail "this is (${DOTFILES_OS}) is not supported"
+        fail "this OS (${DOTFILES_OS}) is not supported"
         return 1
 esac
 
 if [[ ! -d "${VSCODE_HOME}/User" ]]; then
-    info "creating home of VS Code ${VSCODE_HOME}"
     mkdir -p "${VSCODE_HOME}/User"
+    report_status "creating home of VS Code ${VSCODE_HOME}"
 fi
 
 link_file "${DOTFILES_MODULES_ROOT}/vscode/settings.json" "${VSCODE_HOME}/User/settings.json"
@@ -48,8 +48,8 @@ installed_extension="$(code --list-extensions)"
 
 for extension in ${extensions}; do
     if [[ "$(echo "${installed_extension}" | grep "${extension}")" == "" ]]; then
-        code --install-extension "${extension}" > /dev/null 2>&1 \
-        && success "extension ${extension} installed" || fail "installation of extension ${extension} failed"
+        code --install-extension "${extension}" &> /dev/null
+        report_status "installing extension ${extension}"
     else
         skipped "extension ${extension} is already installed"
     fi

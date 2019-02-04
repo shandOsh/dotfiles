@@ -103,7 +103,7 @@
         esac
 
         if is_installed "gpg" && [[ "${git_user_skey}" != "" ]]; then
-            gpg --list-key "${git_user_skey}" > /dev/null 2>&1
+            gpg --list-key "${git_user_skey}" &> /dev/null
             rc=${?}
 
             if [[ ${rc} -ne 0 ]]; then

@@ -37,6 +37,7 @@ These files will be loaded automatically by ZSH itself:
 - `aliases.zsh` (set aliases here)
 - `envvars.zsh` (set environmental variables here)
 - `paths.zsh` (set PATH variable here)
+- `prompt.zsh` (set prompt components here)
 
 Other files have to be managed by the installation script.
 
@@ -48,6 +49,8 @@ These helper functions are available to you by default:
 - fail()
 - info()
 - skipped()
+- report_status()
+- string_replace()
 - backup_file()
 - link_file()
 - os_detection()

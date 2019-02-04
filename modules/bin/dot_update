@@ -1,5 +1,8 @@
 #! /usr/bin/env bash
 
+# create update progress file
+touch "${DOTFILES_ROOT}/.dot_update"
+
 echo
 echo "Running update script"
 
@@ -7,10 +10,12 @@ echo "Running update script"
 echo "› setting up environmental variables"
 
 export DOTFILES_ROOT="${HOME}/.dotfiles"
+export DOTFILES_LIBS_ROOT="${DOTFILES_ROOT}/libs"
 export DOTFILES_MODULES_ROOT="${DOTFILES_ROOT}/modules"
 export DOTFILES_INSTALLATION_ROOT="${DOTFILES_ROOT}/installation"
 
-cd "${DOTFILES_ROOT}" || ( >&2 echo "Cannot cd into ${DOTFILES_ROOT}."; exit 1 ) || exit 1
+echo "› cding inside dotfiles directory"
+cd "${DOTFILES_ROOT}" || { >&2 echo "Cannot cd into ${DOTFILES_ROOT}."; exit 1 }
 
 # fixes PATH (we could be running from the crontab)
 PATH="/usr/local/bin:$(command -p getconf PATH)"
@@ -20,10 +25,6 @@ if [[ -r ~/.localrc ]]; then
     echo "› loading custom config ~/.localrc"
     . ~/.localrc
 fi
-
-# create update progress file
-echo "› creating the update progress file"
-touch "${DOTFILES_ROOT}/.dot_update"
 
 # ssh would not work under cron, add a https one
 echo "› setting up update channel"
@@ -40,10 +41,10 @@ if [[ ${rc} -ne 0 ]]; then
     exit 1
 fi
 
-# load helpers
-echo "› loading helper functions"
-
-. "${DOTFILES_INSTALLATION_ROOT}/helpers.sh"
+# load libraries
+echo "› loading libraries"
+. "${DOTFILES_LIBS_ROOT}/helpers.sh"
+. "${DOTFILES_LIBS_ROOT}/formatting.sh"
 
 os_detection
 
@@ -53,6 +54,5 @@ os_detection
 echo "› registering last update"
 git config --global dotfiles.lastupdate "$(date +'%d.%m.%Y %H:%M')"
 
-# create update progress file
-echo "› deleting the update progress file"
+# remove update progress file
 rm -f "${DOTFILES_ROOT}/.dot_update"

@@ -28,10 +28,10 @@ fi
 if [[ ! -e "${HOME}/.ssh/config.local" ]]; then
     if [[ -f "${HOME}/.ssh/config" ]] && [[ ! -L "${HOME}/.ssh/config" ]]; then
         mv "${HOME}/.ssh/config" "${HOME}/.ssh/config.local"
-        success "~/.ssh/config moved to ~/.ssh/config.local"
+        report_status "moving ${HOME}/.ssh/config to ${HOME}/.ssh/config.local"
     else
         touch "${HOME}/.ssh/config.local"
-        success "creating empty ~/.ssh/config.local"
+        success "creating empty ${HOME}/.ssh/config.local"
     fi
 fi
 

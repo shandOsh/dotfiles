@@ -29,10 +29,12 @@
 #   -----------------------------
 
     export DOTFILES_ROOT="${HOME}/.dotfiles"
+    export DOTFILES_LIBS_ROOT="${DOTFILES_ROOT}/libs"
     export DOTFILES_MODULES_ROOT="${DOTFILES_ROOT}/modules"
     export DOTFILES_INSTALLATION_ROOT="${DOTFILES_ROOT}/installation"
 
-    . "${DOTFILES_INSTALLATION_ROOT}/helpers.sh"
+    . "${DOTFILES_LIBS_ROOT}/helpers.sh"
+    . "${DOTFILES_LIBS_ROOT}/formatting.sh"
 
     os_detection
 
