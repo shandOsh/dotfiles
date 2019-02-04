@@ -5,8 +5,4 @@ echo "› installing autoupdate module"
     echo "0 */2 * * * '${DOTFILES_MODULES_ROOT}/bin/dot_update' > '${DOTFILES_ROOT}/dot_update.log' 2>&1"
 ) | crontab -
 
-if [[ ${?} -eq 0 ]]; then
-    success "installation complete"
-else
-    fail "installation failed"
-fi
+report_status "installation complete" "installation failed"

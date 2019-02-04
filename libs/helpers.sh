@@ -99,8 +99,8 @@ function backup_file() {
         return 0
     fi
 
-    success "backing up ${backup_file}"
     mv "${backup_file}" "${backup_file}.backup"
+    report_status "backing up ${backup_file}"
 }
 
 function link_file() {
@@ -114,8 +114,8 @@ function link_file() {
 
     backup_file "${target}"
 
-    success "linking ${source} to ${target}"
     ln -nfs "${source}" "${target}"
+    report_status "linking ${source} to ${target}"
 }
 
 function os_detection() {
