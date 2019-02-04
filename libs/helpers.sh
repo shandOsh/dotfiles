@@ -1,17 +1,17 @@
 function success() {
-    printf "\r\033[2K  [  \033[00;32mOK\033[0m  ] ${1}\n"
+    printf "\r\033[2K  [  \033[00;32mOK\033[0m  ] %s\n" "${1}"
 }
 
 function fail() {
-    printf "\r\033[2K  [ \033[0;31mFAIL\033[0m ] ${1}\n"
+    printf "\r\033[2K  [ \033[0;31mFAIL\033[0m ] %s\n" "${1}"
 }
 
 function info() {
-    printf "\r  [ \033[00;33mINFO\033[0m ] ${1}\n"
+    printf "\r  [ \033[00;33mINFO\033[0m ] %s\n" "${1}"
 }
 
 function skipped() {
-    printf "\r  [ \033[00;34mSKIP\033[0m ] ${1}\n"
+    printf "\r  [ \033[00;34mSKIP\033[0m ] %s\n" "${1}"
 }
 
 function backup_file() {
