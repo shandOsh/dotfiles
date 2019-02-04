@@ -34,7 +34,7 @@
 #   ___ working directory full path ___
     dotfiles_prompt_pwd=""
     dotfiles_prompt_pwd+="${DOTFILES_PROMPT_COMPONENT_LEFT}"
-    dotfiles_prompt_pwd+="$(format_message --prompt --bold "%d")"
+    dotfiles_prompt_pwd+="$(format_message --prompt --bold "%~")"
     dotfiles_prompt_pwd+="${DOTFILES_PROMPT_COMPONENT_RIGHT}"
 
     prompt_component_append "${dotfiles_prompt_pwd}"
