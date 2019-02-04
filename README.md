@@ -49,6 +49,7 @@ These helper functions are available to you by default:
 - fail()
 - info()
 - skipped()
+- string_replace()
 - backup_file()
 - link_file()
 - os_detection()
