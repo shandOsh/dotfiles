@@ -3,22 +3,7 @@ function success() {
 }
 
 function fail() {
-    local action
-    local message
-
-    if [[ ${#} -eq 2 ]]; then
-        action="${1}"
-        message="${2}"
-    else
-        action=""
-        message="${1}"
-    fi
-
-    printf "\r\033[2K  [ \033[0;31mFAIL\033[0m ] ${message}\n"
-
-    if [[ "${action}" == "--exit" ]]; then
-        exit 1
-    fi
+    printf "\r\033[2K  [ \033[0;31mFAIL\033[0m ] ${1}\n"
 }
 
 function info() {
