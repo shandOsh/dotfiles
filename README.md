@@ -30,7 +30,7 @@ zsh # or just close and open your terminal again.
 
 To create new module, you have to create new directory in modules directory. Every module should contain an installation script called `install.sh`. All installation logic should be here. If nothing has to be done, it's good practice to at least inform the user about the module.
 
-The installation script will be called automatically from the `installation/bootstrap` and every time `modules/bin/dot_update` is called.
+The installation script will be called automatically from the `installation/bootstrap` and every time `bin/dot_update` is called.
 
 These files will be loaded automatically by ZSH itself:
 
