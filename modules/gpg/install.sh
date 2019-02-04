@@ -3,6 +3,7 @@ echo "› installing gpg module"
 if is_installed "gpg"; then
     if [[ ! -d "${HOME}/.gnupg" ]]; then
         mkdir "${HOME}/.gnupg"
+        report_status "creating directory ${HOME}/.gnupg"
     fi
 
     link_file "${DOTFILES_MODULES_ROOT}/gpg/gpg.conf" "${HOME}/.gnupg/gpg.conf"
@@ -23,7 +24,7 @@ if is_installed "gpg"; then
         case "${DOTFILES_OS}" in
             macos|linux)
                 killall gpg-agent
-                success "gpg-agent restarted"
+                report_status "gpg-agent restarted"
             ;;
 
             *)

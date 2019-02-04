@@ -42,5 +42,4 @@ git config --global include.path ~/.gitconfig.local
 # finally make git know, this is a managed config (preventing later overrides by this script)
 git config --global dotfiles.managed true
 
-
 success "installation complete"

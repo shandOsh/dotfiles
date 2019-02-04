@@ -22,6 +22,23 @@ function skipped() {
     printf "\r  [ \033[00;34mSKIP\033[0m ] %s\n" "${message}"
 }
 
+function report_status() {
+    local rc_of_last_command="${?}" # ! has to be on the 1st line
+
+    local message_success="${1}"
+    local message_failure="${1}"
+
+    if [[ ${#} -eq 2 ]]; then
+        message_failure="${2}"
+    fi
+
+    if [[ ${rc_of_last_command} -eq 0 ]]; then
+        success "${message_success}"
+    else
+        fail "${message_failure}"
+    fi
+}
+
 function string_replace() {
     local search=""
     local replace=""
@@ -82,8 +99,8 @@ function backup_file() {
         return 0
     fi
 
-    success "backing up ${backup_file}"
     mv "${backup_file}" "${backup_file}.backup"
+    report_status "backing up ${backup_file}"
 }
 
 function link_file() {
@@ -97,8 +114,8 @@ function link_file() {
 
     backup_file "${target}"
 
-    success "linking ${source} to ${target}"
     ln -nfs "${source}" "${target}"
+    report_status "linking ${source} to ${target}"
 }
 
 function os_detection() {
