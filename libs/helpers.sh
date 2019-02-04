@@ -1,17 +1,25 @@
 function success() {
-    printf "\r\033[2K  [  \033[00;32mOK\033[0m  ] %s\n" "${1}"
+    local message="$(echo "${1}" | string_replace --global "${HOME}" "~")"
+
+    printf "\r\033[2K  [  \033[00;32mOK\033[0m  ] %s\n" "${message}"
 }
 
 function fail() {
-    printf "\r\033[2K  [ \033[0;31mFAIL\033[0m ] %s\n" "${1}"
+    local message="$(echo "${1}" | string_replace --global "${HOME}" "~")"
+
+    printf "\r\033[2K  [ \033[0;31mFAIL\033[0m ] %s\n" "${message}"
 }
 
 function info() {
-    printf "\r  [ \033[00;33mINFO\033[0m ] %s\n" "${1}"
+    local message="$(echo "${1}" | string_replace --global "${HOME}" "~")"
+
+    printf "\r  [ \033[00;33mINFO\033[0m ] %s\n" "${message}"
 }
 
 function skipped() {
-    printf "\r  [ \033[00;34mSKIP\033[0m ] %s\n" "${1}"
+    local message="$(echo "${1}" | string_replace --global "${HOME}" "~")"
+
+    printf "\r  [ \033[00;34mSKIP\033[0m ] %s\n" "${message}"
 }
 
 function string_replace() {
