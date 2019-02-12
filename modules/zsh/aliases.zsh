@@ -19,7 +19,7 @@
         ;;
     esac
 
-    alias tree="tree -a"                        # preferred 'tree' implementation
+    alias tree='tree -a -I .git'                # preferred 'tree' implementation
 
 #   -----------------------------
 #   5.  FUNCTIONS
