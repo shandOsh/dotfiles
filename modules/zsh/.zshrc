@@ -16,14 +16,6 @@
     autoload -Uz compinit
     compinit
 
-#   ___ history configuration ___
-    export HISTFILE="${HOME}/.zhistory"
-    export HISTSIZE=1000
-    export SAVEHIST=1000
-
-    setopt incappendhistory                     # append history to history files as soon as it is executed rather than waiting until shell exits
-    setopt histignoredups                       # dont save command if it's a duplicate of last command
-
 #   -----------------------------
 #   1.  UNDER THE HOOD STUFF
 #   -----------------------------
@@ -55,6 +47,13 @@
 #   ___ load aliases from all aliases.zsh files ___
     for alias_file in $(find "${DOTFILES_MODULES_ROOT}" -name "aliases.zsh"); do
         source "${alias_file}"
+    done
+
+#   ___ load history from all history.zsh files ___
+    source "${DOTFILES_MODULES_ROOT}/zsh/history.zsh"
+
+    for history_file in $(find "${DOTFILES_MODULES_ROOT}" -name "history.zsh" | egrep -v 'zsh\/history\.zsh$'); do
+        source "${history_file}"
     done
 
 #   ___ load prompts from all prompt.zsh files ___
