@@ -1,8 +1,5 @@
 #! /usr/bin/env bash
 
-# create update progress file
-touch "${DOTFILES_ROOT}/.dot_update"
-
 echo
 echo "Running update script"
 
@@ -13,6 +10,9 @@ export DOTFILES_ROOT="${HOME}/.dotfiles"
 export DOTFILES_LIBS_ROOT="${DOTFILES_ROOT}/libs"
 export DOTFILES_MODULES_ROOT="${DOTFILES_ROOT}/modules"
 export DOTFILES_INSTALLATION_ROOT="${DOTFILES_ROOT}/installation"
+
+# create update progress file
+touch "${DOTFILES_ROOT}/.dot_update"
 
 echo "› cding inside dotfiles directory"
 cd "${DOTFILES_ROOT}" || { >&2 echo "Cannot cd into ${DOTFILES_ROOT}."; exit 1; }

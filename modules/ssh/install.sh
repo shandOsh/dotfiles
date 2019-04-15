@@ -25,6 +25,11 @@ else
     info "your openSSH version ${ssh_version} is supported"
 fi
 
+if [[ ! -d "${HOME}/.ssh" ]]; then
+    mkdir "${HOME}/.ssh"
+    chmod 700 "${HOME}/.ssh"
+fi
+
 if [[ ! -e "${HOME}/.ssh/config.local" ]]; then
     if [[ -f "${HOME}/.ssh/config" ]] && [[ ! -L "${HOME}/.ssh/config" ]]; then
         mv "${HOME}/.ssh/config" "${HOME}/.ssh/config.local"
