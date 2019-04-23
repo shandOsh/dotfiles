@@ -23,6 +23,9 @@ sudo chflags nohidden /Volumes
 # defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 # Possible values: `WhenScrolling`, `Automatic` and `Always`
 
+echo "  › Set a really fast key repeat"
+defaults write -g KeyRepeat -int 3 # it's supposed to be 45 ms
+
 echo "  › Disable Dashboard"
 defaults write com.apple.dashboard mcx-disabled -bool true
 
