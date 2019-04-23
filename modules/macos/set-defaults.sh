@@ -45,6 +45,9 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 echo "  › Show battery percent"
 defaults write com.apple.menuextra.battery ShowPercent -bool true
 
+echo "  › Changing default screenshot folder"
+defaults write com.apple.screencapture location "~/Screenshots"
+
 #############################
 
 echo
