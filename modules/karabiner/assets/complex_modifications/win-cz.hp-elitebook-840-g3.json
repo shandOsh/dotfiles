@@ -1,0 +1,451 @@
+{
+    "title": "Simulace české Windows klávesnice s AltGr.",
+    "rules": [
+        {
+            "description": "AltGr + Q   ->   \\",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "q",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "non_us_backslash"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "AltGr + W   ->   |",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "w",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "non_us_backslash",
+                            "modifiers": [
+                                "shift"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "AltGr + E   ->   €",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "e",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "r",
+                            "modifiers": [
+                                "option"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "AltGr + F   ->   [",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "f",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "open_bracket",
+                            "modifiers": [
+                                "option"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "AltGr + G   ->   ]",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "g",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "close_bracket",
+                            "modifiers": [
+                                "option"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "AltGr + X   ->   #",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "x",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "3",
+                            "modifiers": [
+                                "option"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "AltGr + C   ->   &",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "c",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "7",
+                            "modifiers": [
+                                "option"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "AltGr + V   ->   @",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "v",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "2",
+                            "modifiers": [
+                                "option"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "AltGr + B   ->   {",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "b",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "9",
+                            "modifiers": [
+                                "option"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "AltGr + N   ->   }",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "n",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "0",
+                            "modifiers": [
+                                "option"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "`   ->   '",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "backslash",
+                        "modifiers": {
+                            "mandatory": [
+                                "shift"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "quote",
+                            "modifiers": [
+                                "option"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "AltGr + ,   ->   <",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "comma",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "grave_accent_and_tilde"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "AltGr + .   ->   >",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "period",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "grave_accent_and_tilde",
+                            "modifiers": [
+                                "shift"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "AltGr + -   ->   *",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "slash",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "8",
+                            "modifiers": [
+                                "option"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "AltGr + ů   ->   $",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "semicolon",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "4",
+                            "modifiers": [
+                                "option"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "<   ->   ;",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "grave_accent_and_tilde"
+                    },
+                    "to": [
+                        {
+                            "key_code": "semicolon",
+                            "modifiers": [
+                                "option"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Shift + <   ->   °",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "grave_accent_and_tilde",
+                        "modifiers": {
+                            "mandatory": [
+                                "shift"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "hyphen",
+                            "modifiers": [
+                                "option"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "AltGr + <   ->   `",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "grave_accent_and_tilde",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "backslash",
+                            "modifiers": [
+                                "shift"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "description": "Shift + AltGr + <   ->   ~",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "grave_accent_and_tilde",
+                        "modifiers": {
+                            "mandatory": [
+                                "right_command",
+                                "shift"
+                            ]
+                        }
+                    },
+                    "to": [
+                        {
+                            "key_code": "5",
+                            "modifiers": [
+                                "option"
+                              ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
