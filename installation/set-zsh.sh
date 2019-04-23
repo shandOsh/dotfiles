@@ -28,10 +28,5 @@ case "${DOTFILES_OS}" in
         return 1
 esac
 
-rc=${?}
-
-if [[ ${rc} -eq 0 ]]; then
-    success "default shell set to ${DOTFILES_SHELL}"
-else
-    fail "default shell couldn't be set to ${DOTFILES_SHELL}"
-fi
+report_status "default shell set to ${DOTFILES_SHELL}" \
+              "default shell couldn't be set to ${DOTFILES_SHELL}"
