@@ -17,6 +17,8 @@ echo "› loading libraries"
 . "${DOTFILES_LIBS_ROOT}/helpers.sh"
 . "${DOTFILES_LIBS_ROOT}/formatting.sh"
 
+# detect OS
+echo "› detecting OS"
 os_detection
 
 # run generic install script
