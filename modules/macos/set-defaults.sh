@@ -55,9 +55,9 @@ echo "› Finder:"
 echo "  › Always open everything in Finder's list view"
 defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 
-echo "  › Set the Finder prefs for showing a few different volumes on the Desktop"
-defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+echo "  › Set the Finder prefs for hiding volumes on the Desktop"
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
 
 echo "  › Expand save panel by default"
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
