@@ -2,7 +2,11 @@ echo
 echo "Setting ZSH as default shell"
 echo
 
-DOTFILES_SHELL=""
+if ! is_installed "zsh"; then
+    skipped "zsh is not installed"
+fi
+
+DOTFILES_SHELL="$(which zsh)"
 
 case "${DOTFILES_OS}" in
     macos)
