@@ -9,7 +9,7 @@ fi
 DOTFILES_SHELL="$(which zsh)"
 
 case "${DOTFILES_OS}" in
-    macos)
+    macos|linux)
         DOTFILES_SHELL="/bin/zsh"
 
         chsh -s "${DOTFILES_SHELL}" "${USER}" 1>/dev/null
@@ -19,12 +19,6 @@ case "${DOTFILES_OS}" in
         DOTFILES_SHELL="/usr/bin/zsh"
 
         chsh "${USER}" "${DOTFILES_SHELL}" 1>/dev/null
-    ;;
-
-    linux)
-        DOTFILES_SHELL="/bin/zsh"
-
-        chsh -s "${DOTFILES_SHELL}" "${USER}" 1>/dev/null
     ;;
 
     *)
