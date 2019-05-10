@@ -2,23 +2,44 @@ echo
 echo "Setting ZSH as default shell"
 echo
 
-if ! is_installed "zsh"; then
-    skipped "zsh is not installed"
-fi
-
-DOTFILES_SHELL="$(which zsh)"
+echo "› setting path to zsh"
 
 case "${DOTFILES_OS}" in
-    macos|linux)
-        DOTFILES_SHELL="/bin/zsh"
+    macos)
+        DOTFILES_SHELL="/usr/local/bin/zsh"
+    ;;
 
-        chsh -s "${DOTFILES_SHELL}" "${USER}" 1>/dev/null
+    linux)
+        DOTFILES_SHELL="/bin/zsh"
     ;;
 
     aix)
         DOTFILES_SHELL="/usr/bin/zsh"
+    ;;
 
+    *)
+        fail "this OS is not supported"
+        return 1
+esac
+
+if ! is_installed "${DOTFILES_SHELL}"; then
+    skipped "${DOTFILES_SHELL} is not installed"
+    return 1
+fi
+
+echo "› setting ${DOTFILES_SHELL} as default shell"
+
+case "${DOTFILES_OS}" in
+    macos|linux)
+        echo
+        chsh -s "${DOTFILES_SHELL}" "${USER}" 1>/dev/null
+        echo
+    ;;
+
+    aix)
+        echo
         chsh "${USER}" "${DOTFILES_SHELL}" 1>/dev/null
+        echo
     ;;
 
     *)
