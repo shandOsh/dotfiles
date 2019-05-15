@@ -36,8 +36,10 @@ installed_version="$(git rev-parse --short HEAD)"
 
 # update repo
 echo "› git update"
+echo
 git pull --rebase --stat updates "$(git rev-parse --abbrev-ref HEAD)"
 rc=${?}
+echo
 
 # get current commit-id
 echo "› getting downloaded version"
