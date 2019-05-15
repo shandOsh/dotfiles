@@ -30,14 +30,24 @@ fi
 echo "› setting up update channel"
 git remote add updates "https://github.com/Hologos/dotfiles.git" 2>/dev/null
 
-# Update repo
+# get current commit-id
+echo "› getting installed version"
+installed_version="$(git rev-parse --short HEAD)"
+
+# update repo
 echo "› git update"
+echo
 git pull --rebase --stat updates "$(git rev-parse --abbrev-ref HEAD)"
 rc=${?}
+echo
+
+# get current commit-id
+echo "› getting downloaded version"
+downloaded_version="$(git rev-parse --short HEAD)"
 
 if [[ ${rc} -ne 0 ]]; then
     echo
-    echo "There was an error merge remote changes."
+    echo "There was an error merging remote changes."
     exit 1
 fi
 
@@ -50,8 +60,13 @@ echo "› loading libraries"
 echo "› detecting OS"
 os_detection
 
-# run generic install script
-. "${DOTFILES_INSTALLATION_ROOT}/install.sh"
+if [[ "${downloaded_version}" != "${installed_version}" ]]; then
+    # run generic install script
+    . "${DOTFILES_INSTALLATION_ROOT}/install.sh"
+else
+    # TODO: maybe add force mode?
+    echo "› no new changes downloaded, skipping installation steps"
+fi
 
 echo "› registering last update"
 git config --global dotfiles.lastupdate "$(date +'%d.%m.%Y %H:%M')"
