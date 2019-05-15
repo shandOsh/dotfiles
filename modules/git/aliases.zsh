@@ -135,6 +135,28 @@
         format_message --newline --color green "Git identity (${identity_string}) successfully set up."
     }
 
+    function dotfiles_version() {
+        echo
+
+        previous_version_commit_id="$(git config --global --get dotfiles.oldversion)"
+
+        if [[ "${previous_version_commit_id}" != "" ]]; then
+            previous_version_tag="$(cd "${DOTFILES_ROOT}" >& /dev/null; git tag --contains "${previous_version_commit_id}" --)"
+            previous_version_datetime="$(cd "${DOTFILES_ROOT}" >& /dev/null; git show --no-patch --no-notes --pretty='%ad' --date="format:%d.%m.%Y %R" "${previous_version_commit_id}" --)"
+
+            format_message --bold --color orange "Previous version:"
+            format_message --newline --color orange " ${previous_version_tag:-${previous_version_commit_id}} (${previous_version_datetime})"
+        fi
+
+        current_version_commit_id="$(git config --global --get dotfiles.version)"
+        current_version_tag="$(cd "${DOTFILES_ROOT}" >& /dev/null; git tag --contains "${current_version_commit_id}" --)"
+        current_version_datetime="$(cd "${DOTFILES_ROOT}" >& /dev/null; git show --no-patch --no-notes --pretty='%ad' --date="format:%d.%m.%Y %R" "${current_version_commit_id}" --)"
+
+        echo -n " "
+        format_message --bold --color blue "Current version:"
+        format_message --newline --color blue " ${current_version_tag:-${current_version_commit_id}} (${current_version_datetime})"
+    }
+
     # download gitignore for given os/ide/programming language
     function download_gitignore() {
         if [[ ${#} -eq 0 ]]; then

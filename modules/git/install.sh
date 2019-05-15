@@ -14,13 +14,13 @@ fi
 
 # save current commit-id and also save last commit-id
 current_commit_id="$(git rev-parse --short HEAD)"
-old_commit_id="$(git config --global --get dotfiles.newhead)"
+previous_commit_id="$(git config --global --get dotfiles.version)"
 
-if [[ "${old_commit_id}" != "${current_commit_id}" ]]; then
-    info "recoring old HEAD and new HEAD"
+if [[ "${previous_commit_id}" != "${current_commit_id}" ]]; then
+    info "recording new version commit-id"
 
-    git config --global dotfiles.oldhead "${old_commit_id}"
-    git config --global dotfiles.newhead "${current_commit_id}"
+    git config --global dotfiles.oldversion "${previous_commit_id}"
+    git config --global dotfiles.version "${current_commit_id}"
 fi
 
 link_file "${DOTFILES_MODULES_ROOT}/git/.gitconfig.local" "${HOME}/.gitconfig.local"
