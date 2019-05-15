@@ -26,6 +26,8 @@ There are a few special files in the hierarchy:
 
 - **module/prompt.zsh**: This file is loaded automatically and sets up prompt for that module.
 
+- **module/history.zsh**: This file is loaded automatically and sets up shell history for that module.
+
 - **module/install.sh**: This file will be run at `installation/bootstrap` and `bin/dot_update` phase, and is expected to link necessary files and do post-installation actions (such as restart an agent, etc).
 
 ### Creating new module
@@ -40,6 +42,7 @@ These files will be loaded automatically by ZSH itself:
 - `envvars.zsh`
 - `paths.zsh`
 - `prompt.zsh`
+- `history.zsh`
 
 Other files have to be managed by the installation script.
 

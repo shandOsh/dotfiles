@@ -23,6 +23,9 @@ sudo chflags nohidden /Volumes
 # defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 # Possible values: `WhenScrolling`, `Automatic` and `Always`
 
+echo "  › Set a really fast key repeat"
+defaults write -g KeyRepeat -int 3 # it's supposed to be 45 ms
+
 echo "  › Disable Dashboard"
 defaults write com.apple.dashboard mcx-disabled -bool true
 
@@ -42,6 +45,9 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 echo "  › Show battery percent"
 defaults write com.apple.menuextra.battery ShowPercent -bool true
 
+echo "  › Changing default screenshot folder"
+defaults write com.apple.screencapture location "~/Screenshots"
+
 #############################
 
 echo
@@ -49,9 +55,9 @@ echo "› Finder:"
 echo "  › Always open everything in Finder's list view"
 defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 
-echo "  › Set the Finder prefs for showing a few different volumes on the Desktop"
-defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+echo "  › Set the Finder prefs for hiding volumes on the Desktop"
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
 
 echo "  › Expand save panel by default"
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
