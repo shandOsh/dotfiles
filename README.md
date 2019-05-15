@@ -19,7 +19,8 @@ Then, run these steps:
 
 ```bash
 git clone https://github.com/Hologos/dotfiles.git ~/.dotfiles
-~/.dotfiles/installation/bootstrap
+cd ~/.dotfiles
+./installation/bootstrap
 zsh # or just close and open your terminal again.
 ```
 
