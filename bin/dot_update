@@ -37,7 +37,7 @@ installed_version="$(git rev-parse --short HEAD)"
 # update repo
 echo "› git update"
 echo
-git pull --rebase --stat updates "$(git rev-parse --abbrev-ref HEAD)"
+git pull --tags --rebase --stat updates "$(git rev-parse --abbrev-ref HEAD)"
 rc=${?}
 echo
 
