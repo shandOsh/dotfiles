@@ -70,3 +70,10 @@
 
 #   ___ use .localrc for local configuration ___
     [[ -f "${HOME}/.localrc" ]] && . "${HOME}/.localrc"
+
+#   -----------------------------
+#   10.  RUN PROGRAMS / COMMANDS
+#   -----------------------------
+
+#   ___ display dotfiles version ___
+    dotfiles_version
