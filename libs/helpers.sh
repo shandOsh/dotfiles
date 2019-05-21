@@ -129,7 +129,10 @@ function os_detection() {
 }
 
 function is_installed() {
-    which "${1}" &> /dev/null && return 0
+    command which "${1}" &> /dev/null && return 0
+
+    # consider using -s flag
+    # command which -s "${1}" && return 0
 
     return 1
 }
