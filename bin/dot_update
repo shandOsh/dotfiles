@@ -41,15 +41,15 @@ git pull --tags --rebase --stat updates "$(git rev-parse --abbrev-ref HEAD)"
 rc=${?}
 echo
 
-# get current commit-id
-echo "› getting downloaded version"
-downloaded_version="$(git rev-parse --short HEAD)"
-
 if [[ ${rc} -ne 0 ]]; then
     echo
     echo "There was an error merging remote changes."
     exit 1
 fi
+
+# get current commit-id
+echo "› getting downloaded version"
+downloaded_version="$(git rev-parse --short HEAD)"
 
 # load libraries
 echo "› loading libraries"

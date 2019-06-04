@@ -50,9 +50,9 @@
         done
 
         PS1+=$'\n'
-        PS1+="└─> "
+        PS1+="└─▶ "
 
-        PS2="└─> "
+        PS2="└─▶ "
     }
 
 #   ___ generate the prompt ___

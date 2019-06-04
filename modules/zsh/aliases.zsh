@@ -11,7 +11,6 @@
 
     alias hist='history'                        # shortcut for history
     alias path='echo -e ${PATH//:/\\n}'         # path: echo all executable paths
-    alias which='type'                          # which: find executables
 
     case "${DOTFILES_OS}" in
         linux|aix)
