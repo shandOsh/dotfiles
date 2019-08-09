@@ -12,6 +12,8 @@
     alias hist='history'                        # shortcut for history
     alias path='echo -e ${PATH//:/\\n}'         # path: echo all executable paths
 
+    alias sudo='sudo '                          # this tricks allows using other aliases with sudo
+
     case "${DOTFILES_OS}" in
         linux|aix)
             alias ls='ls --color'               # preferred 'ls' implementation
