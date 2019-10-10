@@ -12,7 +12,8 @@
     alias hist='history'                        # shortcut for history
     alias path='echo -e ${PATH//:/\\n}'         # path: echo all executable paths
 
-    alias sudo='sudo '                          # this tricks allows using other aliases with sudo
+    alias sudo=$'sudo\t'                        # this tricks allows using other aliases with sudo
+                                                # $'sudo\t' is to prevent "sudo: nocorrect: command not found" error
 
     case "${DOTFILES_OS}" in
         linux|aix)
