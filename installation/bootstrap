@@ -22,6 +22,10 @@ echo "› loading libraries"
 echo "› detecting OS"
 os_detection
 
+# check prerequisites
+echo "› checking prerequisites"
+. "${DOTFILES_INSTALLATION_ROOT}/check-prerequisites.sh"
+
 # run generic install script
 . "${DOTFILES_INSTALLATION_ROOT}/install.sh"
 
