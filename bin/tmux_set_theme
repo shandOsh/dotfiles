@@ -1,0 +1,69 @@
+#! /usr/bin/env bash
+
+date +'%d.%m.%Y %H:%M:%S'
+
+if ! tmux info &> /dev/null; then
+    echo "Tmux is not running, exiting."
+
+    exit 0
+fi
+
+# in case color palette is not found, set a horrible one to notice
+tmux_theme_bg="#ff0000"
+tmux_theme_fg="#ffffff"
+tmux_theme_box_bg="#000000"
+tmux_theme_box_fg="#ffffff"
+tmux_theme_box_current_bg="#00ff00"
+tmux_theme_box_current_fg="#000000"
+tmux_theme_box_utils_bg="#0000ff"
+tmux_theme_box_utils_fg="#ffffff"
+
+tmux_theme_cache_location="/tmp/tmux_theme_name"
+tmux_theme_name="light"
+
+case "${DOTFILES_OS}" in
+    "macos")
+        if defaults read -g AppleInterfaceStyle &> /dev/null; then
+            tmux_theme_name="dark"
+        fi
+    ;;
+esac
+
+if [[ -r "${tmux_theme_cache_location}" ]]; then
+    tmux_theme_cached_name="$(< "${tmux_theme_cache_location}")"
+fi
+
+if [[ "${tmux_theme_cached_name}" == "${tmux_theme_name}" ]]; then
+    echo "No change to theme (old=${tmux_theme_cached_name}, new=${tmux_theme_name}), exiting."
+
+    exit 0
+fi
+
+tmux_theme_source_file="${HOME}/.tmux/conf/themes/palette.${tmux_theme_name}.conf"
+
+if [[ -e "${tmux_theme_source_file}" ]]; then
+    source "${tmux_theme_source_file}"
+
+    echo "Setting theme to ${tmux_theme_name}."
+else
+    tmux_theme_name="broken"
+
+    >&2 echo "Can't read theme file '${tmux_theme_source_file}'. Setting broken theme."
+fi
+
+echo -n "${tmux_theme_name}" > "${tmux_theme_cache_location}"
+
+# set the status bar"s foreground and background
+tmux set -g status-fg "${tmux_theme_fg}"
+tmux set -g status-bg "${tmux_theme_bg}"
+
+# set the left and right status
+tmux set -g status-left "#[bg=${tmux_theme_box_utils_bg},fg=${tmux_theme_box_utils_fg}] #S #[bg=${tmux_theme_bg}] " # session name (eg: 0)
+tmux set -g status-right " #[bg=${tmux_theme_box_utils_bg},fg=${tmux_theme_box_utils_fg}] continuum: #{continuum_status} #[bg=${tmux_theme_bg}] #[bg=${tmux_theme_box_utils_bg},fg=${tmux_theme_box_utils_fg}] %d.%m.%Y %R #[bg=${tmux_theme_bg}] #[bg=${tmux_theme_box_utils_bg},fg=${tmux_theme_box_utils_fg}] #H " # continuum period + datetime + hostname
+
+# set window status format
+tmux set -g window-status-current-format "#[bg=${tmux_theme_box_current_bg},fg=${tmux_theme_box_current_fg}] #I #W #{?window_zoomed_flag,[zoomed] ,}" # window index + name (eg: 1 git)
+tmux set -g window-status-format "#[bg=${tmux_theme_box_bg},fg=${tmux_theme_box_fg}] #I #W " # window index + name (eg: 1 git)
+
+# initialize TMUX plugin manager (keep this line at the very bottom of any tmux conf, that is ran on its own)
+tmux run -b '~/.tmux/plugins/tpm/tpm'
