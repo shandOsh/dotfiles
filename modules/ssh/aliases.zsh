@@ -3,6 +3,7 @@
 #   -----------------------------
 
     alias ssh-add-keys='__ssh_add_keys'
+    alias _="ssh_cez"
 
 #   -----------------------------
 #   5.  FUNCTIONS

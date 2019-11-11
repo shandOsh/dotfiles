@@ -1,0 +1,125 @@
+#! /usr/bin/env bash
+
+function __test_parse_cez_hostname() {
+    local inputs=(
+        "r5d00"             #  5: <sid:3><role:2>
+        "scmd00"            #  6: <sid:4><role:2>
+        "midmddb"           #  7: <sid:5><role:2>
+        "n-bwpdb"           #  7: <prefix:2><sid:3><role:2>
+        "c9pdb-i1"          #  8: <sid:3><role:2><suffix:3>
+        "r4pdb-rs1"         #  9: <sid:3><role:2><suffix:4>
+        "cassied01"         #  9: <sid:7><role:2>
+        "midmtdb-01"        # 10: <sid:5><role:2><suffix:3>
+        "n-ttpdb-rs1"       # 11: <prefix:2><sid:3><role:2><suffix:4>
+    )
+
+    for input in ${inputs[@]}; do
+        parsed="$(parse_cez_hostname "${input}")"
+
+        prefix="$(echo "${parsed}" | cut -d: -f1)"
+        sid="$(echo "${parsed}" | cut -d: -f2)"
+        role="$(echo "${parsed}" | cut -d: -f3)"
+        suffix="$(echo "${parsed}" | cut -d: -f4)"
+
+        echo "== ${input} =="
+
+        [[ "${prefix}" != "" ]] && { ansi -n --bold "prefix: "; echo "${prefix}"; }
+        [[ "${sid}" != "" ]] && { ansi -n --bold "sid: "; echo "${sid}"; }
+        [[ "${role}" != "" ]] && { ansi -n --bold "role: "; echo "${role}"; }
+        [[ "${suffix}" != "" ]] && { ansi -n --bold "suffix: "; echo "${suffix}"; }
+
+        echo
+    done
+}
+
+function __parse_cez_hostname() {
+    setopt local_options BASH_REMATCH
+
+    local cez_hostname="${1}"
+    local regex="^(n-)?([a-z0-9]{3,7})([a-z0-9]{2})(-[a-z0-9]{2,3})?$"
+
+    if ! [[ "${cez_hostname}" =~ "${regex}" ]]; then
+        >&2 ansi --red "no match!"
+
+        return 1
+    fi
+
+    local prefix="${BASH_REMATCH[2]}"
+    local sid="${BASH_REMATCH[3]}"
+    local role="${BASH_REMATCH[4]}"
+    local suffix="${BASH_REMATCH[5]}"
+
+    echo "${prefix}:${sid}:${role}:${suffix}"
+}
+
+function ssh_cez() {
+    local cez_username="qsmalekjir"
+    local cez_hostname
+    local cez_commands
+
+    case ${#} in
+        1)
+            # 1) ${0} <hostname>
+            cez_hostname="${1}"
+        ;;
+
+        2|3)
+            # 1) ${0} <username> <hostname> [command]
+            # 2) ${0} <hostname> <command>
+            if [[ "${1}" =~ ^-[a-z]$ ]]; then
+                cez_hostname="${2}"
+                cez_commands="${3}"
+
+                local parsed="$(parse_cez_hostname "${2}")"
+
+                local sid="$(echo "${parsed}" | cut -d: -f2)" || {  # TODO: doesn't catch error
+                    >&2 echo
+                    >&2 ansi --bold --red "Cannot parse SID."
+
+                    return 1
+                }
+
+                case "${1}" in
+                    -a)
+                        cez_username="${sid}adm"
+                    ;;
+
+                    -d)
+                        cez_username="db2${sid}"
+                    ;;
+
+                    *)
+                        >&2 echo
+                        >&2 ansi --bold --red "Unsupported value '${1}' for username."
+
+                        return 1
+                esac
+            else
+                cez_hostname="${1}"
+                cez_commands="${2}"
+            fi
+        ;;
+
+        *)
+            >&2 echo
+            >&2 ansi --bold --red "${0} [-a|-d] <hostname> [commands] ..."
+
+            return 1
+    esac
+
+    echo
+    ansi -n --bold "username: "
+    echo "${cez_username}"
+    ansi -n --bold "hostname: "
+    echo "${cez_hostname}"
+    ansi -n --bold "command: "
+    echo "${cez_commands}"
+    echo
+    ansi -n --bold --red "final command: "
+    echo "ssh \"${cez_username}@${cez_hostname}\" ${cez_commands}"
+    echo
+
+    ssh "${cez_username}@${cez_hostname}" ${cez_commands}
+}
+
+ssh_cez $@
