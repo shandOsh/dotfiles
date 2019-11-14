@@ -142,3 +142,13 @@ function prompt_component_append() {
 
     DOTFILES_PROMPT_COMPONENTS+=("${component}")
 }
+
+function crontab_apply() {
+    local crontab_command="${1}"
+    local grep_match="${2}"
+
+    (
+        crontab -l | grep -v "${grep_match}"
+        echo "${crontab_command}"
+    ) | crontab -
+}
