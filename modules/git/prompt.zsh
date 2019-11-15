@@ -20,7 +20,7 @@
             ansi --no-newline --bold --color=${FMT_BLUE} "${git_user_name}"
 
             if [[ "${git_user_skey}" != "" ]]; then
-                ansi --no-newline --bold --color=${FMT_GREEN} "\xE2\x9C\x94"
+                ansi --no-newline --bold --color=${FMT_GREEN} "✔"
             fi
         fi
 
