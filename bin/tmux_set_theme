@@ -1,5 +1,8 @@
 #! /usr/bin/env bash
 
+# fixes PATH (we could be running from the crontab)
+PATH="/usr/local/bin:$(command -p getconf PATH)"
+
 date +'%d.%m.%Y %H:%M:%S'
 
 if ! tmux info &> /dev/null; then
