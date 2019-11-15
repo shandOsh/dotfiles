@@ -53,8 +53,10 @@ downloaded_version="$(git rev-parse --short HEAD)"
 
 # load libraries
 echo "› loading libraries"
-. "${DOTFILES_LIBS_ROOT}/helpers.sh"
+
+. "${DOTFILES_LIBS_ROOT}/fidian/ansi/ansi"
 . "${DOTFILES_LIBS_ROOT}/formatting.sh"
+. "${DOTFILES_LIBS_ROOT}/helpers.sh"
 
 # detect OS
 echo "› detecting OS"

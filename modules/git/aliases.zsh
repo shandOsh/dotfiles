@@ -20,9 +20,9 @@
             fi
 
             echo
-            format_message --newline --bold --color orange "You already have set up your git identity (${identity_string}). Continue anyway?"
+            ansi --bold --color=${FMT_ORANGE} "You already have set up your git identity (${identity_string}). Continue anyway?"
             echo
-            format_message --bold "Your choice (y/n): "
+            ansi --no-newline --bold "Your choice (y/n): "
             read -r choice
             echo
 
@@ -35,24 +35,24 @@
                 ;;
 
                 *)
-                    format_message --newline --bold --color red "! Invalid choice."
+                    ansi --bold --color=${FMT_RED} "! Invalid choice."
                     return 1
             esac
         fi
 
-        format_message --newline --bold "How would you like to set your git identity?"
+        ansi --bold "How would you like to set your git identity?"
         echo
         echo "1. from the list"
         echo "2. manually"
         echo
-        format_message --bold "Your choice: "
+        ansi --no-newline --bold "Your choice: "
         read -r choice
         echo
 
         case "${choice}" in
             1)
                 if [[ ${#GIT_IDENTITY_LIST[*]} -eq 0 ]]; then
-                    format_message --newline --bold --color red "! No identity defined."
+                    ansi --bold --color=${FMT_RED} "! No identity defined."
                     return 1
                 fi
 
@@ -61,12 +61,12 @@
                 done
 
                 echo
-                format_message --bold "Your choice: "
+                ansi --no-newline --bold "Your choice: "
                 read -r choice
 
                 if [[ ${GIT_IDENTITY_LIST[${choice}]} == "" ]]; then
                     echo
-                    format_message --newline --bold --color red "! Invalid choice."
+                    ansi --bold --color=${FMT_RED} "! Invalid choice."
                     return 1
                 fi
 
@@ -76,15 +76,15 @@
             ;;
 
             2)
-                format_message --bold "What is your author name? "
+                ansi --no-newline --bold "What is your author name? "
                 read -r git_user_name
-                format_message --bold "What is your author email? "
+                ansi --no-newline --bold "What is your author email? "
                 read -r git_user_mail
 
                 if is_installed "gpg"; then
                     echo
                     gpg --list-secret-keys --keyid-format LONG
-                    format_message --bold "What is your signing key ID (leave empty if don't want to set any)? "
+                    ansi --no-newline --bold "What is your signing key ID (leave empty if don't want to set any)? "
                     read -r git_user_skey
                 else
                     echo "GPG is not installed, not requesting signing key ID."
@@ -92,13 +92,13 @@
 
                 if [[ "${git_user_name}" == "" ]] || [[ "${git_user_mail}" == "" ]]; then
                     echo
-                    format_message --newline --bold --color red "! Neither name nor email can be empty."
+                    ansi --bold --color=${FMT_RED} "! Neither name nor email can be empty."
                     return 1
                 fi
             ;;
 
             *)
-                format_message --newline --bold --color red "! Invalid choice."
+                ansi --bold --color=${FMT_RED} "! Invalid choice."
                 return 1
         esac
 
@@ -108,7 +108,7 @@
 
             if [[ ${rc} -ne 0 ]]; then
                 echo
-                format_message --newline --bold --color red "! A key with ID ${git_user_skey} was not found."
+                ansi --bold --color=${FMT_RED} "! A key with ID ${git_user_skey} was not found."
                 return 1
             fi
 
@@ -132,7 +132,7 @@
         fi
 
         echo
-        format_message --newline --color green "Git identity (${identity_string}) successfully set up."
+        ansi --color=${FMT_GREEN} "Git identity (${identity_string}) successfully set up."
     }
 
     function dotfiles_version() {
@@ -144,8 +144,8 @@
             previous_version_tag="$(cd "${DOTFILES_ROOT}" >& /dev/null; git tag --points-at "${previous_version_commit_id}" -- | egrep '^v[0-9]+(\.[0-9]+)+')"
             previous_version_datetime="$(cd "${DOTFILES_ROOT}" >& /dev/null; git show --no-patch --no-notes --pretty='%ad' --date="format:%d.%m.%Y %R" "${previous_version_commit_id}" --)"
 
-            format_message --bold --color orange "Previous version:"
-            format_message --newline --color orange " ${previous_version_tag:-${previous_version_commit_id}} (${previous_version_datetime})"
+            ansi --no-newline --bold --color=${FMT_ORANGE} "Previous version:"
+            ansi --color=${FMT_ORANGE} " ${previous_version_tag:-${previous_version_commit_id}} (${previous_version_datetime})"
         fi
 
         current_version_commit_id="$(git config --global --get dotfiles.version)"
@@ -153,8 +153,8 @@
         current_version_datetime="$(cd "${DOTFILES_ROOT}" >& /dev/null; git show --no-patch --no-notes --pretty='%ad' --date="format:%d.%m.%Y %R" "${current_version_commit_id}" --)"
 
         echo -n " "
-        format_message --bold --color blue "Current version:"
-        format_message --newline --color blue " ${current_version_tag:-${current_version_commit_id}} (${current_version_datetime})"
+        ansi --no-newline --bold --color=${FMT_BLUE} "Current version:"
+        ansi --color=${FMT_BLUE} " ${current_version_tag:-${current_version_commit_id}} (${current_version_datetime})"
     }
 
     # download gitignore for given os/ide/programming language

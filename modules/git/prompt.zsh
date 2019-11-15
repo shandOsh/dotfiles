@@ -15,12 +15,12 @@
         local git_user_skey="$(git config --local user.signingkey)"
 
         if [[ "${identity_set_with_dotfiles}" != "true" ]] || [[ "${git_user_name}" == "" ]]; then
-            format_message --prompt --bold --color red "!!! identity not set !!!"
+            ansi --no-newline --bold --color=${FMT_RED} "!!! identity not set !!!"
         else
-            format_message --prompt --bold --color blue "${git_user_name}"
+            ansi --no-newline --bold --color=${FMT_BLUE} "${git_user_name}"
 
             if [[ "${git_user_skey}" != "" ]]; then
-                format_message --prompt --bold --color green "\xE2\x9C\x94"
+                ansi --no-newline --bold --color=${FMT_GREEN} "\xE2\x9C\x94"
             fi
         fi
 
@@ -30,9 +30,9 @@
         local current_branch="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
 
         if [[ "${current_branch}" == "" ]]; then
-            format_message --prompt --bold --color red "!!! unknown branch !!!"
+            ansi --no-newline --bold --color=${FMT_RED} "!!! unknown branch !!!"
         else
-            format_message --prompt --bold --color green "${current_branch}"
+            ansi --no-newline --bold --color=${FMT_GREEN} "${current_branch}"
         fi
 
         echo -n "${DOTFILES_PROMPT_COMPONENT_RIGHT}"
