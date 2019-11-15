@@ -16,6 +16,12 @@ if ! is_installed "tmux"; then
     return
 fi
 
+crontab_apply \
+    "* * * * * { source '${DOTFILES_LIBS_ROOT}/helpers.sh' && os_detection && '${DOTFILES_ROOT}/bin/tmux_set_theme'; } >> /tmp/tmux_set_theme.log 2>&1" \
+    "tmux_set_theme"
+
+report_status "applying crontab job"
+
 # reload config
 tmux source-file ~/.tmux.conf
 report_status "reloading configuration"
