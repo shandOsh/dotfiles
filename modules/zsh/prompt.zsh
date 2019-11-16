@@ -9,7 +9,7 @@
 #   ___ time ___
     dotfiles_prompt_time=""
     dotfiles_prompt_time+="${DOTFILES_PROMPT_COMPONENT_LEFT}"
-    dotfiles_prompt_time+="$(format_message --prompt --bold "%*")"
+    dotfiles_prompt_time+="$(ansi --no-newline --bold "%*")"
     dotfiles_prompt_time+="${DOTFILES_PROMPT_COMPONENT_RIGHT}"
 
     prompt_component_append "${dotfiles_prompt_time}"
@@ -20,13 +20,13 @@
 
     # highlight the username when logged in as root
     if [[ "${UID}" -eq 0 ]]; then
-        dotfiles_prompt_username_hostname+="$(format_message --prompt --bold --color red "%n")"
+        dotfiles_prompt_username_hostname+="$(ansi --no-newline --bold --color=${FMT_RED} "%n")"
     else
-        dotfiles_prompt_username_hostname+="$(format_message --prompt --bold "%n")"
+        dotfiles_prompt_username_hostname+="$(ansi --no-newline --bold "%n")"
     fi
 
-    dotfiles_prompt_username_hostname+="$(format_message --prompt --bold "@")"
-    dotfiles_prompt_username_hostname+="$(format_message --prompt --bold "%M")"
+    dotfiles_prompt_username_hostname+="$(ansi --no-newline --bold "@")"
+    dotfiles_prompt_username_hostname+="$(ansi --no-newline --bold "%M")"
     dotfiles_prompt_username_hostname+="${DOTFILES_PROMPT_COMPONENT_RIGHT}"
 
     prompt_component_append "${dotfiles_prompt_username_hostname}"
@@ -34,7 +34,7 @@
 #   ___ working directory full path ___
     dotfiles_prompt_pwd=""
     dotfiles_prompt_pwd+="${DOTFILES_PROMPT_COMPONENT_LEFT}"
-    dotfiles_prompt_pwd+="$(format_message --prompt --bold "%~")"
+    dotfiles_prompt_pwd+="$(ansi --no-newline --bold "%~")"
     dotfiles_prompt_pwd+="${DOTFILES_PROMPT_COMPONENT_RIGHT}"
 
     prompt_component_append "${dotfiles_prompt_pwd}"

@@ -8,7 +8,7 @@
         fi
 
         echo -n "${DOTFILES_PROMPT_COMPONENT_LEFT}"
-        format_message --prompt --bold --color red "!!! update failed !!!"
+        ansi --no-newline --bold --color=${FMT_RED} "!!! update failed !!!"
         echo -n "${DOTFILES_PROMPT_COMPONENT_RIGHT}"
     }
 

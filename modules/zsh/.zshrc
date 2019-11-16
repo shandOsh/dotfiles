@@ -26,8 +26,9 @@
     export DOTFILES_MODULES_ROOT="${DOTFILES_ROOT}/modules"
     export DOTFILES_INSTALLATION_ROOT="${DOTFILES_ROOT}/installation"
 
-    . "${DOTFILES_LIBS_ROOT}/helpers.sh"
+    . "${DOTFILES_LIBS_ROOT}/fidian/ansi/ansi"
     . "${DOTFILES_LIBS_ROOT}/formatting.sh"
+    . "${DOTFILES_LIBS_ROOT}/helpers.sh"
 
     os_detection
 
