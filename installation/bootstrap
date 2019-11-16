@@ -14,12 +14,17 @@ export DOTFILES_INSTALLATION_ROOT="${DOTFILES_ROOT}/installation"
 # load helpers
 echo "› loading libraries"
 
-. "${DOTFILES_LIBS_ROOT}/helpers.sh"
+. "${DOTFILES_LIBS_ROOT}/fidian/ansi/ansi"
 . "${DOTFILES_LIBS_ROOT}/formatting.sh"
+. "${DOTFILES_LIBS_ROOT}/helpers.sh"
 
 # detect OS
 echo "› detecting OS"
 os_detection
+
+# check prerequisites
+echo "› checking prerequisites"
+. "${DOTFILES_INSTALLATION_ROOT}/check-prerequisites.sh"
 
 # run generic install script
 . "${DOTFILES_INSTALLATION_ROOT}/install.sh"

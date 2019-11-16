@@ -26,6 +26,11 @@ if [[ -r ~/.localrc ]]; then
     . ~/.localrc
 fi
 
+# check prerequisites
+echo "› checking prerequisites"
+. "${DOTFILES_LIBS_ROOT}/helpers.sh"
+. "${DOTFILES_INSTALLATION_ROOT}/check-prerequisites.sh"
+
 # ssh would not work under cron, add a https one
 echo "› setting up update channel"
 git remote add updates "https://github.com/Hologos/dotfiles.git" 2>/dev/null
@@ -53,8 +58,10 @@ downloaded_version="$(git rev-parse --short HEAD)"
 
 # load libraries
 echo "› loading libraries"
-. "${DOTFILES_LIBS_ROOT}/helpers.sh"
+
+. "${DOTFILES_LIBS_ROOT}/fidian/ansi/ansi"
 . "${DOTFILES_LIBS_ROOT}/formatting.sh"
+. "${DOTFILES_LIBS_ROOT}/helpers.sh"
 
 # detect OS
 echo "› detecting OS"

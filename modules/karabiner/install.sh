@@ -6,7 +6,7 @@ if [[ "${DOTFILES_OS}" != "macos" ]]; then
 fi
 
 if [[ ! -d "${HOME}/.config/karabiner" ]]; then
-    mkdir "${HOME}/.config/karabiner"
+    mkdir -p "${HOME}/.config/karabiner"
     report_status "creating directory ${HOME}/.config/karabiner"
 fi
 
