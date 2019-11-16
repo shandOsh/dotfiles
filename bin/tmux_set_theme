@@ -3,7 +3,17 @@
 # fixes PATH (we could be running from the crontab)
 PATH="/usr/local/bin:$(command -p getconf PATH)"
 
-date +'%d.%m.%Y %H:%M:%S'
+CALLER="${1:-direct}"
+
+date +"%d.%m.%Y %H:%M:%S - ${CALLER}"
+
+tmux_theme_cache_location="/tmp/tmux_theme_name.${USER}"
+
+if [[ "${CALLER}" == "conf" ]]; then
+    echo "Deleting cache file ${tmux_theme_cache_location}."
+
+    rm -f "${tmux_theme_cache_location}"
+fi
 
 if ! tmux info &> /dev/null; then
     echo "Tmux is not running, exiting."
@@ -21,7 +31,6 @@ tmux_theme_box_current_fg="#000000"
 tmux_theme_box_utils_bg="#0000ff"
 tmux_theme_box_utils_fg="#ffffff"
 
-tmux_theme_cache_location="/tmp/tmux_theme_name"
 tmux_theme_name="light"
 
 case "${DOTFILES_OS}" in
