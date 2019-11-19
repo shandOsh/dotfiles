@@ -33,13 +33,11 @@ case "${DOTFILES_OS}" in
     macos|linux)
         echo
         chsh -s "${DOTFILES_SHELL}" "${USER}" 1>/dev/null
-        echo
     ;;
 
     aix)
         echo
         chsh "${USER}" "${DOTFILES_SHELL}" 1>/dev/null
-        echo
     ;;
 
     *)
