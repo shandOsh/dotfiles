@@ -32,7 +32,7 @@
 
     /* php settings */
     "php.suggest.basic": false,
-    "php.executablePath": "/usr/local/Cellar/php71/7.1.8_20/bin/php",
+    "php.executablePath": "/usr/local/opt/php@7.3/bin/php",
 
     "files.exclude": {
         /* PYTHON */
