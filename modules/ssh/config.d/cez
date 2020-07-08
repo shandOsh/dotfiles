@@ -9,3 +9,4 @@ Host *.cezdata.corp
     ForwardX11Trusted yes
     ForwardX11 yes
     ForwardX11Timeout 4800
+    ServerAliveInterval 100
