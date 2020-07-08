@@ -6,6 +6,7 @@
     hist = log --pretty=format:'%h %ad | %s%d [%an (signed: %G?)]' --graph --date=short
     remind = log --reverse -p
     up = !git fetch --all --tags --prune && git merge --ff-only @{u}
+    diffw = diff --word-diff-regex='.'
 [core]
     excludesfile = ~/.gitignore.global
 [push]
