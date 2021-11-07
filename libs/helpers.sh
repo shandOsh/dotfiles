@@ -114,6 +114,13 @@ function link_file() {
 
     backup_file "${target}"
 
+    local dirpath="$(dirname "${target}")"
+
+    if [[ ! -d "${dirpath}" ]]; then
+        mkdir -p "${dirpath}"
+        report_status "creating directory ${dirpath} for target ${target}"
+    fi
+
     ln -nfs "${source}" "${target}"
     report_status "linking ${source} to ${target}"
 }
