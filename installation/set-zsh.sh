@@ -6,7 +6,7 @@ echo "› setting path to zsh"
 
 case "${DOTFILES_OS}" in
     macos)
-        DOTFILES_SHELL="/usr/local/bin/zsh"
+        DOTFILES_SHELL="/opt/homebrew/bin/zsh"
     ;;
 
     linux)

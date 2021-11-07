@@ -19,7 +19,7 @@
     "workbench.startupEditor": "newUntitledFile",
     "workbench.statusBar.visible": true,
 
-    "terminal.integrated.shell.osx": "/usr/local/bin/zsh",
+    "terminal.integrated.shell.osx": "/opt/homebrew/bin/zsh",
     "terminal.integrated.shellArgs.osx": [ "--login" ],
 
     "window.zoomLevel": 0,
@@ -28,11 +28,11 @@
     "latex-workshop.latex.autoBuild.onSave.enabled": false,
 
     /* python settings */
-    "python.pythonPath": "/usr/local/bin/python3",
+    "python.pythonPath": "/opt/homebrew/bin/python3",
 
     /* php settings */
     "php.suggest.basic": false,
-    "php.executablePath": "/usr/local/opt/php@7.3/bin/php",
+    "php.executablePath": "/opt/homebrew/opt/php@7.3/bin/php",
 
     "files.exclude": {
         /* PYTHON */

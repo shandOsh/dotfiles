@@ -13,11 +13,11 @@ link_file "${DOTFILES_MODULES_ROOT}/gpg/gpg.conf" "${HOME}/.gnupg/gpg.conf"
 gpgagent_restart_needed=0
 
 if [[ "${DOTFILES_OS}" == "macos" ]]; then
-    if is_installed "/usr/local/bin/pinentry-mac"; then
+    if is_installed "/opt/homebrew/bin/pinentry-mac"; then
         link_file "${DOTFILES_MODULES_ROOT}/gpg/gpg-agent.macos.conf" "${HOME}/.gnupg/gpg-agent.conf"
         gpgagent_restart_needed=1
     else
-        fail "/usr/local/bin/pinentry-mac is not installed yet"
+        fail "/opt/homebrew/bin/pinentry-mac is not installed yet"
     fi
 fi
 
