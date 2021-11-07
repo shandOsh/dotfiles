@@ -3,6 +3,9 @@ echo "› installing gpg module"
 if [[ ! -d "${HOME}/.gnupg" ]]; then
     mkdir "${HOME}/.gnupg"
     report_status "creating directory ${HOME}/.gnupg"
+
+    chmod 700 "${HOME}/.gnupg"
+    report_status "setting  permissions to directory ${HOME}/.gnupg"
 fi
 
 link_file "${DOTFILES_MODULES_ROOT}/gpg/gpg.conf" "${HOME}/.gnupg/gpg.conf"
