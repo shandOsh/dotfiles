@@ -33,16 +33,26 @@ fi
 
 # from `code --list-extensions`
 extensions="
-Kasik96.latte
+ban.spellright
 codezombiech.gitignore
+DotJoshJohnson.xml
 felixfbecker.php-intellisense
-georgewfraser.vscode-javac
 James-Yu.latex-workshop
+Kasik96.latte
+LaurentTreguier.uncrustify
+mads-hartmann.bash-ide-vscode
+mechatroner.rainbow-csv
 ms-python.python
+ms-toolsai.jupyter
+naco-siren.gradle-language
+nobuhito.printcode
 odubuc.mysql-inline-decorator
-redhat.java
-vscjava.vscode-java-debug
-vscjava.vscode-java-pack
+redhat.vscode-yaml
+rogalmic.bash-debug
+timonwong.shellcheck
+Tobiah.language-pde
+ToniApps.gcode
+VisualStudioExptTeam.vscodeintellicode
 "
 
 info "getting list of all installed extensions"
