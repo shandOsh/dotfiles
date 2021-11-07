@@ -22,6 +22,9 @@ crontab_apply \
 
 report_status "applying crontab job"
 
+"${HOME}/.tmux/plugins/tpm/bin/install_plugins"
+report_status "installing plugins"
+
 # reload config
 tmux source-file ~/.tmux.conf
 report_status "reloading configuration"
