@@ -1,6 +1,9 @@
 #! /usr/bin/env bash
 
 echo
+date +'%d.%m.%Y %H:%M:%S'
+
+echo
 echo "Running update script"
 
 # setup envvar
