@@ -46,5 +46,6 @@
     "latex-workshop.latex.autoBuild.run": "never",
     "shellcheck.customArgs": [
         "-x"
-    ]
+    ],
+    "redhat.telemetry.enabled": false
 }
