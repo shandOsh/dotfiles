@@ -10,6 +10,8 @@
     compare = diff --no-index
 [core]
     excludesfile = ~/.gitignore.global
+[init]
+    defaultBranch = master
 [push]
     default = simple
 [pull]
