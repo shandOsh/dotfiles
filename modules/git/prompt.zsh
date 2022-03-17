@@ -38,5 +38,5 @@
         echo -n "${DOTFILES_PROMPT_COMPONENT_RIGHT}"
     }
 
-    prompt_component_append '$(dotfiles_prompt_git)'
+    prompt_component_precmd_append '$(dotfiles_prompt_git)'
     prompt_generate

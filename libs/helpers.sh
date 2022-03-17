@@ -144,10 +144,16 @@ function is_installed() {
     return 1
 }
 
-function prompt_component_append() {
+function prompt_component_precmd_append() {
     local component="${1}"
 
-    DOTFILES_PROMPT_COMPONENTS+=("${component}")
+    DOTFILES_PROMPT_PRECMD_COMPONENTS+=("${component}")
+}
+
+function prompt_postexec_component_append() {
+    local component="${1}"
+
+    DOTFILES_PROMPT_POSTEXEC_COMPONENTS+=("${component}")
 }
 
 function crontab_apply() {

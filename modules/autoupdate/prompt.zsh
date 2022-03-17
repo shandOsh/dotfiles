@@ -12,5 +12,5 @@
         echo -n "${DOTFILES_PROMPT_COMPONENT_RIGHT}"
     }
 
-    prompt_component_append '$(dotfiles_prompt_autoupdate_status)'
+    prompt_component_precmd_append '$(dotfiles_prompt_autoupdate_status)'
     prompt_generate

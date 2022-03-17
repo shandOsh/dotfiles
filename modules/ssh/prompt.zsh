@@ -10,5 +10,5 @@
         fi
     }
 
-    prompt_component_append '$(dotfiles_prompt_ssh)'
+    prompt_component_precmd_append '$(dotfiles_prompt_ssh)'
     prompt_generate
