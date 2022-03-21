@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 # fixes PATH (we could be running from the crontab)
-PATH="/usr/local/bin:$(command -p getconf PATH)"
+PATH="/opt/homebrew/bin:$(command -p getconf PATH)"
 
 CALLER="${1:-direct}"
 
