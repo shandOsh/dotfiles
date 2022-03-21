@@ -6,6 +6,10 @@
 
 ## Installation
 
+### Requirements
+
+This version requires macOS 11.
+
 ### Dependencies
 
 First, make sure you have all those things installed:
