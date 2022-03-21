@@ -16,6 +16,14 @@ else
     success "zsh is installed"
 fi
 
+if ! is_installed "ansi"; then
+    prerequisites_error=1
+
+    fail "ansi is not installed"
+else
+    success "ansi is installed"
+fi
+
 if [[ ${prerequisites_error} -ne 0 ]]; then
     fail "prerequisites are not met, aborting"
     exit 1

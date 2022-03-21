@@ -16,6 +16,7 @@ First, make sure you have all those things installed:
 
 - `git`: to clone the repo
 - `zsh`: to actually run the dotfiles
+- `fidian/ansi`: to format messages
 
 ### Install
 
