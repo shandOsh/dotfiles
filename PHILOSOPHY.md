@@ -59,6 +59,7 @@ These helper functions are available to you by default:
 - backup_file()
 - link_file()
 - os_detection()
+- macos_version()
 - is_installed()
 - prompt_component_precmd_append()
 - prompt_component_postexec_append()

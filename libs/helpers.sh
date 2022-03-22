@@ -137,6 +137,10 @@ function os_detection() {
     esac
 }
 
+function macos_version() {
+    sw_vers -productVersion
+}
+
 function is_installed() {
     command which "${1}" &> /dev/null && return 0
 

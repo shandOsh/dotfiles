@@ -26,6 +26,21 @@ else
     success "ansi is installed"
 fi
 
+case "${DOTFILES_OS}" in
+    macos)
+        current_macos_version="$(macos_version)"
+
+        case "${current_macos_version}" in
+            12.* )
+                success "macOS ${current_macos_version} is supported"
+            ;;
+
+            * )
+                fail "macOS 12 or higher is required (current version is macOS ${current_macos_version})"
+        esac
+    ;;
+esac
+
 if [[ ${prerequisites_error} -ne 0 ]]; then
     fail "prerequisites are not met, aborting"
     exit 1
