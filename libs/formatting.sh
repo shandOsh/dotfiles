@@ -1,3 +1,5 @@
+#! /usr/bin/env bash
+
 FMT_BLACK="0"
 FMT_RED="124"
 FMT_GREEN="64"

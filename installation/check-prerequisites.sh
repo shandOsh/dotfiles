@@ -1,3 +1,5 @@
+#! /usr/bin/env bash
+
 prerequisites_error=0
 
 if ! is_installed "git"; then

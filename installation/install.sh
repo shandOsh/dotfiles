@@ -1,3 +1,5 @@
+#! /usr/bin/env bash
+
 echo
 echo "Running generic installer"
 

@@ -1,3 +1,5 @@
+#! /usr/bin/env bash
+
 echo "› installing ssh module"
 
 # if our version of openSSH is lower than 7.3, abort the installation,

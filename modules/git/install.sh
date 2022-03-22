@@ -1,3 +1,5 @@
+#! /usr/bin/env bash
+
 echo "› installing git module"
 
 # if config is not managed by dotfiles, install the files

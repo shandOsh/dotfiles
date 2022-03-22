@@ -1,3 +1,5 @@
+#! /usr/bin/env bash
+
 function success() {
     local message="$(echo "${1}" | string_replace --global "${HOME}" "~")"
 

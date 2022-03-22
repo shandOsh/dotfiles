@@ -1,3 +1,5 @@
+#! /usr/bin/env bash
+
 echo "› installing karabiner-elements module"
 
 if [[ "${DOTFILES_OS}" != "macos" ]]; then

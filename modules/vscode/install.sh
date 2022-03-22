@@ -1,3 +1,5 @@
+#! /usr/bin/env bash
+
 echo "› installing vscode module"
 
 case "${DOTFILES_OS}" in

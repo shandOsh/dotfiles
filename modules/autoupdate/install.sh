@@ -1,3 +1,5 @@
+#! /usr/bin/env bash
+
 echo "› installing autoupdate module"
 
 crontab_apply \

@@ -1,3 +1,5 @@
+#! /usr/bin/env bash
+
 echo "› installing gpg module"
 
 if [[ ! -d "${HOME}/.gnupg" ]]; then

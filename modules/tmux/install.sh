@@ -1,3 +1,5 @@
+#! /usr/bin/env bash
+
 echo "› installing tmux module"
 
 link_file "${DOTFILES_MODULES_ROOT}/tmux/.tmux.conf" "${HOME}/.tmux.conf"

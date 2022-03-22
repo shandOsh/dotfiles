@@ -1,3 +1,5 @@
+#! /usr/bin/env bash
+
 echo "› installing macos module"
 
 if [[ "${DOTFILES_OS}" != "macos" ]]; then
