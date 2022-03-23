@@ -77,6 +77,9 @@ tmux set -g status-right " #[bg=${tmux_theme_box_utils_bg},fg=${tmux_theme_box_u
 tmux set -g window-status-current-format "#[bg=${tmux_theme_box_current_bg},fg=${tmux_theme_box_current_fg}] #I #W #{?window_zoomed_flag,[zoomed] ,}" # window index + name (eg: 1 git)
 tmux set -g window-status-format "#[bg=${tmux_theme_box_bg},fg=${tmux_theme_box_fg}] #I #W " # window index + name (eg: 1 git)
 
+# set pane border format
+tmux set -g pane-border-format "#[bg=${tmux_theme_bg}] #[bg=${tmux_theme_box_current_bg},fg=${tmux_theme_box_current_fg}] ###P: #T: #[bg=${tmux_theme_bg}] " # " #[bg=${tmux_theme_box_current_bg},fg=${tmux_theme_box_current_fg}] #h #[bg=${tmux_theme_bg}] "
+
 # make pane border
 tmux set -g pane-border-style "fg=${tmux_theme_box_bg}"
 
