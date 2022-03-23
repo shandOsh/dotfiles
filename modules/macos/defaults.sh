@@ -45,7 +45,7 @@ function cmd_defaults() {
 
 operation="${OPERATION_READ}" # possible values = read, write, verify
 
-if [[ "${DOTFILES_OS}" != "macos" ]]; then
+if [[ "${DOTFILES_OS}" != "${DOTFILES_OS_MACOS}" ]]; then
     >&2 echo "This is not macOS."
     exit 1
 fi

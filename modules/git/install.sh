@@ -29,7 +29,7 @@ link_file "${DOTFILES_MODULES_ROOT}/git/.gitconfig.local" "${HOME}/.gitconfig.lo
 link_file "${DOTFILES_MODULES_ROOT}/git/.gitignore.global" "${HOME}/.gitignore.global"
 
 case "${DOTFILES_OS}" in
-    macos|linux|aix)
+    "${DOTFILES_OS_MACOS}"|"${DOTFILES_OS_LINUX}"|"${DOTFILES_OS_AIX}")
         # unix
         git config --global core.autocrlf input
         git config --global core.safecrlf true

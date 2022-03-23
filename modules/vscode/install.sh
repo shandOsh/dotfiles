@@ -3,12 +3,12 @@
 echo "› installing vscode module"
 
 case "${DOTFILES_OS}" in
-    macos)
+    "${DOTFILES_OS_MACOS}")
         VSCODE_HOME="${HOME}/Library/Application Support/Code"
         info "setting home of VS Code for macOS"
     ;;
 
-    linux)
+    "${DOTFILES_OS_LINUX}")
         VSCODE_HOME="${HOME}/.config/Code"
         info "setting home of VS Code for linux"
     ;;

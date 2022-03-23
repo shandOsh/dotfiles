@@ -27,7 +27,7 @@ else
 fi
 
 case "${DOTFILES_OS}" in
-    macos)
+    "${DOTFILES_OS_MACOS}")
         current_macos_version="$(macos_version)"
 
         case "${current_macos_version}" in

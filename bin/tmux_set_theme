@@ -34,7 +34,7 @@ tmux_theme_box_utils_fg="#ffffff"
 tmux_theme_name="light"
 
 case "${DOTFILES_OS}" in
-    "macos")
+    "${DOTFILES_OS_MACOS}")
         if defaults read -g AppleInterfaceStyle &> /dev/null; then
             tmux_theme_name="dark"
         fi

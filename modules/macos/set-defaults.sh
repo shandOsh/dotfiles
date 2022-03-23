@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-if [[ "${DOTFILES_OS}" != "macos" ]]; then
+if [[ "${DOTFILES_OS}" != "${DOTFILES_OS_MACOS}" ]]; then
     >&2 echo "This is not macOS."
     exit 1
 fi

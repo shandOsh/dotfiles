@@ -16,7 +16,7 @@
                                                 # $'sudo\t' is to prevent "sudo: nocorrect: command not found" error
 
     case "${DOTFILES_OS}" in
-        linux|aix)
+        "${DOTFILES_OS_LINUX}"|"${DOTFILES_OS_AIX}")
             alias ls='ls --color'               # preferred 'ls' implementation
         ;;
     esac

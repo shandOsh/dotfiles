@@ -14,7 +14,7 @@ link_file "${DOTFILES_MODULES_ROOT}/gpg/gpg.conf" "${HOME}/.gnupg/gpg.conf"
 
 gpgagent_restart_needed=0
 
-if [[ "${DOTFILES_OS}" == "macos" ]]; then
+if [[ "${DOTFILES_OS}" == "${DOTFILES_OS_MACOS}" ]]; then
     if is_installed "/opt/homebrew/bin/pinentry-mac"; then
         link_file "${DOTFILES_MODULES_ROOT}/gpg/gpg-agent.macos.conf" "${HOME}/.gnupg/gpg-agent.conf"
         gpgagent_restart_needed=1
@@ -33,7 +33,7 @@ fi
 # restart gpg-agent
 if [[ ${gpgagent_restart_needed} -eq 1 ]]; then
     case "${DOTFILES_OS}" in
-        macos|linux)
+        "${DOTFILES_OS_MACOS}"|"${DOTFILES_OS_LINUX}")
             killall gpg-agent
             report_status "restarting gpg-agent"
         ;;

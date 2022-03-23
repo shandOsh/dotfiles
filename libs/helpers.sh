@@ -130,10 +130,15 @@ function link_file() {
 function os_detection() {
     export DOTFILES_OS="undefined"
 
+    export readonly DOTFILES_OS_MACOS="macos"
+    export readonly DOTFILES_OS_LINUX="linux"
+    export readonly DOTFILES_OS_AIX="aix"
+    export readonly DOTFILES_OS_WINDOWS="windows"
+
     case "$(uname -s)" in
-        Darwin) DOTFILES_OS="macos" ;;
-         Linux) DOTFILES_OS="linux" ;;
-           AIX) DOTFILES_OS="aix" ;;
+        Darwin) DOTFILES_OS="${DOTFILES_OS_MACOS}" ;;
+         Linux) DOTFILES_OS="${DOTFILES_OS_LINUX}" ;;
+           AIX) DOTFILES_OS="${DOTFILES_OS_AIX}" ;;
     esac
 }
 

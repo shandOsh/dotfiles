@@ -7,15 +7,15 @@ echo
 echo "› setting path to zsh"
 
 case "${DOTFILES_OS}" in
-    macos)
+    "${DOTFILES_OS_MACOS}")
         DOTFILES_SHELL="/opt/homebrew/bin/zsh"
     ;;
 
-    linux)
+    "${DOTFILES_OS_LINUX}")
         DOTFILES_SHELL="/bin/zsh"
     ;;
 
-    aix)
+    "${DOTFILES_OS_AIX}")
         DOTFILES_SHELL="/usr/bin/zsh"
     ;;
 
@@ -32,12 +32,12 @@ fi
 echo "› setting ${DOTFILES_SHELL} as default shell"
 
 case "${DOTFILES_OS}" in
-    macos|linux)
+    "${DOTFILES_OS_MACOS}"|"${DOTFILES_OS_LINUX}")
         echo
         chsh -s "${DOTFILES_SHELL}" "${USER}" 1>/dev/null
     ;;
 
-    aix)
+    "${DOTFILES_OS_AIX}")
         echo
         chsh "${USER}" "${DOTFILES_SHELL}" 1>/dev/null
     ;;

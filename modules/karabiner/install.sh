@@ -2,7 +2,7 @@
 
 echo "› installing karabiner-elements module"
 
-if [[ "${DOTFILES_OS}" != "macos" ]]; then
+if [[ "${DOTFILES_OS}" != "${DOTFILES_OS_MACOS}" ]]; then
     skipped "this is not a macOS"
     return 0
 fi
