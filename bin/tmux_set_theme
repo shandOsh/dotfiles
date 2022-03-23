@@ -53,7 +53,7 @@ fi
 
 tmux_theme_source_file="${HOME}/.tmux/conf/themes/palette.${tmux_theme_name}.conf"
 
-if [[ -e "${tmux_theme_source_file}" ]]; then
+if [[ -r "${tmux_theme_source_file}" ]]; then
     source "${tmux_theme_source_file}"
 
     echo "Setting theme to ${tmux_theme_name}."
