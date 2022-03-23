@@ -25,7 +25,7 @@ if [[ "${previous_commit_id}" != "${current_commit_id}" ]]; then
     git config --global dotfiles.version "${current_commit_id}"
 fi
 
-link_file "${DOTFILES_MODULES_ROOT}/git/.gitconfig.local" "${HOME}/.gitconfig.local"
+link_file "${DOTFILES_MODULES_ROOT}/git/.gitconfig.global" "${HOME}/.gitconfig.global"
 link_file "${DOTFILES_MODULES_ROOT}/git/.gitignore.global" "${HOME}/.gitignore.global"
 
 case "${DOTFILES_OS}" in
@@ -41,8 +41,8 @@ case "${DOTFILES_OS}" in
         git config --global core.safecrlf true
 esac
 
-# include the gitconfig.local file
-git config --global include.path ~/.gitconfig.local
+# include the gitconfig.global file
+git config --global include.path ~/.gitconfig.global
 
 # finally make git know, this is a managed config (preventing later overrides by this script)
 git config --global dotfiles.managed true
