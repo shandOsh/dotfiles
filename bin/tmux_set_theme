@@ -84,13 +84,13 @@ tmux set -g window-status-current-format "#[bg=${tmux_theme_box_current_bg},fg=$
 tmux set -g window-status-format "#[bg=${tmux_theme_box_bg},fg=${tmux_theme_box_fg}] #I #W " # window index + name (eg: 1 git)
 
 # set pane border format
-tmux set -g pane-border-format "#[bg=${tmux_theme_bg}] #[bg=${tmux_theme_box_current_bg},fg=${tmux_theme_box_current_fg}] ###P: #T: #[bg=${tmux_theme_bg}] " # " #[bg=${tmux_theme_box_current_bg},fg=${tmux_theme_box_current_fg}] #h #[bg=${tmux_theme_bg}] "
+tmux set -g pane-border-format "#[fg=${tmux_theme_box_current_fg}]#P: #T"
 
 # make pane border
-tmux set -g pane-border-style "fg=${tmux_theme_box_bg}"
+tmux set -g pane-border-style "fg=${tmux_theme_box_bg} bg=${tmux_theme_box_bg}"
 
 # make active pane border
-tmux set -g pane-active-border-style "fg=${tmux_theme_box_current_bg} bold"
+tmux set -g pane-active-border-style "fg=${tmux_theme_box_current_bg} bg=${tmux_theme_box_current_bg}"
 
 # initialize TMUX plugin manager (keep this line at the very bottom of any tmux conf, that is ran on its own)
 tmux run -b '~/.tmux/plugins/tpm/tpm'
