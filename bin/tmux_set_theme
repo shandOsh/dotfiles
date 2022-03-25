@@ -68,6 +68,9 @@ echo -n "${tmux_theme_name}" > "${tmux_theme_cache_location}"
 # set selection and buffer scrollbar foreground and background
 tmux set -g mode-style "fg=${tmux_theme_box_utils_fg} bg=${tmux_theme_box_utils_bg}"
 
+# set message bar foreground and background
+tmux set -g message-style "fg=${tmux_theme_box_utils_fg} bg=${tmux_theme_box_utils_bg}"
+
 # set the status bar's foreground and background
 tmux set -g status-fg "${tmux_theme_fg}"
 tmux set -g status-bg "${tmux_theme_bg}"
