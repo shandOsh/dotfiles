@@ -70,7 +70,14 @@ echo "› loading libraries"
 echo "› detecting OS"
 os_detection
 
-if [[ "${downloaded_version}" != "${installed_version}" ]]; then
+# force mode
+force_mode=0
+
+if [[ ${#} -eq 1 ]] && [[ "${1}" =~ ^(-f|--force)$ ]]; then
+    force_mode=1
+fi
+
+if [[ "${force_mode}" -eq 1 ]] || [[ "${downloaded_version}" != "${installed_version}" ]]; then
     # run generic install script
     . "${DOTFILES_INSTALLATION_ROOT}/install.sh"
 else
