@@ -84,7 +84,7 @@ tmux set -g window-status-current-format "#[bg=${tmux_theme_box_current_bg},fg=$
 tmux set -g window-status-format "#[bg=${tmux_theme_box_bg},fg=${tmux_theme_box_fg}] #I #W " # window index + name (eg: 1 git)
 
 # set pane border format
-tmux set -g pane-border-format "#[fg=${tmux_theme_box_current_fg}]#P: #T"
+tmux set -g pane-border-format "#[fg=${tmux_theme_box_current_fg}]#P: #T" # pane number + pane title (eg: 1: dev)
 
 # make pane border
 tmux set -g pane-border-style "fg=${tmux_theme_box_bg} bg=${tmux_theme_box_bg}"
