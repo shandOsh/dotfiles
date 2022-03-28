@@ -28,6 +28,8 @@ There are a few special files in the hierarchy:
 
 - **module/history.zsh**: This file is loaded automatically and sets up shell history for that module.
 
+- **module/autorun.zsh**: This file is loaded automatically after everything else is loaded.
+
 - **module/install.sh**: This file will be run at `installation/bootstrap` and `bin/dot_update` phase, and is expected to link necessary files and do post-installation actions (such as restart an agent, etc).
 
 ### Creating new module
@@ -38,6 +40,7 @@ The installation script will be called automatically from the `installation/boot
 
 These files will be loaded automatically by ZSH itself:
 
+- `autoload.zsh`
 - `aliases.zsh`
 - `envvars.zsh`
 - `paths.zsh`

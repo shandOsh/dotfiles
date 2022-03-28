@@ -78,3 +78,12 @@
 
 #   ___ display dotfiles version ___
     dotfiles_version
+
+#   -----------------------------
+#   11.  MODULE AUTORUN FILES
+#   -----------------------------
+
+#   ___ run all autorun.zsh files ___
+    for autorun_file in $(find "${DOTFILES_MODULES_ROOT}" -name "autorun.zsh"); do
+        source "${autorun_file}"
+    done
