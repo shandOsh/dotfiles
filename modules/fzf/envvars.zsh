@@ -17,7 +17,7 @@
     # FZF_BIND_LIST+=( "ctrl-shift-f:preview-page-down" ) # doesn't work
 
     FZF_DEFAULT_OPTS=""
-    FZF_DEFAULT_OPTS+=" --preview='[[ \$(file --mime {}) =~ binary ]] && echo {} is a binary file || (bat --style=numbers --color=always --theme=${FZF_BAT_THEME} {} || cat {}) 2> /dev/null | head -300'"
+    FZF_DEFAULT_OPTS+=" --preview='[[ \$(file --mime {}) =~ binary ]] && echo {} is a binary file || (bat --style=numbers,changes --color=always --theme=${FZF_BAT_THEME} {} || cat {}) 2> /dev/null | head -300'"
     FZF_DEFAULT_OPTS+=" --preview-window='right'"
     FZF_DEFAULT_OPTS+=" --bind='$(IFS=,; printf '%s' "${FZF_BIND_LIST[*]}")'"
 
