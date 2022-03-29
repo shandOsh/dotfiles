@@ -7,7 +7,7 @@ if [[ ! -d "${HOME}/.gnupg" ]]; then
     report_status "creating directory ${HOME}/.gnupg"
 
     chmod 700 "${HOME}/.gnupg"
-    report_status "setting  permissions to directory ${HOME}/.gnupg"
+    report_status "setting permissions to directory ${HOME}/.gnupg"
 fi
 
 link_file "${DOTFILES_MODULES_ROOT}/gpg/gpg.conf" "${HOME}/.gnupg/gpg.conf"
