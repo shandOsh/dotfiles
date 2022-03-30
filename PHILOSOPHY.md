@@ -18,7 +18,7 @@ There are a few special files in the hierarchy:
 
 - **bin/**: Anything in `bin/` will get added to your `${PATH}` and be made available everywhere.
 
-- **module/aliases.zsh**: This file is loaded automaticall and contains aliases and functions for that module.
+- **module/aliases.zsh**: This file is loaded automatically and contains aliases and functions for that module.
 
 - **module/envvars.zsh**: This file is loaded automatically and contains environmental variables for that module.
 
