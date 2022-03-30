@@ -22,13 +22,13 @@ os_detection
 tmux_theme_cache_location="/tmp/tmux_theme_name.${USER}"
 
 if [[ "${CALLER}" == "conf" ]]; then
-    echo "Deleting cache file ${tmux_theme_cache_location}."
+    echo "› deleting cache file ${tmux_theme_cache_location}"
 
     rm -f "${tmux_theme_cache_location}"
 fi
 
 if ! tmux info &> /dev/null; then
-    echo "Tmux is not running, exiting."
+    echo "› tmux is not running, exiting"
 
     exit 0
 fi
@@ -48,7 +48,7 @@ if [[ -r "${tmux_theme_cache_location}" ]]; then
 fi
 
 if [[ "${tmux_theme_cached_name}" == "${tmux_theme_name}" ]]; then
-    echo "No change to theme (old=${tmux_theme_cached_name}, new=${tmux_theme_name}), exiting."
+    echo "› no change to theme (old=${tmux_theme_cached_name}, new=${tmux_theme_name}), exiting"
 
     exit 0
 fi
@@ -57,11 +57,11 @@ fi
 echo "› loading theme colors"
 
 if load_theme_colors; then
-    echo "Setting theme to ${tmux_theme_name}."
+    echo "› setting theme to ${tmux_theme_name}"
 else
     tmux_theme_name="broken"
 
-    >&2 echo "Loading theme color failed. Setting broken theme."
+    >&2 echo "› loading theme color failed, setting broken theme"
 fi
 
 echo -n "${tmux_theme_name}" > "${tmux_theme_cache_location}"
