@@ -4,8 +4,11 @@
 
 #   ___ failed to load shell detection ___
     FAILED_TO_LOAD_SHELL_MARKFILE_FILEPATH="${HOME}/.zsh_failed"
+    FAILED_TO_LOAD_SHELL_IGNOREFILE_FILEPATH="${HOME}/.zsh_failed_ignore"
 
-    if [[ -e "${FAILED_TO_LOAD_SHELL_MARKFILE_FILEPATH}" ]]; then
+    # to prevent false positive when restoring via tmux-resurrect,
+    # tmux hook creates ignore file before restoration and deletes it after restoration
+    if [[ ! -e "${FAILED_TO_LOAD_SHELL_IGNOREFILE_FILEPATH}" ]] && [[ -e "${FAILED_TO_LOAD_SHELL_MARKFILE_FILEPATH}" ]]; then
         >&2 echo
         >&2 echo "--------------------------------------------"
         >&2 echo "| An error detected last time zsh was run. |"
