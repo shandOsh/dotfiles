@@ -2,6 +2,28 @@
 #   0.  SHELL CONFIGURATION
 #   -----------------------------
 
+#   ___ failed to load shell detection ___
+    FAILED_TO_LOAD_SHELL_MARKFILE_FILEPATH="${HOME}/.zsh_failed"
+
+    if [[ -e "${FAILED_TO_LOAD_SHELL_MARKFILE_FILEPATH}" ]]; then
+        >&2 echo
+        >&2 echo "--------------------------------------------"
+        >&2 echo "| An error detected last time zsh was run. |"
+        >&2 echo "--------------------------------------------"
+        >&2 echo
+        >&2 echo "To prevent loosing access to shell, not loading anything."
+        >&2 echo "Investigate the error and fix it."
+        >&2 echo
+        >&2 echo "To load everything, remove mark file '${FAILED_TO_LOAD_SHELL_MARKFILE_FILEPATH}'."
+        >&2 echo
+
+        # stop this script
+        return
+    fi
+
+    touch "${FAILED_TO_LOAD_SHELL_MARKFILE_FILEPATH}"
+
+#   ___ configuration ___
     # setopt autocd                             # if a command is issued that can't be executed as a normal command, and the command is the name of a directory, perform the cd command to that directory
     setopt nomatch                              # if a pattern for filename generation has no matches, print an error, instead of leaving it unchanged in the argument list
     setopt notify                               # report the status of background jobs immediately, rather than waiting until just before printing a prompt
@@ -87,3 +109,10 @@
     for autorun_file in $(find "${DOTFILES_MODULES_ROOT}" -name "autorun.zsh"); do
         source "${autorun_file}"
     done
+
+#   -----------------------------
+#   99.  POST-LOAD ACTIONS
+#   -----------------------------
+
+#   ___ remove failed to load shell mark file ___
+    rm -rf "${FAILED_TO_LOAD_SHELL_MARKFILE_FILEPATH}" &> /dev/null
