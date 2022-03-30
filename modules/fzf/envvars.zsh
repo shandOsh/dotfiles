@@ -10,7 +10,7 @@
     FZF_BIND_LIST+=( "ctrl-d:half-page-down" )
     FZF_BIND_LIST+=( "ctrl-u:half-page-up" )
     FZF_BIND_LIST+=( "ctrl-a:select-all+accept" )
-    FZF_BIND_LIST+=( "ctrl-y:execute-silent(echo {+} | pbcopy)" )
+    FZF_BIND_LIST+=( "ctrl-y:execute-silent(echo {+} | pbcopy)+abort" )
     FZF_BIND_LIST+=( "ctrl-g:preview-up" )
     FZF_BIND_LIST+=( "ctrl-f:preview-down" )
     # FZF_BIND_LIST+=( "ctrl-shift-g:preview-page-up" ) # doesn't work
