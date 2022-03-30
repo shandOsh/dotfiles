@@ -66,6 +66,7 @@ These helper functions are available to you by default:
 - is_installed()
 - prompt_component_precmd_append()
 - prompt_component_postexec_append()
+- is_dark_mode_on()
 
 ### Compatibility
 

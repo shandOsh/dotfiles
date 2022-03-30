@@ -176,3 +176,14 @@ function crontab_apply() {
         echo "${crontab_command}"
     ) | crontab -
 }
+
+function is_dark_mode_on() {
+    case "${DOTFILES_OS}" in
+        "${DOTFILES_OS_MACOS}")
+            defaults read -g AppleInterfaceStyle &> /dev/null
+        ;;
+
+        *)
+            return 1
+    esac
+}
