@@ -7,9 +7,9 @@ CALLER="${1:-direct}"
 
 date +"%d.%m.%Y %H:%M:%S - ${CALLER}"
 
-export DOTFILES_ROOT="${HOME}/.dotfiles"
-export DOTFILES_LIBS_ROOT="${DOTFILES_ROOT}/libs"
-export DOTFILES_THEMES_ROOT="${DOTFILES_ROOT}/themes"
+DOTFILES_ROOT="${HOME}/.dotfiles"
+DOTFILES_LIBS_ROOT="${DOTFILES_ROOT}/libs"
+DOTFILES_THEMES_ROOT="${DOTFILES_ROOT}/themes"
 
 # load libraries
 echo "› loading libraries"
