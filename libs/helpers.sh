@@ -187,3 +187,41 @@ function is_dark_mode_on() {
             return 1
     esac
 }
+
+function load_theme_colors() {
+    # in case color palette is not found, set a horrible one to notice
+    local theme_fg="#ffffff"
+    local theme_bg="#ff0000"
+    local theme_primary_fg="#000000"
+    local theme_primary_bg="#00ff00"
+    local theme_secondary_fg="#ffffff"
+    local theme_secondary_bg="#000000"
+    local theme_tertiary_fg="#ffffff"
+    local theme_tertiary_bg="#0000ff"
+
+    local has_loading_failed=0
+
+    # TODO: use constants
+    local theme="light"
+
+    if is_dark_mode_on; then
+        theme="dark";
+    fi
+
+    local theme_filepath="${DOTFILES_THEMES_ROOT}/palette.${theme}.conf"
+
+    if [[ -r "${theme_filepath}" ]]; then
+        source "${theme_filepath}" || has_loading_failed=1
+    fi
+
+    export DOTFILES_THEME_FG="${theme_fg}"
+    export DOTFILES_THEME_BG="${theme_bg}"
+    export DOTFILES_THEME_PRIMARY_FG="${theme_primary_fg}"
+    export DOTFILES_THEME_PRIMARY_BG="${theme_primary_bg}"
+    export DOTFILES_THEME_SECONDARY_FG="${theme_secondary_fg}"
+    export DOTFILES_THEME_SECONDARY_BG="${theme_secondary_bg}"
+    export DOTFILES_THEME_TERTIARY_FG="${theme_tertiary_fg}"
+    export DOTFILES_THEME_TERTIARY_BG="${theme_tertiary_bg}"
+
+    return ${has_loading_failed}
+}

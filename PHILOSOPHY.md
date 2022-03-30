@@ -32,6 +32,8 @@ There are a few special files in the hierarchy:
 
 - **module/install.sh**: This file will be run at `installation/bootstrap` and `bin/dot_update` phase, and is expected to link necessary files and do post-installation actions (such as restart an agent, etc).
 
+- **themes/**: This folder contains theme palette files which are used by programs (such as `tmux`, `fzf`, etc).
+
 ### Creating new module
 
 To create new module, you have to create new directory in modules directory. Every module should contain an installation script called `install.sh`. All installation logic should be there. If nothing has to be done, it's a good practice to at least inform the user about the module.
@@ -67,6 +69,7 @@ These helper functions are available to you by default:
 - prompt_component_precmd_append()
 - prompt_component_postexec_append()
 - is_dark_mode_on()
+- load_theme_colors()
 
 ### Compatibility
 

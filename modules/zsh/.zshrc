@@ -49,6 +49,7 @@
     export DOTFILES_ROOT="${HOME}/.dotfiles"
     export DOTFILES_LIBS_ROOT="${DOTFILES_ROOT}/libs"
     export DOTFILES_MODULES_ROOT="${DOTFILES_ROOT}/modules"
+    export DOTFILES_THEMES_ROOT="${DOTFILES_ROOT}/themes"
     export DOTFILES_INSTALLATION_ROOT="${DOTFILES_ROOT}/installation"
 
     . "${DOTFILES_LIBS_ROOT}/fidian/ansi/ansi"
@@ -56,6 +57,7 @@
     . "${DOTFILES_LIBS_ROOT}/helpers.sh"
 
     os_detection
+    load_theme_colors
 
 #   -----------------------------
 #   8.  MODULE CONFIGS
