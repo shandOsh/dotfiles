@@ -3,7 +3,7 @@
 #   -------------------------------
 
     # TODO: somehow get rid of running subshell to find out if dark mode is active
-    FZF_BAT_THEME="\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo default || echo GitHub)"
+    FZF_BAT_THEME="\$(is_dark_mode_on && echo default || echo GitHub)"
 
     FZF_BIND_LIST=()
     FZF_BIND_LIST+=( "f2:toggle-preview" )
