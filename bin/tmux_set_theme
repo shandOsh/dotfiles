@@ -7,6 +7,17 @@ CALLER="${1:-direct}"
 
 date +"%d.%m.%Y %H:%M:%S - ${CALLER}"
 
+export DOTFILES_ROOT="${HOME}/.dotfiles"
+export DOTFILES_LIBS_ROOT="${DOTFILES_ROOT}/libs"
+
+# load libraries
+echo "› loading libraries"
+source "${DOTFILES_LIBS_ROOT}/helpers.sh"
+
+# detect OS
+echo "› detecting OS"
+os_detection
+
 tmux_theme_cache_location="/tmp/tmux_theme_name.${USER}"
 
 if [[ "${CALLER}" == "conf" ]]; then
@@ -35,7 +46,7 @@ tmux_theme_name="light"
 
 case "${DOTFILES_OS}" in
     "${DOTFILES_OS_MACOS}")
-        if defaults read -g AppleInterfaceStyle &> /dev/null; then
+        if is_dark_mode_on; then
             tmux_theme_name="dark"
         fi
     ;;
