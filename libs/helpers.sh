@@ -211,7 +211,7 @@ function load_theme_colors() {
     local theme_filepath="${DOTFILES_THEMES_ROOT}/palette.${theme}.conf"
 
     if [[ -r "${theme_filepath}" ]]; then
-        source "${theme_filepath}" || has_loading_failed=1
+        source "${theme_filepath}" &> /dev/null || has_loading_failed=1
     fi
 
     export DOTFILES_THEME_FG="${theme_fg}"
