@@ -9,7 +9,7 @@ date +"%d.%m.%Y %H:%M:%S - ${CALLER}"
 
 DOTFILES_ROOT="${HOME}/.dotfiles"
 DOTFILES_LIBS_ROOT="${DOTFILES_ROOT}/libs"
-DOTFILES_THEMES_ROOT="${DOTFILES_ROOT}/themes"
+DOTFILES_THEMES_ROOT="${DOTFILES_ROOT}/themes" # used in load_theme_colors()
 
 # load libraries
 echo "› loading libraries"
