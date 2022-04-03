@@ -145,7 +145,7 @@
     fi
 
     dotfiles_prompt_username_hostname+="$(ansi --no-newline --bold "@")"
-    dotfiles_prompt_username_hostname+="$(ansi --no-newline --bold "%M")"
+    dotfiles_prompt_username_hostname+="$(ansi --no-newline --bold "%m")"
     dotfiles_prompt_username_hostname+="${DOTFILES_PROMPT_COMPONENT_RIGHT}"
 
     prompt_component_precmd_append "${dotfiles_prompt_username_hostname}"
