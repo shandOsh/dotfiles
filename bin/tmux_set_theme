@@ -69,6 +69,65 @@ echo -n "${tmux_theme_name}" > "${tmux_theme_cache_location}"
 
 
 # ___ set tmux colors, style & formats ________________________________________
+function _box() {
+    local type="${1}"
+    local content="${2}"
+
+    case "${type}" in
+        "ut" ) # utils template
+            printf '%s #[bg=%s noblink]'     \
+                "${content}"                 \
+                "${DOTFILES_THEME_BG}"
+        ;;
+
+        "u" ) # utils
+            printf '#[bg=%s,fg=%s] %s #[bg=%s noblink]'     \
+                "${DOTFILES_THEME_TERTIARY_BG}"             \
+                "${DOTFILES_THEME_TERTIARY_FG}"             \
+                "${content}"                                \
+                "${DOTFILES_THEME_BG}"
+        ;;
+
+        "a" ) # active
+            printf '#[bg=%s,fg=%s] %s #[bg=%s]'     \
+                "${DOTFILES_THEME_PRIMARY_BG}"      \
+                "${DOTFILES_THEME_PRIMARY_FG}"      \
+                "${content}"                        \
+                "${DOTFILES_THEME_BG}"
+        ;;
+
+        "w" ) # window
+            printf '#[bg=%s,fg=%s] %s #[bg=%s]'     \
+                "${DOTFILES_THEME_SECONDARY_BG}"    \
+                "${DOTFILES_THEME_SECONDARY_FG}"    \
+                "${content}"                        \
+                "${DOTFILES_THEME_BG}"
+        ;;
+
+        * )
+            printf '#[bg=%s,fg=%s] Unknown type [%s] #[bg=%s].'     \
+                "#ff0000"                                           \
+                "#ffffff"                                           \
+                "${type}"                                           \
+                "${DOTFILES_THEME_BG}"
+    esac
+}
+
+function _ubox() {
+    _box 'u' "${1}"
+}
+
+function _utbox() {
+    _box 'ut' "${1}"
+}
+
+function _abox() {
+    _box 'a' "${1}"
+}
+
+function _wbox() {
+    _box 'w' "${1}"
+}
 
 # set selection and buffer scrollbar foreground and background
 tmux set -g mode-style "fg=${DOTFILES_THEME_TERTIARY_FG} bg=${DOTFILES_THEME_TERTIARY_BG}"
@@ -81,12 +140,20 @@ tmux set -g status-fg "${DOTFILES_THEME_FG}"
 tmux set -g status-bg "${DOTFILES_THEME_BG}"
 
 # set the left and right status
-tmux set -g status-left "#[bg=${DOTFILES_THEME_TERTIARY_BG},fg=${DOTFILES_THEME_TERTIARY_FG}] #S #[bg=${DOTFILES_THEME_BG}] " # session name (eg: 0)
-tmux set -g status-right " #[bg=${DOTFILES_THEME_TERTIARY_BG},fg=${DOTFILES_THEME_TERTIARY_FG}] continuum: #{continuum_status} #[bg=${DOTFILES_THEME_BG}] #[bg=${DOTFILES_THEME_TERTIARY_BG},fg=${DOTFILES_THEME_TERTIARY_FG}] %d.%m.%Y %R #[bg=${DOTFILES_THEME_BG}] #[bg=${DOTFILES_THEME_TERTIARY_BG},fg=${DOTFILES_THEME_TERTIARY_FG}] #H " # continuum period + datetime + hostname
+tmux set -g status-left "$(_ubox '#S') " # session name (eg: 0)
+
+_tmux_status_right=""
+_tmux_status_right+=" $(_utbox '#{sysstat_cpu}')" # eg: CPU: 5%
+_tmux_status_right+=" $(_utbox '#{sysstat_mem}')" # eg: MEM: 50%
+_tmux_status_right+=" $(_utbox '#{sysstat_swap}')" # eg: SWAP: 0%
+_tmux_status_right+=" $(_ubox 'LOAD: #{sysstat_loadavg}')" # eg: LOAD: 0.3 0.2 0.15
+_tmux_status_right+=" $(_ubox '%d.%m.%Y %R')" # datetime
+
+tmux set -g status-right "${_tmux_status_right}"
 
 # set window status format
-tmux set -g window-status-current-format "#[bg=${DOTFILES_THEME_PRIMARY_BG},fg=${DOTFILES_THEME_PRIMARY_FG}] #I #W #{?window_zoomed_flag,[zoomed] ,}" # window index + name (eg: 1 git)
-tmux set -g window-status-format "#[bg=${DOTFILES_THEME_SECONDARY_BG},fg=${DOTFILES_THEME_SECONDARY_FG}] #I #W " # window index + name (eg: 1 git)
+tmux set -g window-status-current-format "$(_abox '#I #W #{?window_zoomed_flag,[zoomed] ,}')" # window index + name (eg: 1 git)
+tmux set -g window-status-format "$(_wbox '#I #W')" # window index + name (eg: 1 git)
 
 # set pane border format
 tmux set -g pane-border-format "#[fg=${DOTFILES_THEME_PRIMARY_FG}]#P: #T (#H)" # pane number + pane title (eg: 1: dev (host.local))
