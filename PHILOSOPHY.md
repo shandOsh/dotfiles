@@ -42,7 +42,7 @@ The installation script will be called automatically from the `installation/boot
 
 These files will be loaded automatically by ZSH itself:
 
-- `autoload.zsh`
+- `autorun.zsh`
 - `aliases.zsh`
 - `envvars.zsh`
 - `paths.zsh`
