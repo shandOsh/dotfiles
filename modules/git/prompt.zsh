@@ -2,8 +2,12 @@
 #   7.  PROMPT
 #   -------------------------------
 
+    function _in_prompt_git() {
+        GIT_OPTIONAL_LOCKS=0 command git "$@"
+    }
+
     function dotfiles_prompt_git() {
-        if [[ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" != "true" ]]; then
+        if [[ "$(_in_prompt_git rev-parse --is-inside-work-tree 2> /dev/null)" != "true" ]]; then
             return
         fi
 
@@ -27,7 +31,7 @@
         echo -n " on "
 
         # ___ current branch ___
-        local current_branch="$(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+        local current_branch="$(_in_prompt_git rev-parse --abbrev-ref HEAD 2> /dev/null)"
 
         if [[ "${current_branch}" == "" ]]; then
             ansi --no-newline --bold --color=${FMT_RED} "!!! unknown branch !!!"
