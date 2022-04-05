@@ -2,6 +2,12 @@
 #   4.  ALIASES
 #   -----------------------------
 
+    function gitdiff() {
+        /opt/homebrew/opt/git/libexec/git-core/git-diff --no-index "${@}"
+    }
+
+    compdef _git gitdiff=git-diff
+
 #   -----------------------------
 #   5.  FUNCTIONS
 #   -----------------------------
