@@ -81,14 +81,14 @@
 #   ___ load history from all history.zsh files ___
     source "${DOTFILES_MODULES_ROOT}/zsh/history.zsh"
 
-    for history_file in $(find "${DOTFILES_MODULES_ROOT}" -name "history.zsh" | egrep -v 'zsh\/history\.zsh$'); do
+    for history_file in $(find "${DOTFILES_MODULES_ROOT}" -name "history.zsh" | grep -v -E 'zsh\/history\.zsh$'); do
         source "${history_file}"
     done
 
 #   ___ load prompts from all prompt.zsh files ___
     source "${DOTFILES_MODULES_ROOT}/zsh/prompt.zsh"
 
-    for prompt_file in $(find "${DOTFILES_MODULES_ROOT}" -name "prompt.zsh" | egrep -v 'zsh\/prompt\.zsh$'); do
+    for prompt_file in $(find "${DOTFILES_MODULES_ROOT}" -name "prompt.zsh" | grep -v -E 'zsh\/prompt\.zsh$'); do
         source "${prompt_file}"
     done
 

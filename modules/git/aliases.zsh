@@ -147,7 +147,7 @@
         previous_version_commit_id="$(git config --global --get dotfiles.oldversion)"
 
         if [[ "${previous_version_commit_id}" != "" ]]; then
-            previous_version_tag="$(cd "${DOTFILES_ROOT}" >& /dev/null; git tag --points-at "${previous_version_commit_id}" -- | egrep '^v[0-9]+(\.[0-9]+)+')"
+            previous_version_tag="$(cd "${DOTFILES_ROOT}" >& /dev/null; git tag --points-at "${previous_version_commit_id}" -- | grep -E '^v[0-9]+(\.[0-9]+)+')"
             previous_version_datetime="$(cd "${DOTFILES_ROOT}" >& /dev/null; git show --no-patch --no-notes --pretty='%ad' --date="format:%d.%m.%Y %R" "${previous_version_commit_id}" --)"
 
             ansi --no-newline --bold --color=${FMT_ORANGE} "Previous version:"
@@ -155,7 +155,7 @@
         fi
 
         current_version_commit_id="$(git config --global --get dotfiles.version)"
-        current_version_tag="$(cd "${DOTFILES_ROOT}" >& /dev/null; git tag --points-at "${current_version_commit_id}" -- | egrep '^v[0-9]+(\.[0-9]+)+')"
+        current_version_tag="$(cd "${DOTFILES_ROOT}" >& /dev/null; git tag --points-at "${current_version_commit_id}" -- | grep -E '^v[0-9]+(\.[0-9]+)+')"
         current_version_datetime="$(cd "${DOTFILES_ROOT}" >& /dev/null; git show --no-patch --no-notes --pretty='%ad' --date="format:%d.%m.%Y %R" "${current_version_commit_id}" --)"
 
         echo -n " "
