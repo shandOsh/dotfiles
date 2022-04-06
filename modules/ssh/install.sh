@@ -5,11 +5,12 @@ echo "› installing ssh module"
 # if our version of openSSH is lower than 7.3, abort the installation,
 # because the directive Include is not implemented
 ssh_version="$(ssh -V 2>&1 | grep -E --only-matching '^OpenSSH_[0-9]+(\.[0-9]+){1,3}' | sed 's/OpenSSH_//g')"
+ssh_required_version="7.3"
 
-if require_version "${ssh_version}" ">=" "7.3"; then
+if require_version "${ssh_version}" ">=" "${ssh_required_version}"; then
     info "your openSSH version ${ssh_version} is supported"
 else
-    fail "your openSSH version ${ssh_version} is not supported, version 7.3 or newer is required"
+    fail "your openSSH version ${ssh_version} is not supported, version ${ssh_required_version} or newer is required"
     return 1
 fi
 
