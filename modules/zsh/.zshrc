@@ -4,7 +4,7 @@
 
 #   ___ failed to load shell detection ___
     FAILED_TO_LOAD_SHELL_MARKFILE_FILEPATH="${HOME}/.zsh_failed"
-    FAILED_TO_LOAD_SHELL_IGNOREFILE_FILEPATH="${HOME}/.zsh_failed_ignore"
+    export FAILED_TO_LOAD_SHELL_IGNOREFILE_FILEPATH="${HOME}/.zsh_failed_ignore"
 
     # to prevent false positive when restoring via tmux-resurrect,
     # tmux hook creates ignore file before restoration and deletes it after restoration
