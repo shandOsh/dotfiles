@@ -30,15 +30,12 @@ case "${DOTFILES_OS}" in
     "${DOTFILES_OS_MACOS}")
         current_macos_version="$(macos_version)"
 
-        case "${current_macos_version}" in
-            12.* )
-                success "macOS ${current_macos_version} is supported"
-            ;;
-
-            * )
-                prerequisites_error=1
-                fail "macOS 12 or higher is required (current version is macOS ${current_macos_version})"
-        esac
+        if require_version "${current_macos_version}" ">=" "12"; then
+            success "macOS ${current_macos_version} is supported"
+        else
+            prerequisites_error=1
+            fail "macOS 12 or higher is required (current version is macOS ${current_macos_version})"
+        fi
     ;;
 esac
 
