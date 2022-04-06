@@ -17,7 +17,7 @@
         >&2 echo "To prevent loosing access to shell, not loading anything."
         >&2 echo "Investigate the error and fix it."
         >&2 echo
-        >&2 echo "To load everything, remove mark file '${FAILED_TO_LOAD_SHELL_MARKFILE_FILEPATH}'."
+        >&2 echo "To load everything, remove mark file '${FAILED_TO_LOAD_SHELL_MARKFILE_FILEPATH}' and run zsh."
         >&2 echo
 
         # stop this script
