@@ -36,6 +36,7 @@ case "${DOTFILES_OS}" in
             ;;
 
             * )
+                prerequisites_error=1
                 fail "macOS 12 or higher is required (current version is macOS ${current_macos_version})"
         esac
     ;;
