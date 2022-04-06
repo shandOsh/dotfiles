@@ -70,6 +70,7 @@ These helper functions are available to you by default:
 - prompt_component_postexec_append()
 - is_dark_mode_on()
 - load_theme_colors()
+- require_version()
 
 ### Compatibility
 

@@ -155,6 +155,146 @@ function is_installed() {
     return 1
 }
 
+function require_version() {
+    local version_parts_count=4
+
+    function _require_version::error() {
+        local message="${1}"
+
+        >&2 printf 'ERROR: %s.' "${message}"
+    }
+
+    function _require_version::check_format() {
+        local version="${1}"
+
+        if ! [[ "${version}" =~ ^[0-9]+(.[0-9]+){0,3}$ ]]; then
+            return 1
+        fi
+    }
+
+    function _require_version::process_version() {
+        local version_string="${1}"
+
+        local version_array=( $(printf '%s' "${version_string}" | tr "." " ") )
+
+        if [[ "${#version_array[@]}" -ne "${version_parts_count}" ]]; then
+            while [[ ${#version_array[@]} -ne "${version_parts_count}" ]]; do
+                version_array+=( "0" )
+            done
+        fi
+
+        printf '%s' "$(IFS="."; printf '%s' "${version_array[*]}")"
+    }
+
+    function _require_version::get_version_part() {
+        local version_string="${1}"
+        local part_nr="${2}"
+
+        printf '%s' "${1}" | tr '.' "\n" | sed -n "${part_nr}p"
+    }
+
+    function _require_version::require_equal() {
+        local version_part_index=1
+
+        local current_version_part
+        local required_version_part
+
+        while [[ "${version_part_index}" -le "${version_parts_count}" ]]; do
+            current_version_part="$(_require_version::get_version_part "${current_version}" "${version_part_index}")"
+            required_version_part="$(_require_version::get_version_part "${required_version}" "${version_part_index}")"
+
+            # not equal version = no need to check any further -> fail
+            if [[ "${current_version_part}" -ne "${required_version_part}" ]]; then
+                return 1
+            fi
+
+            version_part_index=$(( version_part_index + 1 ))
+        done
+
+        return 0
+    }
+
+    function _require_version::require_higher() {
+        local version_part_index=1
+
+        local current_version_part
+        local required_version_part
+
+        while [[ "${version_part_index}" -le "${version_parts_count}" ]]; do
+            current_version_part="$(_require_version::get_version_part "${current_version}" "${version_part_index}")"
+            required_version_part="$(_require_version::get_version_part "${required_version}" "${version_part_index}")"
+
+            # greater version = no need to check any further -> success
+            if [[ "${current_version_part}" -gt "${required_version_part}" ]]; then
+                return 0
+            # lower version = no need to check any further -> fail
+            elif [[ "${current_version_part}" -lt "${required_version_part}" ]]; then
+                return 1
+            fi
+
+            version_part_index=$(( version_part_index + 1 ))
+        done
+
+        return 2
+    }
+
+    function _require_version::require_higher_or_equal() {
+        _require_version::require_higher
+        local rc="${?}"
+
+        if [[ "${rc}" -eq 1 ]]; then
+            return 1
+        fi
+
+        return 0
+    }
+
+    function _require_version::require_lower() {
+        _require_version::require_higher_or_equal && return 1
+    }
+
+    function _require_version::require_lower_or_equal() {
+        _require_version::require_higher && return 1
+    }
+
+    function _require_version::require_not_equal() {
+        _require_version::require_equal && return 1
+    }
+
+    if [[ "${#}" -ne 3 ]]; then
+        _require_version::error "Incorrect number of arguments, required [3], given [${#}]."
+        return 1
+    fi
+
+    local current_version="${1}"
+    local comparison="${2}"
+    local required_version="${3}"
+
+    if ! _require_version::check_format "${current_version}"; then
+        _require_version::error "Unsupported current version format [${current_version}]."
+    fi
+
+    if ! _require_version::check_format "${required_version}"; then
+        _require_version::error "Unsupported required version format [${required_version}]."
+    fi
+
+    current_version="$(_require_version::process_version "${current_version}")"
+    required_version="$(_require_version::process_version "${required_version}")"
+
+    case "${comparison}" in
+        "="  ) _require_version::require_equal ;;
+        ">"  ) _require_version::require_higher ;;
+        ">=" ) _require_version::require_higher_or_equal ;;
+        "!=" ) _require_version::require_not_equal ;;
+        "<"  ) _require_version::require_lower ;;
+        "<=" ) _require_version::require_lower_or_equal ;;
+
+        * )
+            _require_version::error "Unknown comparison [${comparison}]."
+            return 1
+    esac
+}
+
 function prompt_component_precmd_append() {
     local component="${1}"
 
