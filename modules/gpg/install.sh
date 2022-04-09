@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-echo "› installing gpg module"
+report_install "gpg"
 
 if [[ ! -d "${HOME}/.gnupg" ]]; then
     mkdir "${HOME}/.gnupg"

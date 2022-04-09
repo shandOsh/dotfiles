@@ -41,6 +41,13 @@ function report_status() {
     fi
 }
 
+function report_install() {
+    local sw_name="${1}"
+
+    ansi --no-newline "› "
+    ansi --magenta "installing ${sw_name} module"
+}
+
 function string_replace() {
     local search=""
     local replace=""

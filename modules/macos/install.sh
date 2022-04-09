@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-echo "› installing macos module"
+report_install "macos"
 
 if [[ "${DOTFILES_OS}" != "${DOTFILES_OS_MACOS}" ]]; then
     skipped "this is not a macOS"

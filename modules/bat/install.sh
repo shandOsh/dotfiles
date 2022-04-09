@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
 
-echo "› installing bat module"
+report_install "bat"
 
 success "installation complete"

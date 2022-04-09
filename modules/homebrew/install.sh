@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
 
-echo "› installing homebrew module"
+report_install "homebrew"
 
 success "installation complete"

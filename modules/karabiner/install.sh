@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-echo "› installing karabiner-elements module"
+report_install "karabiner-elements"
 
 if [[ "${DOTFILES_OS}" != "${DOTFILES_OS_MACOS}" ]]; then
     skipped "this is not a macOS"

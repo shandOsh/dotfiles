@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-echo "› installing git module"
+report_install "git"
 
 # if config is not managed by dotfiles, install the files
 if [ "$(git config --global --get dotfiles.managed)" != "true" ]; then

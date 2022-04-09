@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
 
-echo "› installing peru module"
+report_install "peru"
 
 success "installation complete"

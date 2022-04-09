@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-echo "› installing ssh module"
+report_install "ssh"
 
 # if our version of openSSH is lower than 7.3, abort the installation,
 # because the directive Include is not implemented

@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-echo "› installing zsh module"
+report_install "zsh"
 
 link_file "${DOTFILES_MODULES_ROOT}/zsh/.zshrc" "${HOME}/.zshrc"
 

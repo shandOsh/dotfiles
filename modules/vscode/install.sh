@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-echo "› installing vscode module"
+report_install "vscode"
 
 case "${DOTFILES_OS}" in
     "${DOTFILES_OS_MACOS}")
