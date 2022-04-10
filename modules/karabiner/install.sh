@@ -12,6 +12,6 @@ if [[ ! -d "${HOME}/.config/karabiner" ]]; then
     report_status "creating directory ${HOME}/.config/karabiner"
 fi
 
-link_file "${DOTFILES_MODULES_ROOT}/karabiner/assets/complex_modifications/win-cz.hp-elitebook-840-g3.json" "${HOME}/.config/karabiner/assets/complex_modifications/win-cz.hp-elitebook-840-g3.json"
+link_file "${DOTFILES_MODULES_ROOT}/karabiner/assets" "${HOME}/.config/karabiner/assets"
 
 success "installation complete"
