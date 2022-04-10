@@ -1,0 +1,121 @@
+{
+  "title": "Pravidla pro Minecraft.",
+  "rules": [
+    {
+      "description": "Fn   ->   Option",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "fn",
+            "modifiers": {
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_option"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "file_paths": [
+                "/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home/bin/java"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Control   ->   Option",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_control",
+            "modifiers": {
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_option"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "file_paths": [
+                "/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home/bin/java"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Option   ->   Control",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_option",
+            "modifiers": {
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_control"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "file_paths": [
+                "/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home/bin/java"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Mission Control   ->   F3",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "f3",
+            "modifiers": {
+              "optional": [
+                "caps_lock"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f3"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "file_paths": [
+                "/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home/bin/java"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
