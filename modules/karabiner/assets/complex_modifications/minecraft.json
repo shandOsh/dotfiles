@@ -10,7 +10,8 @@
             "key_code": "fn",
             "modifiers": {
               "optional": [
-                "caps_lock"
+                "caps_lock",
+                "shift"
               ]
             }
           },
@@ -39,7 +40,8 @@
             "key_code": "left_control",
             "modifiers": {
               "optional": [
-                "caps_lock"
+                "caps_lock",
+                "shift"
               ]
             }
           },
@@ -68,7 +70,8 @@
             "key_code": "left_option",
             "modifiers": {
               "optional": [
-                "caps_lock"
+                "caps_lock",
+                "shift"
               ]
             }
           },
@@ -97,7 +100,8 @@
             "key_code": "f3",
             "modifiers": {
               "optional": [
-                "caps_lock"
+                "caps_lock",
+                "shift"
               ]
             }
           },
