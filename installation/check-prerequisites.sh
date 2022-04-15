@@ -18,14 +18,6 @@ else
     success "zsh is installed"
 fi
 
-if ! is_installed "ansi"; then
-    prerequisites_error=1
-
-    fail "ansi is not installed"
-else
-    success "ansi is installed"
-fi
-
 case "${DOTFILES_OS}" in
     "${DOTFILES_OS_MACOS}")
         current_macos_version="$(macos_version)"
