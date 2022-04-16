@@ -114,14 +114,14 @@
     function __prompt_preexec() {
         prompt_last_command_executed=1
         prompt_prexec_realtime="${EPOCHREALTIME}"
-        prompt_command_start_time="$(date +'%H:%M:%S')"
+        prompt_command_start_time="$(date +'%H:%M:%S - %d.%m.%Y')"
     }
 
     function __prompt_precmd() {
         __last_command_elapsed_time
         __last_command_rc
 
-        prompt_command_finish_time="$(date +'%H:%M:%S')"
+        prompt_command_finish_time="$(date +'%H:%M:%S - %d.%m.%Y')"
     }
 
 #   ___ setting preexec & precmd hooks ___
