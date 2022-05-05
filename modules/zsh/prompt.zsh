@@ -24,6 +24,9 @@
         # precmd components
         PS1+=$'\n' # empty line
         PS1+=$'\n' # empty line
+        PS1+=$'\n' # empty line
+        PS1+=$'\n' # empty line
+        PS1+=$'\n' # empty line
         PS1+="┌──"
 
         for component in ${DOTFILES_PROMPT_PRECMD_COMPONENTS[@]}; do
