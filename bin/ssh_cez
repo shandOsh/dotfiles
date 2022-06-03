@@ -14,7 +14,7 @@ function __test_parse_cez_hostname() {
     )
 
     for input in ${inputs[@]}; do
-        parsed="$(parse_cez_hostname "${input}")"
+        parsed="$(__parse_cez_hostname "${input}")"
 
         prefix="$(echo "${parsed}" | cut -d: -f1)"
         sid="$(echo "${parsed}" | cut -d: -f2)"
@@ -70,7 +70,7 @@ function ssh_cez() {
                 cez_hostname="${2}"
                 cez_commands="${3}"
 
-                local parsed="$(parse_cez_hostname "${2}")"
+                local parsed="$(__parse_cez_hostname "${2}")"
 
                 local sid="$(echo "${parsed}" | cut -d: -f2)" || {  # TODO: doesn't catch error
                     >&2 echo
