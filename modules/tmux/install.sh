@@ -24,8 +24,12 @@ crontab_apply \
 
 report_status "applying crontab job"
 
-"${HOME}/.tmux/plugins/tpm/bin/install_plugins"
-report_status "installing plugins"
+if [[ -x "${HOME}/.tmux/plugins/tpm/bin/install_plugins" ]]; then
+    "${HOME}/.tmux/plugins/tpm/bin/install_plugins"
+    report_status "installing plugins"
+else
+    skipped "installing plugin (tpm is not installed)"
+fi
 
 # reload config
 tmux source-file ~/.tmux.conf
