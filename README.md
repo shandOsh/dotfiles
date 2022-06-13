@@ -8,7 +8,7 @@
 
 ### Requirements
 
-This version requires macOS 12.
+If installing on macOS, this version requires macOS 12.
 
 ### Dependencies
 
