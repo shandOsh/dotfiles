@@ -3,7 +3,7 @@
 #   -----------------------------
 
     function gitdiff() {
-        /opt/homebrew/opt/git/libexec/git-core/git-diff --no-index "${@}"
+        "$(git --exec-path)/git-diff" --no-index "${@}"
     }
 
     compdef _git gitdiff=git-diff
