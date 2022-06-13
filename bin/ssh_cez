@@ -51,7 +51,14 @@ function __parse_cez_hostname() {
 }
 
 function ssh_cez() {
-    local cez_username="qsmalekjir"
+    if [[ -z "${CEZ_USERNAME+_}" ]]; then
+        >&2 echo
+        >&2 ansi --bold --red "ERROR: Variable [CEZ_USERNAME] is not set."
+        >&2 echo
+        exit 1
+    fi
+
+    local cez_username="${CEZ_USERNAME}"
     local cez_hostname
     local cez_commands
 
