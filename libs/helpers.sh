@@ -336,6 +336,11 @@ function prompt_postexec_component_append() {
 }
 
 function crontab_apply() {
+    if ! is_installed "crontab"; then
+        fail "crontab is not installed, aborting"
+        return 1
+    fi
+
     local crontab_command="${1}"
     local grep_match="${2}"
 
