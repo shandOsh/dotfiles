@@ -2,7 +2,16 @@
 
 echo
 echo "Setting ZSH as default shell"
-echo
+
+# check prerequisites
+echo "› checking prerequisites"
+
+if ! is_installed "chsh"; then
+    fail "zsh is not installed, aborting"
+    exit 1
+else
+    success "zsh is installed"
+fi
 
 echo "› setting path to zsh"
 
