@@ -162,6 +162,27 @@ function is_installed() {
     return 1
 }
 
+function check_sw_prerequisites() {
+    echo "› checking sw prerequisites"
+
+    prerequisites_error=0
+
+    for sw in "${@}"; do
+        if ! is_installed "${sw}"; then
+            prerequisites_error=1
+
+            fail "${sw} is not installed"
+        else
+            success "${sw} is installed"
+        fi
+    done
+
+    if [[ ${prerequisites_error} -ne 0 ]]; then
+        fail "prerequisites are not met, aborting"
+        return 1
+    fi
+}
+
 function require_version() {
     local version_parts_count=4
 

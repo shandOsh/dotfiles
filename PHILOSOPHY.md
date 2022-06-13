@@ -66,6 +66,7 @@ These helper functions are available to you by default:
 - os_detection()
 - macos_version()
 - is_installed()
+- check_sw_prerequisites()
 - prompt_component_precmd_append()
 - prompt_component_postexec_append()
 - is_dark_mode_on()
