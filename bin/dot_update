@@ -29,9 +29,12 @@ if [[ -r ~/.localrc ]]; then
     . ~/.localrc
 fi
 
+# load libraries
+echo "› loading helper functions"
+. "${DOTFILES_LIBS_ROOT}/helpers.sh"
+
 # check prerequisites
 echo "› checking prerequisites"
-. "${DOTFILES_LIBS_ROOT}/helpers.sh"
 . "${DOTFILES_INSTALLATION_ROOT}/check-prerequisites.sh"
 
 # ssh would not work under cron, add a https one
