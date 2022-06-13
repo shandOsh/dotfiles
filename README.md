@@ -42,9 +42,9 @@ Personal and device specific configuration should be located in `~/.localrc`.
 #   -----------------------------
 #   git
 #   -----------------------------
-    GIT_IDENTITY_LIST+=("<git-author-name>:<git-email>:<gpg-signature-key>")
+    GIT_IDENTITY_LIST+=("<git-author-name>:<git-author-email>:<gpg-signature-key>")
     # or
-    GIT_IDENTITY_LIST+=("<git-author-name>:<git-email>")
+    GIT_IDENTITY_LIST+=("<git-author-name>:<git-author-email>")
 ```
 
 ```bash
