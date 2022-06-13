@@ -43,7 +43,7 @@ echo "› checking prerequisites"
 
 # ssh would not work under cron, add a https one
 echo "› setting up update channel"
-git remote add updates "https://github.com/Hologos/dotfiles.git" 2>/dev/null
+git remote add updates "https://github.com/shandOsh/dotfiles.git" 2>/dev/null
 
 # get current commit-id
 echo "› getting installed version"

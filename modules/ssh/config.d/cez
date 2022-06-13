@@ -4,7 +4,7 @@ CanonicalizeMaxDots 0
 CanonicalizeFallbackLocal yes
 
 Host *.cezdata.corp
-    User qsmalekjir
+    User qsmilakrom
     ForwardAgent yes
     ForwardX11Trusted yes
     ForwardX11 yes

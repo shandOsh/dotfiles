@@ -22,7 +22,7 @@ First, make sure you have all those things installed:
 Then, run these steps:
 
 ```bash
-git clone https://github.com/Hologos/dotfiles.git ~/.dotfiles
+git clone https://github.com/shandOsh/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ./installation/bootstrap
 zsh # or just close and open your terminal again.
