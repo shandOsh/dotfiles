@@ -26,3 +26,7 @@
     FZF_DEFAULT_OPTS+=" --bind='$(IFS=,; printf '%s' "${FZF_BIND_LIST[*]}")'"
 
     export FZF_DEFAULT_OPTS
+
+    FZF_CTRL_R_OPTS=""
+
+    export FZF_CTRL_R_OPTS
