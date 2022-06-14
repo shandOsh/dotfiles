@@ -3,7 +3,7 @@
 #   -----------------------------
 
     # since it uses envvars, it doesn't change when the theme is changed, using alias instead
-    alias fzf='fzf --color="$(__fzf_get_format)"'
+    fzf () { command fzf "${@}" --color="$(__fzf_get_format)"; }
 
 #   -----------------------------
 #   5.  FUNCTIONS
