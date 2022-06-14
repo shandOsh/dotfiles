@@ -33,6 +33,10 @@ fi
 echo "› loading helper functions"
 . "${DOTFILES_LIBS_ROOT}/helpers.sh"
 
+# detect OS
+echo "› detecting OS"
+os_detection
+
 # check prerequisites
 echo "› checking prerequisites"
 . "${DOTFILES_INSTALLATION_ROOT}/check-prerequisites.sh"
