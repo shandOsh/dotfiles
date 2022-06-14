@@ -20,7 +20,9 @@
 
     FZF_DEFAULT_OPTS=""
     FZF_DEFAULT_OPTS+=" --preview='[[ \$(file --mime {}) =~ binary ]] && (ansi --red \"${FZF_PREVIEW_ERROR_MSG}\" || echo \"${FZF_PREVIEW_ERROR_MSG}\") || (bat --style=numbers,changes --color=always --theme=${FZF_BAT_THEME} {} || cat {}) 2> /dev/null | head -300'"
-    FZF_DEFAULT_OPTS+=" --preview-window='right'"
+    FZF_DEFAULT_OPTS+=" --height=40%"
+    FZF_DEFAULT_OPTS+=" --reverse"
+    FZF_DEFAULT_OPTS+=" --preview-window='right,hidden'"
     FZF_DEFAULT_OPTS+=" --bind='$(IFS=,; printf '%s' "${FZF_BIND_LIST[*]}")'"
 
     export FZF_DEFAULT_OPTS
