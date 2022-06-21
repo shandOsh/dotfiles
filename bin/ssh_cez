@@ -13,7 +13,7 @@ function __test_parse_cez_hostname() {
         "n-ttpdb-rs1"       # 11: <prefix:2><sid:3><role:2><suffix:4>
     )
 
-    for input in ${inputs[@]}; do
+    for input in "${inputs[@]}"; do
         parsed="$(__parse_cez_hostname "${input}")"
 
         prefix="$(echo "${parsed}" | cut -d: -f1)"
@@ -126,7 +126,8 @@ function ssh_cez() {
     echo "ssh \"${cez_username}@${cez_hostname}\" ${cez_commands}"
     echo
 
-    ssh "${cez_username}@${cez_hostname}" ${cez_commands}
+    # shellcheck disable=SC2029
+    ssh "${cez_username}@${cez_hostname}" "${cez_commands}"
 }
 
-ssh_cez $@
+ssh_cez "${@}"
