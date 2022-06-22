@@ -148,7 +148,8 @@ function ssh_cez() {
     echo "${cez_commands}"
     echo
     ansi -n --bold --red "final command: "
-    echo "ssh \"${cez_username}@${cez_hostname}\" ${cez_commands}"
+    echo -n "ssh ${cez_username}@${cez_hostname}"
+    [[ "${cez_commands}" != "" ]] && echo " \"${cez_commands}\"" || echo
     echo
 
     # shellcheck disable=SC2029
