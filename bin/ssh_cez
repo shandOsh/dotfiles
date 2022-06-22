@@ -99,13 +99,13 @@ function ssh_cez() {
 
                 local parsed sid
 
-                parsed="$(__parse_cez_hostname "${cez_hostname}")"
-                sid="$(echo "${parsed}" | cut -d: -f2)" || {  # TODO: doesn't catch error
+                parsed="$(__parse_cez_hostname "${cez_hostname}")" || {
                     >&2 echo
-                    >&2 ansi --bold --red "Cannot parse SID."
+                    >&2 ansi --bold --red "Cannot parse hostname."
 
                     return 1
                 }
+                sid="$(echo "${parsed}" | cut -d: -f2)"
 
                 case "${1}" in
                     -a)
