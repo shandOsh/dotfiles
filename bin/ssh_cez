@@ -13,15 +13,17 @@ function __test_parse_cez_hostname() {
         "n-ttpdb-rs1"       # 11: <prefix:2><sid:3><role:2><suffix:4>
     )
 
-    for input in "${inputs[@]}"; do
-        parsed="$(__parse_cez_hostname "${input}")"
+    local parsed prefix sid role suffix hostname
+
+    for hostname in "${inputs[@]}"; do
+        echo "== ${hostname} =="
+
+        parsed="$(__parse_cez_hostname "${hostname}")"
 
         prefix="$(echo "${parsed}" | cut -d: -f1)"
         sid="$(echo "${parsed}" | cut -d: -f2)"
         role="$(echo "${parsed}" | cut -d: -f3)"
         suffix="$(echo "${parsed}" | cut -d: -f4)"
-
-        echo "== ${input} =="
 
         [[ "${prefix}" != "" ]] && { ansi -n --bold "prefix: "; echo "${prefix}"; }
         [[ "${sid}" != "" ]] && { ansi -n --bold "sid: "; echo "${sid}"; }
