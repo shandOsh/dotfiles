@@ -40,6 +40,13 @@ Personal and device specific configuration should be located in `~/.localrc`.
 
 ```bash
 #   -----------------------------
+#   my personal SW dir
+#   -----------------------------
+    ISW_SW_DIRPATH="${HOME}/Software"
+```
+
+```bash
+#   -----------------------------
 #   git
 #   -----------------------------
     GIT_IDENTITY_LIST+=("<git-author-name>:<git-author-email>:<gpg-signature-key>")
