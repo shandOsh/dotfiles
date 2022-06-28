@@ -45,3 +45,23 @@
 
         openssl rand -base64 ${max_length} | tr "\n" '.' | tr -dc _A-Z-a-z-0-9 | cut -c 1-${1}
     }
+
+    # please
+    function pls() {
+        local last_command answer
+
+        last_command="$(fc -ln -1)"
+
+        echo
+        echo "sudo ${last_command}"
+        echo
+        ansi -n --bold "Want to run this command with sudo? ["
+        ansi -n --bold --green "enter"
+        ansi -n --bold "/"
+        ansi -n --bold --red "ctrl+c"
+        ansi -n --bold "] "
+        read -r answer
+        echo
+
+        sudo "${SHELL}" -c "${last_command}"
+    }
