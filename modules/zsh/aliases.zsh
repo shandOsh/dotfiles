@@ -23,7 +23,7 @@
     esac
 
     alias tree='tree -a -I .git'                # preferred 'tree' implementation
-
+    alias myip='curl http://ipecho.net/plain; echo' # quick ip check
 #   -----------------------------
 #   5.  FUNCTIONS
 #   -----------------------------
