@@ -8,13 +8,14 @@
     alias mkdir='nocorrect mkdir -pv'           # preferred 'mkdir' implementation
     alias ll='ls -FlAhp'                        # preferred 'll' implementation
     alias less='less -FSRX'                     # preferred 'less' implementation
+    alias df='df -hP'				# preferred 'df' implementation
 
     alias hist='history'                        # shortcut for history
     alias path='echo -e ${PATH//:/\\n}'         # path: echo all executable paths
 
     alias sudo=$'sudo\t'                        # this tricks allows using other aliases with sudo
                                                 # $'sudo\t' is to prevent "sudo: nocorrect: command not found" error
-
+     
     case "${DOTFILES_OS}" in
         "${DOTFILES_OS_LINUX}"|"${DOTFILES_OS_AIX}")
             alias ls='ls --color'               # preferred 'ls' implementation
