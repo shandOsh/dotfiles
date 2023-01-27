@@ -123,3 +123,4 @@
 
 #   ___ remove failed to load shell mark file ___
     rm -rf "${FAILED_TO_LOAD_SHELL_MARKFILE_FILEPATH}" &> /dev/null
+echo ~/.zshrc
