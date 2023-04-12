@@ -383,7 +383,7 @@ function load_theme_colors() {
     local has_loading_failed=0
 
     # TODO: use constants
-    local theme="light"
+    local theme="dark"
 
     if is_dark_mode_on; then
         theme="dark";

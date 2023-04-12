@@ -33,7 +33,7 @@ if ! tmux info &> /dev/null; then
     exit 0
 fi
 
-tmux_theme_name="light"
+tmux_theme_name="dark"
 
 case "${DOTFILES_OS}" in
     "${DOTFILES_OS_MACOS}")
