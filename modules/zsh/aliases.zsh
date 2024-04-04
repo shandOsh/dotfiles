@@ -22,6 +22,7 @@
     esac
 
     alias tree='tree -a -I .git'                # preferred 'tree' implementation
+    alias lf='mc'
 
 #   -----------------------------
 #   5.  FUNCTIONS

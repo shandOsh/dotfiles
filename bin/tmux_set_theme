@@ -7,35 +7,37 @@ CALLER="${1:-direct}"
 
 date +"%d.%m.%Y %H:%M:%S - ${CALLER}"
 
+DOTFILES_ROOT="${HOME}/.dotfiles"
+DOTFILES_LIBS_ROOT="${DOTFILES_ROOT}/libs"
+DOTFILES_THEMES_ROOT="${DOTFILES_ROOT}/themes" # used in load_theme_colors()
+
+# load libraries
+echo "› loading libraries"
+source "${DOTFILES_LIBS_ROOT}/helpers.sh"
+
+# detect OS
+echo "› detecting OS"
+os_detection
+
 tmux_theme_cache_location="/tmp/tmux_theme_name.${USER}"
 
 if [[ "${CALLER}" == "conf" ]]; then
-    echo "Deleting cache file ${tmux_theme_cache_location}."
+    echo "› deleting cache file ${tmux_theme_cache_location}"
 
     rm -f "${tmux_theme_cache_location}"
 fi
 
 if ! tmux info &> /dev/null; then
-    echo "Tmux is not running, exiting."
+    echo "› tmux is not running, exiting"
 
     exit 0
 fi
 
-# in case color palette is not found, set a horrible one to notice
-tmux_theme_bg="#ff0000"
-tmux_theme_fg="#ffffff"
-tmux_theme_box_bg="#000000"
-tmux_theme_box_fg="#ffffff"
-tmux_theme_box_current_bg="#00ff00"
-tmux_theme_box_current_fg="#000000"
-tmux_theme_box_utils_bg="#0000ff"
-tmux_theme_box_utils_fg="#ffffff"
-
-tmux_theme_name="light"
+tmux_theme_name="dark"
 
 case "${DOTFILES_OS}" in
     "${DOTFILES_OS_MACOS}")
-        if defaults read -g AppleInterfaceStyle &> /dev/null; then
+        if is_dark_mode_on; then
             tmux_theme_name="dark"
         fi
     ;;
@@ -46,51 +48,129 @@ if [[ -r "${tmux_theme_cache_location}" ]]; then
 fi
 
 if [[ "${tmux_theme_cached_name}" == "${tmux_theme_name}" ]]; then
-    echo "No change to theme (old=${tmux_theme_cached_name}, new=${tmux_theme_name}), exiting."
+    echo "› no change to theme (old=${tmux_theme_cached_name}, new=${tmux_theme_name}), exiting"
 
     exit 0
 fi
 
-tmux_theme_source_file="${HOME}/.tmux/conf/themes/palette.${tmux_theme_name}.conf"
+# load theme colors
+echo "› loading theme colors"
 
-if [[ -r "${tmux_theme_source_file}" ]]; then
-    source "${tmux_theme_source_file}"
-
-    echo "Setting theme to ${tmux_theme_name}."
+if load_theme_colors; then
+    echo "› setting theme to ${tmux_theme_name}"
 else
     tmux_theme_name="broken"
 
-    >&2 echo "Can't read theme file '${tmux_theme_source_file}'. Setting broken theme."
+    >&2 echo "› loading theme color failed, setting broken theme"
 fi
 
 echo -n "${tmux_theme_name}" > "${tmux_theme_cache_location}"
 
+
+
+# ___ set tmux colors, style & formats ________________________________________
+function _box() {
+    local type="${1}"
+    local content="${2}"
+
+    case "${type}" in
+        "ut" ) # utils template
+            printf '%s #[bg=%s noblink]'     \
+                "${content}"                 \
+                "${DOTFILES_THEME_BG}"
+        ;;
+
+        "u" ) # utils
+            printf '#[bg=%s,fg=%s] %s #[bg=%s noblink]'     \
+                "${DOTFILES_THEME_TERTIARY_BG}"             \
+                "${DOTFILES_THEME_TERTIARY_FG}"             \
+                "${content}"                                \
+                "${DOTFILES_THEME_BG}"
+        ;;
+
+        "a" ) # active
+            printf '#[bg=%s,fg=%s] %s #[bg=%s]'     \
+                "${DOTFILES_THEME_PRIMARY_BG}"      \
+                "${DOTFILES_THEME_PRIMARY_FG}"      \
+                "${content}"                        \
+                "${DOTFILES_THEME_BG}"
+        ;;
+
+        "w" ) # window
+            printf '#[bg=%s,fg=%s] %s #[bg=%s]'     \
+                "${DOTFILES_THEME_SECONDARY_BG}"    \
+                "${DOTFILES_THEME_SECONDARY_FG}"    \
+                "${content}"                        \
+                "${DOTFILES_THEME_BG}"
+        ;;
+
+        * )
+            printf '#[bg=%s,fg=%s] Unknown type [%s] #[bg=%s].'     \
+                "#ff0000"                                           \
+                "#ffffff"                                           \
+                "${type}"                                           \
+                "${DOTFILES_THEME_BG}"
+    esac
+}
+
+function _ubox() {
+    _box 'u' "${1}"
+}
+
+function _utbox() {
+    _box 'ut' "${1}"
+}
+
+function _abox() {
+    _box 'a' "${1}"
+}
+
+function _wbox() {
+    _box 'w' "${1}"
+}
+
+echo "1"
+echo ">>${DOTFILES_THEME_TERTIARY_FG}<<"
+echo ">>${DOTFILES_THEME_TERTIARY_BG}<<"
+echo "tmux set -g mode-style \"fg=${DOTFILES_THEME_TERTIARY_FG} bg=${DOTFILES_THEME_TERTIARY_BG}\""
 # set selection and buffer scrollbar foreground and background
-tmux set -g mode-style "fg=${tmux_theme_box_utils_fg} bg=${tmux_theme_box_utils_bg}"
+tmux set -g mode-style "fg=${DOTFILES_THEME_TERTIARY_FG} bg=${DOTFILES_THEME_TERTIARY_BG}"
 
+echo "2"
 # set message bar's foreground and background
-tmux set -g message-style "fg=${tmux_theme_box_utils_fg} bg=${tmux_theme_box_utils_bg}"
+tmux set -g message-style "fg=${DOTFILES_THEME_TERTIARY_FG} bg=${DOTFILES_THEME_TERTIARY_BG}"
 
+echo "3"
 # set the status bar's foreground and background
-tmux set -g status-fg "${tmux_theme_fg}"
-tmux set -g status-bg "${tmux_theme_bg}"
+tmux set -g status-fg "${DOTFILES_THEME_FG}"
+tmux set -g status-bg "${DOTFILES_THEME_BG}"
 
+echo "4"
 # set the left and right status
-tmux set -g status-left "#[bg=${tmux_theme_box_utils_bg},fg=${tmux_theme_box_utils_fg}] #S #[bg=${tmux_theme_bg}] " # session name (eg: 0)
-tmux set -g status-right " #[bg=${tmux_theme_box_utils_bg},fg=${tmux_theme_box_utils_fg}] continuum: #{continuum_status} #[bg=${tmux_theme_bg}] #[bg=${tmux_theme_box_utils_bg},fg=${tmux_theme_box_utils_fg}] %d.%m.%Y %R #[bg=${tmux_theme_bg}] #[bg=${tmux_theme_box_utils_bg},fg=${tmux_theme_box_utils_fg}] #H " # continuum period + datetime + hostname
+tmux set -g status-left "$(_ubox '#S') " # session name (eg: 0)
+
+echo "5"
+_tmux_status_right=""
+_tmux_status_right+=" $(_utbox '#{sysstat_cpu}')" # eg: CPU: 5%
+_tmux_status_right+=" $(_utbox '#{sysstat_mem}')" # eg: MEM: 50%
+_tmux_status_right+=" $(_utbox '#{sysstat_swap}')" # eg: SWAP: 0%
+_tmux_status_right+=" $(_ubox 'LOAD: #{sysstat_loadavg}')" # eg: LOAD: 0.3 0.2 0.15
+_tmux_status_right+=" $(_ubox '%d.%m.%Y %R')" # datetime
+
+tmux set -g status-right "${_tmux_status_right}"
 
 # set window status format
-tmux set -g window-status-current-format "#[bg=${tmux_theme_box_current_bg},fg=${tmux_theme_box_current_fg}] #I #W #{?window_zoomed_flag,[zoomed] ,}" # window index + name (eg: 1 git)
-tmux set -g window-status-format "#[bg=${tmux_theme_box_bg},fg=${tmux_theme_box_fg}] #I #W " # window index + name (eg: 1 git)
+tmux set -g window-status-current-format "$(_abox '#I #W #{?window_zoomed_flag,[zoomed] ,}')" # window index + name (eg: 1 git)
+tmux set -g window-status-format "$(_wbox '#I #W')" # window index + name (eg: 1 git)
 
 # set pane border format
-tmux set -g pane-border-format "#[fg=${tmux_theme_box_current_fg}]#P: #T"
+tmux set -g pane-border-format "#[fg=${DOTFILES_THEME_PRIMARY_FG}]#P: #T (#H)" # pane number + pane title (eg: 1: dev (host.local))
 
 # make pane border
-tmux set -g pane-border-style "fg=${tmux_theme_box_bg} bg=${tmux_theme_box_bg}"
+tmux set -g pane-border-style "fg=${DOTFILES_THEME_SECONDARY_BG} bg=${DOTFILES_THEME_SECONDARY_BG}"
 
 # make active pane border
-tmux set -g pane-active-border-style "fg=${tmux_theme_box_current_bg} bg=${tmux_theme_box_current_bg}"
+tmux set -g pane-active-border-style "fg=${DOTFILES_THEME_PRIMARY_BG} bg=${DOTFILES_THEME_PRIMARY_BG}"
 
 # initialize TMUX plugin manager (keep this line at the very bottom of any tmux conf, that is ran on its own)
 tmux run -b '~/.tmux/plugins/tpm/tpm'

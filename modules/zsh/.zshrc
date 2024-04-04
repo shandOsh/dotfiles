@@ -25,13 +25,22 @@
     export DOTFILES_LIBS_ROOT="${DOTFILES_ROOT}/libs"
     export DOTFILES_MODULES_ROOT="${DOTFILES_ROOT}/modules"
     export DOTFILES_INSTALLATION_ROOT="${DOTFILES_ROOT}/installation"
+    export DOTFILES_THEMES_ROOT="${DOTFILES_ROOT}/themes"
 
     . "${DOTFILES_LIBS_ROOT}/fidian/ansi/ansi"
     . "${DOTFILES_LIBS_ROOT}/formatting.sh"
     . "${DOTFILES_LIBS_ROOT}/helpers.sh"
 
     os_detection
-
+    load_theme_colors
+#   -----------------------------
+#   2. PROXY SETTINGS
+#   -----------------------------
+    export http_proxy=http://milakrom:363Z4mp0rt4l363@http-proxy.cezdata.corp:8080
+    export https_proxy=http://milakrom:363Z4mp0rt4l363@http-proxy.cezdata.corp:8080
+    export HTTP_PROXY=http://milakrom:363Z4mp0rt4l363@http-proxy.cezdata.corp:8080
+    export HTTPS_PROXY=http://milakrom:363Z4mp0rt4l363@http-proxy.cezdata.corp:8080
+                  
 #   -----------------------------
 #   8.  MODULE CONFIGS
 #   -----------------------------
@@ -78,3 +87,5 @@
 
 #   ___ display dotfiles version ___
     dotfiles_version
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

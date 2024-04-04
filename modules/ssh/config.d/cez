@@ -4,9 +4,12 @@ CanonicalizeMaxDots 0
 CanonicalizeFallbackLocal yes
 
 Host *.cezdata.corp
-    User qsmalekjir
+    User qsmilakrom
     ForwardAgent yes
     ForwardX11Trusted yes
     ForwardX11 yes
     ForwardX11Timeout 4800
     ServerAliveInterval 100
+    UserKnownHostsFile=/dev/null
+    StrictHostKeyChecking no	
+    RequiredRSASize 1024
