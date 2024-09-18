@@ -1,0 +1,157 @@
+#! /usr/bin/env bash
+
+set -euo pipefail
+
+# TODO: symlink main script to $ISW_SW_DIRPATH/bin
+#__SW_BIN_DIR="bin"
+__SW_LIB_DIR="Library"
+
+function usage() {
+    # shellcheck disable=SC2155
+    local fmt_bold="$(ansi --bold --no-restore)"
+    # shellcheck disable=SC2155
+    local fmt_underline="$(ansi --underline --no-restore)"
+    # shellcheck disable=SC2155
+    local fmt_reset="$(ansi --reset-attrib)"
+
+    >&2 echo
+    >&2 echo "Usage: $0 <source-dirpath> [<target-versioned-dirname>]"
+    >&2 echo
+    >&2 echo "    ${fmt_bold}<source-dirpath>${fmt_reset}"
+    >&2 echo "        Dirpath of software you want to install."
+    >&2 echo "        If dirname is in sw-name-X.Y.Z format, second argument can be ommited."
+    >&2 echo
+    >&2 echo "    ${fmt_bold}<target-versioned-dirname>${fmt_reset}"
+    >&2 echo "        Dirname in format sw-name-X.Y.Z, where X.Y.Z is version in semver format (eg: tpcp-1.0.1)."
+    >&2 echo
+    >&2 echo "${fmt_underline}Environment variables${fmt_reset}"
+    >&2 echo "    ${fmt_bold}ISW_SW_DIRPATH${fmt_reset} - dirpath where you want to install the software"
+}
+
+if [[ $# -ne 2 ]]; then
+    if [[ $# -ne 1 ]]; then
+        usage
+        exit 1
+    fi
+
+    set -- "${1}" "$(basename "${1}")"
+fi
+
+echo
+echo "Pre-flight checks"
+
+echo "› loading libraries"
+
+. "${DOTFILES_LIBS_ROOT}/helpers.sh"
+
+echo "› environment variable existance"
+
+if [[ -z "${ISW_SW_DIRPATH+_}" ]]; then
+    fail "Variable ISW_SW_DIRPATH doesn't exist."
+    exit 1
+else
+    success "Variable ISW_SW_DIRPATH exists."
+fi
+
+echo "› extracting software name and version"
+
+source_dirpath="${1}"
+source_dirname="$(basename "${source_dirpath}")"
+target_dirname="${2}"
+
+# shellcheck disable=SC2015
+version="$(printf '%s' "${target_dirname}" | \
+    grep --only-matching -E 'v?(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-[a-zA-Z0-9][-a-zA-Z.0-9]*)?(\+[a-zA-Z0-9][-a-zA-Z.0-9]*)?$')" \
+    && success "Version successfully extracted [${version}]." \
+    || {
+        fail "Version is not in semver format."
+        exit 1
+    }
+
+version_slen="$(( ${#version} + 2 ))"
+
+# shellcheck disable=SC2015
+sw_name="$(printf '%s' "${target_dirname}" | rev | cut -c "${version_slen}"- | rev)" \
+    && success "Software name successfully extracted [${sw_name}]." \
+    || {
+        fail "Software name could not be extracted."
+        exit 1
+    }
+
+if [[ "${version}" =~ ^v ]]; then
+    version="${version:1}"
+fi
+
+echo "sw_name=[${sw_name}]"
+echo "version=[${version}]"
+target_dirname="${sw_name}-${version}"
+target_dirpath="${ISW_SW_DIRPATH}/${__SW_LIB_DIR}/${target_dirname}"
+echo "target_dirname=[${target_dirname}]"
+echo "target_dirpath=[${target_dirpath}]"
+
+target_link_dirpath="${ISW_SW_DIRPATH}/${__SW_LIB_DIR}/${sw_name}"
+
+echo "› source directory existance"
+
+if [[ ! -e "${source_dirpath}" ]]; then
+    fail "Source directory [${source_dirpath}] doesn't exist."
+    exit 1
+elif [[ ! -d "${source_dirpath}" ]]; then
+    fail "Source directory [${source_dirpath}] is not a directory."
+    exit 1
+else
+    success "Source directory [${source_dirpath}] exists."
+fi
+
+echo "› target directory existance"
+
+if [[ -e "${target_dirpath}" ]]; then
+    fail "Target directory [${target_dirpath}] exists."
+    exit 1
+else
+    success "Target directory [${target_dirpath}] doesn't exist."
+fi
+
+echo "› checking source directory writability"
+
+if [[ ! -w "${source_dirpath}" ]]; then
+    fail "Source directory [${source_dirpath}] isn't writable (would not be able to move it)."
+    exit 1
+else
+    success "Source directory [${source_dirpath}] is writable."
+fi
+
+echo "› checking software directory writability"
+
+if [[ ! -w "${ISW_SW_DIRPATH}" ]]; then
+    fail "Software directory [${ISW_SW_DIRPATH}] isn't writable (would not be able to move software into it)."
+    exit 1
+else
+    success "Software directory [${ISW_SW_DIRPATH}] is writable."
+fi
+
+echo "› checking if creating symlink is possible"
+
+if [[ ! -e "${target_link_dirpath}" ]] || [[ -L "${target_link_dirpath}" ]]; then
+    success "Symlink will be possible."
+else
+    fail "Object [${target_link_dirpath}] exists and it is not a symlink."
+    exit 1
+fi
+
+# check if symlink is symlink
+
+echo
+echo "Installing the software"
+
+echo "› moving directory"
+
+mv "${source_dirpath}" "${target_dirpath}"
+report_status "Moving [${source_dirname}] to [${target_dirpath}]."
+
+# udělá symlink (volitelně na název bez verze)
+echo "› creating symlink"
+ln -nfs "${target_dirname}" "${target_link_dirpath}"
+report_status "Creating symlink [${target_link_dirpath}]."
+
+# TODO: show files inside the directory and let choose (via fzf) main script to link to $ISW_SW_DIRPATH/bin
