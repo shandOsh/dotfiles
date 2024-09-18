@@ -36,10 +36,10 @@
 #   -----------------------------
 #   2. PROXY SETTINGS
 #   -----------------------------
-    export http_proxy=http://milakrom:363Z4mp0rt4l363@http-proxy.cezdata.corp:8080
-    export https_proxy=http://milakrom:363Z4mp0rt4l363@http-proxy.cezdata.corp:8080
-    export HTTP_PROXY=http://milakrom:363Z4mp0rt4l363@http-proxy.cezdata.corp:8080
-    export HTTPS_PROXY=http://milakrom:363Z4mp0rt4l363@http-proxy.cezdata.corp:8080
+#    export http_proxy=http://milakrom:363Z4mp0rt4l363@http-proxy.cezdata.corp:8080
+#    export https_proxy=http://milakrom:363Z4mp0rt4l363@http-proxy.cezdata.corp:8080
+#    export HTTP_PROXY=http://milakrom:363Z4mp0rt4l363@http-proxy.cezdata.corp:8080
+#    export HTTPS_PROXY=http://milakrom:363Z4mp0rt4l363@http-proxy.cezdata.corp:8080
                   
 #   -----------------------------
 #   8.  MODULE CONFIGS
